@@ -1,7 +1,26 @@
 @tailwind base;
+@tailwind components;
 
-@layer base{
-    body{
-        @apply font-salsa
-    }
+@layer base {
+  body {
+    @apply font-salsa;
+  }
+}
+
+@layer components {
+  .button-header {
+    @apply px-[16px] py-2 rounded-full uppercase;
+  }
+  .input-banner {
+    @apply w-[400px] h-[35px] mb-3 rounded-md px-2 border-none text-black;
+  }
+  .classroom {
+    @apply mt-2 font-semibold border-b-4 border-red-300;
+  }
+  .flex-center {
+    @apply flex items-center flex-col justify-center;
+  }
+  .item {
+    @apply flex flex-col bg-gradient-to-b from-[#0E78C4] to-white;
+  }
 }
