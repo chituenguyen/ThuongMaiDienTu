@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily:{
-        salsa:['Salsa']
+        'mono': ['ui-monospace']
       }
     },
   },
