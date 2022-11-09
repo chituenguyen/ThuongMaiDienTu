@@ -96,7 +96,7 @@ function QuizAttemptSection() {
               type="button"
               onClick={() => setShowModal(true)}
             >
-              Làm bài kiểm tra xét duyệt gia sư ngay bây giờ
+              Gửi tất cả và hoàn thành
             </button>
             {showModal ? (
               <>
