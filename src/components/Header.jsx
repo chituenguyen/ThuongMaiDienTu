@@ -7,23 +7,33 @@ function Header() {
       <div>
         <img src={logo} alt="" className="h-[71px] w-[241px] mx-[83px] mb-[12px]" />
       </div>
-      <div className="flex px-[68px]">
-        <ul className="flex gap-[20px]">
-          <button className="button-header bg-[#0E78C4]">
-            <li>Trang chủ</li>
-          </button>
-          <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
-            <li>Tìm gia sư</li>
-          </button>
-          <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
-            <li>Trở thành gia sư</li>
-          </button>
-          <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
-            <li>Về chúng tôi</li>
-          </button>
-          <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
-            <li>Hỏi đáp</li>
-          </button>
+      <div className="flex px-[68px] items-center ">
+        <ul className="flex gap-[20px] ">
+          <li >
+            <a href="/"className=" button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+              Trang chủ
+            </a>
+          </li>
+          <li >
+            <a href="/"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+              Tìm gia sư
+            </a>
+          </li>
+          <li >
+            <a href="/become-tutor"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+              Trở thành gia sư
+            </a>
+          </li>
+          <li >
+            <a href="/"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+              Về chúng tôi
+            </a>
+          </li>
+          <li >
+            <a href="/"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+              Hỏi đáp
+            </a>
+          </li>
         </ul>
 
         <div className="flex ml-auto gap-5">

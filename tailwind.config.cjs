@@ -6,9 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily:{
-        'mono': ['ui-monospace']
-      }
+      colors: {
+        'bktutor-blue': '#0E78C4',
+      },
     },
   },
   plugins: [],
