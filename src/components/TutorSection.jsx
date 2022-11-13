@@ -1,5 +1,11 @@
 import logo from "../assets/image-1.jpg";
+import React from "react";
+import { useEffect } from "react";
+import {useNavigate} from 'react-router-dom';
+
 function TutorSection() {
+    const [showModal, setShowModal] = React.useState(false);
+    const navigate = useNavigate();
     return (
         <div className="tutor-section">
             <div className="tutor-intro mb-10">
@@ -54,7 +60,7 @@ function TutorSection() {
                         <li className="mb-6">
                             <div className="flex items-center">
                                 <div className="flex z-10 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-0 ring-white dark:bg-blue-400 sm:ring-8 dark:ring-white shrink-0">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>                                </div>
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>                                </div>
                                 <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                             </div>
                             <div className="mt-3 sm:pr-8">
@@ -65,7 +71,7 @@ function TutorSection() {
                         <li className="mb-6">
                             <div className="flex items-center">
                                 <div className="flex z-10 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-0 ring-white dark:bg-blue-400 sm:ring-8 dark:ring-white shrink-0">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>                                </div>
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>                                </div>
                                 <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                             </div>
                             <div className="mt-3 sm:pr-8">
@@ -76,7 +82,7 @@ function TutorSection() {
                         <li className="mb-6">
                             <div className="flex items-center">
                                 <div className="flex z-10 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-0 ring-white dark:bg-blue-400 sm:ring-8 dark:ring-white shrink-0">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>                                </div>
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>                                </div>
                                 <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                             </div>
                             <div className="mt-3 sm:pr-8">
@@ -92,9 +98,69 @@ function TutorSection() {
                 <h1 className='text-3xl font-bold text-blue-900 text-center'>KỲ THI TUYỂN CHỌN GIA SƯ ĐANG DIỄN RA</h1>
                 <h1 className='text-3xl mb-7 font-bold text-blue-900 text-center'>HÃY THAM GIA THỬ SỨC NẾU BẠN MONG MUỐN TRỞ THÀNH 1 BKTUTOR!!</h1>
 
+                <h1 className='text-2xl font-bold text-gray-900 text-center'>Opened: Thứ hai, 11 Tháng mười một 2022, 10:00 AM</h1>
+                <h1 className='text-2xl mb-7 font-bold text-gray-900 text-center'>Closed: Thứ hai, 11 Tháng mười một 2022, 12:00 AM</h1>
+
 
                 <div className="flex justify-center">
-                    <button type="button" class="focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Làm bài kiểm tra dùng để xét duyệt gia sư ngay</button>
+                    <button
+                        className="focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                        type="button"
+                        onClick={() => setShowModal(true)}
+                    >
+                        Làm bài kiểm tra xét duyệt gia sư ngay bây giờ
+                    </button>
+                    {showModal ? (
+                        <>
+                            <div
+                                className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                            >
+                                <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                                    {/*content*/}
+                                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                        {/*header*/}
+                                        <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                            <h3 className="text-3xl font-semibold">
+                                                Bắt đầu làm bài
+                                            </h3>
+                                            <button
+                                                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                                onClick={() => setShowModal(false)}
+                                            >
+                                                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                                    x
+                                                </span>
+                                            </button>
+                                        </div>
+                                        {/*body*/}
+                                        <div className="relative p-6 flex-auto">
+                                            <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                                                Thời gian làm bài kiểm tra 2 giờ. Thời gian sẽ được đếm ngược từ lúc bạn bắt đầu làm bài và bạn phải nộp bài trước khi hết thời gian. Bạn có chắc chắn muốn bắt đầu làm bài ngay bây giờ?
+                                            </p>
+                                        </div>
+                                        {/*footer*/}
+                                        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                            <button
+                                                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                type="button"
+                                                onClick={() => setShowModal(false)}
+                                            >
+                                                Hủy bỏ
+                                            </button>
+                                            <button
+                                                className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                type="button"
+                                                onClick={() => navigate('/tutor-attempt-quiz')}
+                                            >
+                                                Bắt đầu làm bài
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                        </>
+                    ) : null}
                 </div>
             </div>
         </div>
