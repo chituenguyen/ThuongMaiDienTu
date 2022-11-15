@@ -7,19 +7,25 @@ import FindTutors from "./views/FindTutorPage";
 import About from "./views/AboutPage";
 import QA from "./views/QAPage";
 import TutorQuizAttempt from "./views/TutorQuizAttempt";
+import { AppProvider } from "./context/role";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/become-tutor" element={<BecomeTutorPage />}></Route>
-        <Route path="/tutor-attempt-quiz" element={<TutorQuizAttempt />}></Route>
-        <Route path="/find-tutor" element={<FindTutors />}></Route>
-        <Route path="/about" element={<About />}></Route>
-        <Route path="/qa" element={<QA />}></Route>
-      </Routes>
-    </Router>
+    <AppProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/become-tutor" element={<BecomeTutorPage />}></Route>
+          <Route
+            path="/tutor-attempt-quiz"
+            element={<TutorQuizAttempt />}
+          ></Route>
+          <Route path="/find-tutor" element={<FindTutors />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/qa" element={<QA />}></Route>
+        </Routes>
+      </Router>
+    </AppProvider>
   );
 }
 
