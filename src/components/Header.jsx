@@ -15,7 +15,7 @@ function Header() {
             </a>
           </li>
           <li >
-            <a href="/"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+            <a href="/find-tutor"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
               Tìm gia sư
             </a>
           </li>
@@ -25,12 +25,12 @@ function Header() {
             </a>
           </li>
           <li >
-            <a href="/"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+            <a href="/about"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
               Về chúng tôi
             </a>
           </li>
           <li >
-            <a href="/"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+            <a href="/qa"className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
               Hỏi đáp
             </a>
           </li>
