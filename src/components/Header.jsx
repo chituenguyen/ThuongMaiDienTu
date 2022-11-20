@@ -43,6 +43,16 @@ function Header() {
               Trở thành gia sư
             </a>
           </li>
+
+          <li>
+            <a
+              href="/find-jobs"
+              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+            >
+              Tìm việc
+            </a>
+          </li>
+
           <li>
             <a
               href="/about"

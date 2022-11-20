@@ -7,6 +7,7 @@ import FindTutors from "./views/FindTutorPage";
 import About from "./views/AboutPage";
 import QA from "./views/QAPage";
 import TutorQuizAttempt from "./views/TutorQuizAttempt";
+import FindJobs from "./views/FindJobs";
 import { AppProvider } from "./context/role";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             element={<TutorQuizAttempt />}
           ></Route>
           <Route path="/find-tutor" element={<FindTutors />}></Route>
+          <Route path="/find-jobs" element={<FindJobs />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/qa" element={<QA />}></Route>
         </Routes>
