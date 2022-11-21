@@ -1,6 +1,68 @@
 import React from "react";
 import userIMG from "../assets/userIMG.jpg";
 import zaloIcon from "../assets/zalo-icon.png";
+import PaginationNav1Presentation from "./Pagination.jsx";
+
+function RadioGroupPresentation() {
+    const handleClick = (name) => {
+        document.getElementById(name).scrollIntoView();
+    };
+
+    return (
+        <>
+            <div className="sticky top-5 left-90p bg-gray-700 rounded-md text-white m-3 p-3 w-5/12">
+                <h3 className="mb-4 font-semibold text-2xl">Bạn cần tìm việc liên quan đến môn học nào?</h3>
+
+                <div className="flex text-xl">
+                    <div className="flex items-center mr-4">
+                        <input id="inline-radio" type="radio" onClick={()=>handleClick("math")} value="" name="inline-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="inline-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Toán
+                        </label>
+                    </div>
+                    <div className="flex items-center mr-4">
+                        <input id="inline-2-radio" type="radio" onClick={()=>handleClick("english")} value="" name="inline-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="inline-2-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Ngoại ngữ
+                        </label>
+                    </div>
+
+                    <div className="flex items-center mr-4">
+                        <input id="inline-2-radio" type="radio" value="" onClick={()=>handleClick("physics")} name="inline-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="inline-2-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Vật Lý
+                        </label>
+                    </div>
+
+                    <div className="flex items-center mr-4">
+                        <input id="inline-2-radio" type="radio" value="" onClick={()=>handleClick("biology")}  name="inline-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="inline-2-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Sinh Học
+                        </label>
+                    </div>
+
+                    <div className="flex items-center mr-4">
+                        <input id="inline-2-radio" type="radio" value="" onClick={()=>handleClick("chemistry")} name="inline-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="inline-2-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Hóa Học
+                        </label>
+                    </div>
+
+                    <div className="flex items-center mr-4">
+                        <input id="inline-2-radio" type="radio" value="" onClick={()=>handleClick("nationalExam")} name="inline-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="inline-2-radio" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Ôn Thi THPT
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </>
+    );
+}
+
 
 const CardJob = () => {
     const [showModal, setShowModal] = React.useState(false);
@@ -56,7 +118,7 @@ const CardJob = () => {
 
                         <div className="card-user-time">
                             <div>
-                                <svg class="w-6 h-6 stroke-gray-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg className="w-6 h-6 stroke-gray-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <span className="inline-block align-text-top ml-3 text-gray-600 text-md">
                                     Tuần dạy 2 buổi
                                 </span>
@@ -65,7 +127,7 @@ const CardJob = () => {
 
                         <div className="card-user-fee">
                             <div>
-                                <svg class="w-6 h-6 stroke-gray-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg className="w-6 h-6 stroke-gray-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <span className="inline-block align-text-top ml-3 text-gray-600 text-md ">
                                     1.500.000/tháng
                                 </span>
@@ -143,17 +205,23 @@ const CardJob = () => {
     )
 }
 
-const ObjectSection = ({ objectName }) => {
+const ObjectSection = ({ objectName, id }) => {
+    let classID = id;
     return (
-        <div className='object-section border-2 shadow-md rounded-md m-3 bg-gray-200'>
-            <div className="object-title-section">
-                <div className="text-4xl font-extrabold m-5">MÔN {objectName}</div>
+        <div id={classID}>
+            <div className="object-section border-2 shadow-md rounded-md m-3 bg-gray-200">
+                <div className="object-title-section">
+                    <div className="text-3xl font-extrabold m-3">MÔN {objectName}</div>
+                </div>
+
+                <CardJob />
+
+                <CardJob />
+
+                <div className="flex justify-center">
+                    <PaginationNav1Presentation />
+                </div>
             </div>
-
-            <CardJob />
-
-            <CardJob />
-
         </div>
     )
 }
@@ -162,17 +230,26 @@ const FindJobsSection = () => {
     let math = "TOÁN";
     let biology = "SINH HỌC";
     let physics = "VẬT LÝ";
-    let english = "ANH VĂN";
-
+    let english = "NGOẠI NGỮ";
+    let chemistry = "HÓA HỌC";
+    let nationalExam = "ÔN THI THPT";
     return (
         <>
-            <ObjectSection objectName={math} />
+            <RadioGroupPresentation />
 
-            <ObjectSection objectName={english} />
+            <ObjectSection objectName={math} id="math" />
 
-            <ObjectSection objectName={physics} />
+            <ObjectSection objectName={english} id="english" />
 
-            <ObjectSection objectName={biology} />
+            <ObjectSection objectName={physics} id="physics" />
+
+            <ObjectSection objectName={biology} id="biology" />
+
+            <ObjectSection objectName={chemistry} id="chemistry" />
+
+            <ObjectSection objectName={nationalExam} id="nationalExam" />
+
+
 
         </>
     );

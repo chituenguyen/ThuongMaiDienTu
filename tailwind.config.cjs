@@ -23,6 +23,9 @@ module.exports = {
       },
       maxWidth: {
         'card-img-max-w': '100px',
+      },
+      inset: {
+        '90p': '90%',
       }
     },
   },
