@@ -134,12 +134,16 @@ function TutorSection() {
                     {showProgessDetail ? (
                         <>
                             <div className="progess-detail bg-white rounded-lg border pb-5 w-9/12 drop-shadow-md">
-                                <div className='flex justify-center text-2xl font-bold text-center'>
-                                    XIN CHÚC MỪNG, HIỆN TẠI BAN ĐANG Ở 
+                                <div className='flex justify-center inline-block text-xl font-bold text-center'>
+                                    <p>
+                                        XIN CHÚC MỪNG, HIỆN TẠI BAN ĐANG Ở 
+                                    </p>
                                     {/* GIAI ĐOẠN */}
-                                    <p className="ml-2 inline-block text-red-600">GIAI ĐOẠN 2</p>
+                                    <span className="inline-block text-red-600 ml-2 mr-2"> 
+                                        GIAI ĐOẠN 2 
+                                    </span>
 
-                                    <p className="ml-2 inline-block">
+                                    <p className="inline-block">
                                         TRONG TIẾN TRÌNH TRỞ THÀNH 1 BKTUTOR
                                     </p>
 
