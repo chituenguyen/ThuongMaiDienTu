@@ -4,10 +4,12 @@ import { AppContext } from "../context/role";
 
 function Header() {
   const { role, setRole } = useContext(AppContext);
-  console.log(role);
   const changeRole = (e) =>{
     setRole(e.target.value)
   }
+  let pathname = window.location.href
+  let address =  pathname.split("/")[3]
+  console.log(address)
   return (
     <div>
       <div>
@@ -22,7 +24,7 @@ function Header() {
           <li>
             <a
               href="/"
-              className=" button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='' ? "bg-[#DDECF7]":""}`}
             >
               Trang chủ
             </a>
@@ -30,7 +32,7 @@ function Header() {
           <li>
             <a
               href="/find-tutor"
-              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-tutor' ? "bg-[#DDECF7]":""}`}
             >
               Tìm gia sư
             </a>
@@ -38,7 +40,7 @@ function Header() {
           <li>
             <a
               href="/become-tutor"
-              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='become-tutor' ? "bg-[#DDECF7]":""}`}
             >
               Trở thành gia sư
             </a>
@@ -47,7 +49,7 @@ function Header() {
           <li>
             <a
               href="/find-jobs"
-              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-jobs' ? "bg-[#DDECF7]":""}`}
             >
               Tìm việc
             </a>
@@ -56,7 +58,7 @@ function Header() {
           <li>
             <a
               href="/about"
-              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='about' ? "bg-[#DDECF7]":""}`}
             >
               Về chúng tôi
             </a>
@@ -64,7 +66,7 @@ function Header() {
           <li>
             <a
               href="/qa"
-              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='qa' ? "bg-[#DDECF7]":""}`}
             >
               Hỏi đáp
             </a>
@@ -72,7 +74,7 @@ function Header() {
         </ul>
 
         <div className="flex ml-auto gap-5 items-center">
-          <input
+          {/* <input
             type="radio"
             id="admin"
             name="fav_language"
@@ -87,7 +89,7 @@ function Header() {
             value="User"
             onChange={(e) => changeRole(e)}
           />
-          <label htmlFor="user">User</label>
+          <label htmlFor="user">User</label> */}
 
           <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
             Đăng ký
