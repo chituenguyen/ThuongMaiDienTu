@@ -9,7 +9,7 @@ function Header() {
   }
   let pathname = window.location.href
   let address =  pathname.split("/")[3]
-  console.log(address)
+  //console.log(address)
   return (
     <div>
       <div>
@@ -24,7 +24,7 @@ function Header() {
           <li>
             <a
               href="/"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='' ? "bg-[#DDECF7]":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
             >
               Trang chủ
             </a>
@@ -32,7 +32,7 @@ function Header() {
           <li>
             <a
               href="/find-tutor"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-tutor' ? "bg-[#DDECF7]":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
             >
               Tìm gia sư
             </a>
@@ -40,7 +40,7 @@ function Header() {
           <li>
             <a
               href="/become-tutor"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='become-tutor' ? "bg-[#DDECF7]":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='become-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
             >
               Trở thành gia sư
             </a>
@@ -49,7 +49,7 @@ function Header() {
           <li>
             <a
               href="/find-jobs"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-jobs' ? "bg-[#DDECF7]":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-jobs' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
             >
               Tìm việc
             </a>
@@ -58,7 +58,7 @@ function Header() {
           <li>
             <a
               href="/about"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='about' ? "bg-[#DDECF7]":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='about' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
             >
               Về chúng tôi
             </a>
@@ -66,7 +66,7 @@ function Header() {
           <li>
             <a
               href="/qa"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='qa' ? "bg-[#DDECF7]":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='qa' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
             >
               Hỏi đáp
             </a>
