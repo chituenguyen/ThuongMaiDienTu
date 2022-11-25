@@ -9,12 +9,14 @@ import QA from "./views/QAPage";
 import TutorQuizAttempt from "./views/TutorQuizAttempt";
 import FindJobs from "./views/FindJobs";
 import { AppProvider } from "./context/role";
+import LoginPage from "./views/LoginPage";
 
 function App() {
   return (
     <AppProvider>
       <Router>
         <Routes>
+          <Route path='/login' element={<LoginPage/>} />
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/become-tutor" element={<BecomeTutorPage />}></Route>
           <Route

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import logo from "../assets/logo.png";
 import { AppContext } from "../context/role";
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 
 function Header() {
   const { role, setRole } = useContext(AppContext);
@@ -94,7 +95,9 @@ function Header() {
           <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
             Đăng ký
           </button>
+          <Link to='/login'>
           <button className="button-header bg-[#0E78C4]">Đăng nhập</button>
+          </Link>
         </div>
       </div>
     </div>
