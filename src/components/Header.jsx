@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 import logo from "../assets/logo.png";
 import { AppContext } from "../context/role";
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 function Header() {
   const { role, setRole } = useContext(AppContext);
-  const changeRole = (e) =>{
+  const changeRole = (e) => {
     setRole(e.target.value)
   }
   let pathname = window.location.href
-  let address =  pathname.split("/")[3]
+  let address = pathname.split("/")[3]
   //console.log(address)
   return (
     <div>
@@ -25,49 +25,60 @@ function Header() {
           <li>
             <a
               href="/"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === '' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
             >
               Trang chủ
             </a>
           </li>
-          <li>
-            <a
-              href="/find-tutor"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
-            >
-              Tìm gia sư
-            </a>
-          </li>
+
           <li>
             <a
               href="/become-tutor"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='become-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'become-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
             >
               Trở thành gia sư
             </a>
           </li>
+          {role == "parent" ?
+            <li>
+              <a
+                href="/find-tutor"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'find-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+              >
+                Tìm gia sư
+              </a>
+            </li>
+            :
+            <></>
+          }
 
-          <li>
-            <a
-              href="/find-jobs"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='find-jobs' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
-            >
-              Tìm việc
-            </a>
-          </li>
+          {role == "tutor" ?
+            <li>
+              <a
+                href="/find-jobs"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'find-jobs' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+              >
+                Tìm việc
+              </a>
+            </li>
+            :
+            <></>
+          }
+
 
           <li>
             <a
               href="/about"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='about' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'about' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
             >
               Về chúng tôi
             </a>
           </li>
+          
           <li>
             <a
               href="/qa"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address ==='qa' ? "bg-blue-200 text-bktutor-blue font-extrabold":""}`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'qa' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
             >
               Hỏi đáp
             </a>
@@ -96,7 +107,7 @@ function Header() {
             Đăng ký
           </button>
           <Link to='/login'>
-          <button className="button-header bg-[#0E78C4]">Đăng nhập</button>
+            <button className="button-header bg-[#0E78C4]">Đăng nhập</button>
           </Link>
         </div>
       </div>

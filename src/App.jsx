@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AppProvider } from "./context/role";
 import HomePage from "./views/HomePage";
 import BecomeTutorPage from "./views/BecomeTutorPage";
 import FindTutors from "./views/FindTutorPage";
@@ -8,7 +9,6 @@ import About from "./views/AboutPage";
 import QA from "./views/QAPage";
 import TutorQuizAttempt from "./views/TutorQuizAttempt";
 import FindJobs from "./views/FindJobs";
-import { AppProvider } from "./context/role";
 import LoginPage from "./views/LoginPage";
 
 function App() {
