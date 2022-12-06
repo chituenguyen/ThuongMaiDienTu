@@ -41,18 +41,36 @@ function Header() {
             </Link>
           </li>
 
-          <li>
-            <Link
-              to="/become-tutor"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                address === "become-tutor"
-                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                  : ""
-              }`}
-            >
-              Trở thành gia sư
-            </Link>
-          </li>
+          {role == "tutor" && (
+            <li>
+              <Link
+                to="/become-tutor"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "become-tutor"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Trở thành gia sư
+              </Link>
+            </li>
+          )}
+
+          {role == "tutor" && (
+            <li>
+              <Link
+                to="/find-jobs"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "find-jobs"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Tìm việc
+              </Link>
+            </li>
+          )}
+
           {role == "parent" ? (
             <li>
               <Link
@@ -64,23 +82,6 @@ function Header() {
                 }`}
               >
                 Tìm gia sư
-              </Link>
-            </li>
-          ) : (
-            <></>
-          )}
-
-          {role == "tutor" ? (
-            <li>
-              <Link
-                to="/find-jobs"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "find-jobs"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
-              >
-                Tìm việc
               </Link>
             </li>
           ) : (
@@ -125,10 +126,7 @@ function Header() {
           </div>
         ) : (
           <div className="flex ml-auto gap-5 items-center">
-            <button
-              className="button-header bg-red-400"
-              onClick={handleLogout}
-            >
+            <button className="button-header bg-red-400" onClick={handleLogout}>
               Đăng xuất
             </button>
           </div>

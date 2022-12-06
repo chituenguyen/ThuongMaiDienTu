@@ -11,7 +11,7 @@ const FindTutorForm = () => {
     { name: "Sinh", value: "biology" },
     { name: "Tiếng Anh", value: "english" },
   ]);
-  
+
   const [grades, setGrades] = useState([
     { name: "1", value: 1 },
     { name: "2", value: 2 },
@@ -73,16 +73,7 @@ const FindTutorForm = () => {
               })}
             </select>
           </label>
-          <label>
-            Mô tả:<span>&nbsp;</span>
-          </label>
-          <textarea
-            className="rounded-md mb-3 px-2 border-2 text-black"
-            type="text"
-            name="description"
-            value={inputs.description || ""}
-            onChange={handleChange}
-          ></textarea>
+
           <label>
             Mức lương:<span>&nbsp;</span>
             <input
@@ -106,29 +97,37 @@ const FindTutorForm = () => {
           </label>
           <label>
             Ngày bắt đầu:<span>&nbsp;</span>
-          </label>
-          <input
-            className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-            type="number"
-            name="startDate"
-            value={inputs.startDate || ""}
-            onChange={handleChange}
-          />
-          {/* <DatePicker
+            <input
+              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
+              type="date"
               name="startDate"
-              // selected={startDate}
+              value={inputs.startDate || ""}
               onChange={handleChange}
-            /> */}
+            />
+          </label>
+
           <label>
             Ngày kết thúc:<span>&nbsp;</span>
             <input
               className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              type="number"
+              type="date"
               name="endDate"
               value={inputs.endDate || ""}
               onChange={handleChange}
             />
           </label>
+
+          <label>
+            Mô tả:<span>&nbsp;</span>
+          </label>
+          <textarea
+            className="rounded-md mb-3 px-2 border-2 text-black"
+            type="text"
+            name="description"
+            value={inputs.description || ""}
+            onChange={handleChange}
+          ></textarea>
+          
           <button
             type="submit"
             className="bg-[#0E78C4] p-2 w-fit place-self-center text-white mt-2 font-bold"
