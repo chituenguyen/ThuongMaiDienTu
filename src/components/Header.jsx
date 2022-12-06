@@ -1,16 +1,25 @@
 import React, { useContext } from "react";
 import logo from "../assets/logo.png";
 import { AppContext } from "../context/role";
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const { role, setRole } = useContext(AppContext);
   const changeRole = (e) => {
-    setRole(e.target.value)
-  }
-  let pathname = window.location.href
-  let address = pathname.split("/")[3]
-  //console.log(address)
+    setRole(e.target.value);
+  };
+
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    setRole("None");
+    navigate("/");
+  };
+
+  let pathname = window.location.href;
+  let address = pathname.split("/")[3];
+
   return (
     <div>
       <div>
@@ -23,70 +32,94 @@ function Header() {
       <div className="flex px-[68px] items-center ">
         <ul className="flex gap-[20px] ">
           <li>
-            <a
-              href="/"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === '' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+            <Link
+              to="/"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                address === ""
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+              }`}
             >
               Trang chủ
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a
-              href="/become-tutor"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'become-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+            <Link
+              to="/become-tutor"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                address === "become-tutor"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+              }`}
             >
               Trở thành gia sư
-            </a>
+            </Link>
           </li>
-          {role == "parent" ?
+          {role == "parent" ? (
             <li>
-              <a
-                href="/find-tutor"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'find-tutor' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+              <Link
+                to="/find-tutor"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "find-tutor"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
               >
                 Tìm gia sư
-              </a>
+              </Link>
             </li>
-            :
+          ) : (
             <></>
-          }
+          )}
 
-          {role == "tutor" ?
+          {role == "tutor" ? (
             <li>
-              <a
-                href="/find-jobs"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'find-jobs' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+              <Link
+                to="/find-jobs"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "find-jobs"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
               >
                 Tìm việc
-              </a>
+              </Link>
             </li>
-            :
+          ) : (
             <></>
-          }
-
+          )}
 
           <li>
-            <a
-              href="/about"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'about' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+            <Link
+              to="/about"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                address === "about"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+              }`}
             >
               Về chúng tôi
-            </a>
+            </Link>
           </li>
-          
+
           <li>
-            <a
-              href="/qa"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === 'qa' ? "bg-blue-200 text-bktutor-blue font-extrabold" : ""}`}
+            <Link
+              to="/qa"
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                address === "qa"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+              }`}
             >
               Hỏi đáp
-            </a>
+            </Link>
           </li>
         </ul>
 
-        <div className="flex ml-auto gap-5 items-center">
-          {/* <input
+        {role == "None" ? (
+          <div className="flex ml-auto gap-5 items-center">
+            {/* <input
             type="radio"
             id="admin"
             name="fav_language"
@@ -103,13 +136,23 @@ function Header() {
           />
           <label htmlFor="user">User</label> */}
 
-          <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
-            Đăng ký
-          </button>
-          <Link to='/login'>
-            <button className="button-header bg-[#0E78C4]">Đăng nhập</button>
-          </Link>
-        </div>
+            <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+              Đăng ký
+            </button>
+            <Link to="/login">
+              <button className="button-header bg-[#0E78C4]">Đăng nhập</button>
+            </Link>
+          </div>
+        ) : (
+          <div className="flex ml-auto gap-5 items-center">
+            <button
+              className="button-header bg-red-400"
+              onClick={handleLogout}
+            >
+              Đăng xuất
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

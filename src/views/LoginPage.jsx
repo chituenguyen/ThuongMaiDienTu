@@ -68,10 +68,10 @@ export default function Login() {
     setRole(username);
     console.log(role);
   };
+  
   useEffect(() => {
     console.log(role)
     if (role == "tutor" || role == "parent") {
-      console.log("run");
       navigate("/");
     }
   }, [navigate,role]);

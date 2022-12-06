@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FindTutorBanner from "../components/FindTutorBanner";
 import FindTutorForm from "../components/FindTutorForm";
+import ParentClassList from "../components/ParentClassList";
 
 const FindTutors = () => {
   return (
@@ -10,6 +11,7 @@ const FindTutors = () => {
       <Header />
       <FindTutorBanner />
       <FindTutorForm />
+      <ParentClassList />
       <Footer />
     </div>
   );
