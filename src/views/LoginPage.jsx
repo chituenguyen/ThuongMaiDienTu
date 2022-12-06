@@ -65,16 +65,16 @@ export default function Login() {
   const { role, setRole } = useContext(AppContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username);
     setRole(username);
     console.log(role);
   };
   useEffect(() => {
+    console.log(role)
     if (role == "tutor" || role == "parent") {
       console.log("run");
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate,role]);
 
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
