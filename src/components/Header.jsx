@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const { role, setRole } = useContext(AppContext);
-  const changeRole = (e) => {
-    setRole(e.target.value);
-  };
 
   let navigate = useNavigate();
 
@@ -119,23 +116,6 @@ function Header() {
 
         {role == "None" ? (
           <div className="flex ml-auto gap-5 items-center">
-            {/* <input
-            type="radio"
-            id="admin"
-            name="fav_language"
-            value="Admin"
-            onChange={(e) => changeRole(e)}
-          />
-          <label htmlFor="admin">Admin</label>
-          <input
-            type="radio"
-            id="user"
-            name="fav_language"
-            value="User"
-            onChange={(e) => changeRole(e)}
-          />
-          <label htmlFor="user">User</label> */}
-
             <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
               Đăng ký
             </button>
