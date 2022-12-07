@@ -1,5 +1,5 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Card,
@@ -8,8 +8,11 @@ import {
   ListItem,
   Button,
 } from "@material-ui/core";
-import { AppContext } from "../context/role";
+// import { AppContext } from "../context/role";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/authSlice";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,24 +60,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const classes = useStyles();
   const theme = useTheme();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { role, setRole } = useContext(AppContext);
+  const userLogin=useSelector(state=>state.userLogin)
+  const {error,loading,userInfo}=userLogin
   const handleSubmit = (e) => {
     e.preventDefault();
-    setRole(username);
-    console.log(role);
+    dispatch(loginUser({
+      "username":username,
+      "password":password
+    }))
   };
-  
+  // console.log(userInfo)
   useEffect(() => {
-    console.log(role)
-    if (role == "tutor" || role == "parent") {
+    if (!Array.isArray(userInfo) && !userInfo.length) {
       navigate("/");
     }
-  }, [navigate,role]);
+  }, [userInfo]);
 
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
@@ -107,7 +113,7 @@ export default function Login() {
             <br></br>
             <label className={classes.label}>Password</label>
             <br></br>
-            <input type="password" className={classes.input}></input>
+            <input type="password" className={classes.input} onChange={(e) => setPassword(e.target.value)}></input>
             <br></br>
             <List>
               <ListItem>
