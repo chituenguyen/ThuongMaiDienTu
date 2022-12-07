@@ -11,7 +11,6 @@ const FindTutors = () => {
       <Header />
       <FindTutorBanner />
       <FindTutorForm />
-      <ParentClassList />
       <Footer />
     </div>
   );
