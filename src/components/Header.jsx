@@ -71,7 +71,7 @@ function Header() {
             </li>
           )}
 
-          {role == "parent" ? (
+          {role == "parent" && (
             <li>
               <Link
                 to="/find-tutor"
@@ -84,8 +84,21 @@ function Header() {
                 Tìm gia sư
               </Link>
             </li>
-          ) : (
-            <></>
+          )}
+
+          {role == "parent" && (
+            <li>
+              <Link
+                to="/parent-dashboard"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "parent-class-list"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Việc đã đăng
+              </Link>
+            </li>
           )}
 
           <li>

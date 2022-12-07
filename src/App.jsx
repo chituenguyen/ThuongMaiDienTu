@@ -10,13 +10,14 @@ import QA from "./views/QAPage";
 import TutorQuizAttempt from "./views/TutorQuizAttempt";
 import FindJobs from "./views/FindJobs";
 import LoginPage from "./views/LoginPage";
+import ParentDashboard from "./views/ParentDashboard";
 
 function App() {
   return (
     <AppProvider>
       <Router>
         <Routes>
-          <Route path='/login' element={<LoginPage/>} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/become-tutor" element={<BecomeTutorPage />}></Route>
           <Route
@@ -27,6 +28,7 @@ function App() {
           <Route path="/find-jobs" element={<FindJobs />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/qa" element={<QA />}></Route>
+          <Route path="/parent-dashboard" element={<ParentDashboard />}></Route>
         </Routes>
       </Router>
     </AppProvider>
