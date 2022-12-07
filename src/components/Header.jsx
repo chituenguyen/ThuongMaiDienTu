@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 import { AppContext } from "../context/role";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { userInfoSelector } from "../redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
-  const { role, setRole } = useContext(AppContext);
+  const [role, setRole] = useState("None");
+  const userInfo = useSelector(userInfoSelector);
+  useEffect(() => {
+    {userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet")}
+    {userInfo ? setRole(userInfo.role) : console.log("not login yet => not set role")}
+  }, []);
+
 
   let navigate = useNavigate();
 

@@ -21,7 +21,7 @@ function Banner() {
           placeholder="Nhập email của bạn..."
           className="input-banner"
         />
-        <button className="input-banner bg-red-400"> Đăng ký</button>
+        <button className="input-banner bg-red-600 text-white font-bold"> Đăng ký</button>
         <p className="w-[400px]">
           Bằng cách nhấn vào Đăng ký, bạn đồng ý với{" "}
           <span>
