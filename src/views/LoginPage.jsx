@@ -67,7 +67,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const userLogin=useSelector(state=>state.userLogin)
-  const {error,loading,userInfo}=userLogin
+  const {message,error,loading,userInfo}=userLogin
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({
@@ -115,6 +115,7 @@ export default function Login() {
             <br></br>
             <input type="password" className={classes.input} onChange={(e) => setPassword(e.target.value)}></input>
             <br></br>
+            {message!=''? <p style={{color:"red"}}>{message}</p>:''}
             <List>
               <ListItem>
                 <Button variant="contained" color="primary" type="submit">
