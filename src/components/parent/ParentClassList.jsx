@@ -2,6 +2,7 @@ import React from "react";
 import { Collapse, Col, Row, Card, Modal, Button } from "antd";
 import { useState } from "react";
 import "./ParentClassList.css";
+import { ClockCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 
 const { Panel } = Collapse;
 
@@ -21,17 +22,17 @@ const dateConvert = (dateString) => {
 const ParentClassList = () => {
   const courseList = [
     {
-      _id: "6384e8874813251fdaa808cc",
-      subjects: ["637dec5e4b510c54b4b87be3", "6384da181308117b992e8763"],
+      _id: "6384e7e8077ac78de81542a7",
+      subjects: ["6384cd6bc3218ac12f6bddea"],
       grade: "637deb268371d38e1eededab",
-      description: "Phụ huynh cần gấp",
-      status: "PENDING",
+      description: "Phụ huynh cần gia sư Thành",
+      status: "OPEN",
       deadline: "2022-11-27T17:00:00.000Z",
-      salary: 3000000,
-      numberOfStudent: 2,
+      salary: 2100000,
+      numberOfStudent: 1,
       startDate: "2022-11-27T17:00:00.000Z",
-      endDate: "2022-12-12T17:00:00.000Z",
-      customer: "6384e4aa1b3e5b4dad6b0c61",
+      endDate: "2022-12-10T17:00:00.000Z",
+      customer: "6390606b1ef18e04bfc7d73c",
       __v: 0,
     },
     {
@@ -49,17 +50,17 @@ const ParentClassList = () => {
       __v: 0,
     },
     {
-      _id: "6384e8874813251fdaa808cc",
-      subjects: ["637dec5e4b510c54b4b87be3", "6384da181308117b992e8763"],
+      _id: "638c9508525c980de45d42ae",
+      subjects: ["6384cd6bc3218ac12f6bddea"],
       grade: "637deb268371d38e1eededab",
-      description: "Phụ huynh cần gấp",
-      status: "PENDING",
+      description: "Phụ huynh cần gia sư nữ",
+      status: "OPEN",
       deadline: "2022-11-27T17:00:00.000Z",
-      salary: 3000000,
+      salary: 2500000,
       numberOfStudent: 2,
       startDate: "2022-11-27T17:00:00.000Z",
-      endDate: "2022-12-12T17:00:00.000Z",
-      customer: "6384e4aa1b3e5b4dad6b0c61",
+      endDate: "2022-12-10T17:00:00.000Z",
+      customer: "6384e4aa1b3e5b4dad6b0c5b",
       __v: 0,
     },
   ];
@@ -102,7 +103,27 @@ const ParentClassList = () => {
         return (
           <Card
             title={listToString(course.subjects)}
-            extra={course.status}
+            extra={
+              course.status === "PENDING" ? (
+                <span className="text-[#f29339] font-bold">
+                  Đang chờ{"  "}
+                  <ClockCircleFilled
+                    style={{
+                      verticalAlign: "middle",
+                    }}
+                  />
+                </span>
+              ) : (
+                <span className="text-[green] font-bold">
+                  Đang mở{"  "}
+                  <CheckCircleFilled
+                    style={{
+                      verticalAlign: "middle",
+                    }}
+                  />
+                </span>
+              )
+            }
             className="my-4"
           >
             <Row>

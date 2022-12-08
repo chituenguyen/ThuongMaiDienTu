@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         'bktutor-blue': '#0E78C4',
+        'pending-color': '#f29339'
       },
       boxShadow: {
         'job-card': '0px 0px 8px #999',
