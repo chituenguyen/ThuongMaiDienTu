@@ -1,6 +1,6 @@
-import makemoney from "../assets/make-money.jpg";
-import controltime from "../assets/control-time.jpg"
-import relationship from "../assets/relationship.jpg"
+import makemoney from "../../assets/make-money.jpg";
+import controltime from "../../assets/control-time.jpg"
+import relationship from "../../assets/relationship.jpg"
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
