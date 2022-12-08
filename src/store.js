@@ -3,6 +3,6 @@ import authSlice from "./redux/authSlice"
 
 export const store = configureStore({
   reducer: {
-    userLogin:authSlice
+    userLogin: authSlice
   },
 })

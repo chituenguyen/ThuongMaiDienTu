@@ -8,7 +8,7 @@ const initialState = {
   error: "",
 };
 
-export const loginUser = createAsyncThunk("loginuser", async (body,{ rejectWithValue }) => {
+export const loginUser = createAsyncThunk("loginuser", async (body, { rejectWithValue }) => {
   const config = {
     headers: {
       "Content-type": "application/json",
@@ -21,6 +21,7 @@ export const loginUser = createAsyncThunk("loginuser", async (body,{ rejectWithV
     return rejectWithValue(err.response.data)
   }
 });
+
 const authSlice = createSlice({
   name: "userAuthentication",
   initialState,
