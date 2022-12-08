@@ -1,5 +1,7 @@
 import React from "react";
 import { Collapse, Col, Row, Card, Modal, Button } from "antd";
+import { useState } from "react";
+import "./ParentClassList.css";
 
 const { Panel } = Collapse;
 
@@ -68,7 +70,7 @@ const ParentClassList = () => {
 
   const info = () => {
     Modal.info({
-      title: "This is a notification message",
+      title: "Nguyễn Văn A",
       content: (
         <div>
           <p>some messages...some messages...</p>
@@ -76,7 +78,22 @@ const ParentClassList = () => {
         </div>
       ),
       onOk() {},
+      okText: "Xong",
     });
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    // set current id
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    // set current id null
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    // set current id null
+    setIsModalOpen(false);
   };
 
   return (
@@ -134,8 +151,28 @@ const ParentClassList = () => {
                     <Row>
                       <Col span={16}>Nguyễn Văn A</Col>
                       <Col span={8} className="text-right">
-                        <Button onClick={info}>Info</Button>
-                        <Button onClick={info}>Approve</Button>
+                        <Button onClick={info} className="mx-1">
+                          Xem
+                        </Button>
+                        <Button onClick={showModal}>Nhận</Button>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={16}>Nguyễn Văn A</Col>
+                      <Col span={8} className="text-right">
+                        <Button onClick={info} className="mx-1">
+                          Xem
+                        </Button>
+                        <Button onClick={showModal}>Nhận</Button>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={16}>Nguyễn Văn A</Col>
+                      <Col span={8} className="text-right">
+                        <Button onClick={info} className="mx-1">
+                          Xem
+                        </Button>
+                        <Button onClick={showModal}>Nhận</Button>
                       </Col>
                     </Row>
                   </Panel>
@@ -145,6 +182,17 @@ const ParentClassList = () => {
           </Card>
         );
       })}
+
+      <Modal
+        title="Bạn có chắc chắn muốn nhận gia sư này?"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Xác nhận"
+        cancelText="Hủy"
+      >
+        Xem kỹ thông tin của gia sư trước khi đồng ý nhận nhé !
+      </Modal>
     </div>
   );
 };

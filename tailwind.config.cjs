@@ -17,7 +17,7 @@ module.exports = {
         'card-fb-icon-w': '40px',
 
       },
-      height:{
+      height: {
         'card-img-h': '100px',
         'card-fb-icon-h': '40px',
       },
