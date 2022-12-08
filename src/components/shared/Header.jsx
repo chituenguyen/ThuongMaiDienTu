@@ -98,7 +98,7 @@ function Header() {
               <Link
                 to="/parent-dashboard"
                 className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "parent-class-list"
+                  address === "parent-dashboard"
                     ? "bg-blue-200 text-bktutor-blue font-extrabold"
                     : ""
                 }`}
