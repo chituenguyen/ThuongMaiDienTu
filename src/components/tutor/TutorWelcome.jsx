@@ -1,4 +1,4 @@
-import signin from "../assets/signin.png";
+import signin from "../../assets/signin.png";
 
 
 function TutorWelcomeSection() {

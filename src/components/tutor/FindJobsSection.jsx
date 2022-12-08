@@ -1,6 +1,6 @@
 import React from "react";
-import userIMG from "../assets/userIMG.jpg";
-import zaloIcon from "../assets/zalo-icon.png";
+import userIMG from "../../assets/userIMG.jpg";
+import zaloIcon from "../../assets/zalo-icon.png";
 import PaginationNav1Presentation from "./Pagination.jsx";
 
 function RadioGroupPresentation() {

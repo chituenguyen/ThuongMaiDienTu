@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import logo from "../assets/logo.png";
-import { AppContext } from "../context/role";
+import logo from "../../assets/logo.png";
+import { AppContext } from "../../context/role";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { userInfoSelector } from "../redux/selectors";
+import { userInfoSelector } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
 
 function Header() {

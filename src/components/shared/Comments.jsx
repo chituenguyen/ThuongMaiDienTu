@@ -1,5 +1,5 @@
 import React from "react";
-import user from "../assets/user.png";
+import user from "../../assets/user.png";
 import { MdOutlineExpandMore } from "react-icons/md";
 const Comments = () => {
   return (
