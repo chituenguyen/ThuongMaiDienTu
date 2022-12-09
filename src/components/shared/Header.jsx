@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
-import { AppContext } from "../../context/role";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userInfoSelector } from "../../redux/selectors";
@@ -79,7 +78,7 @@ function Header() {
             </li>
           )}
 
-          {role == "parent" && (
+          {role == "customer" && (
             <li>
               <Link
                 to="/find-tutor"
@@ -94,12 +93,12 @@ function Header() {
             </li>
           )}
 
-          {role == "parent" && (
+          {role == "customer" && (
             <li>
               <Link
                 to="/parent-dashboard"
                 className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "parent-class-list"
+                  address === "parent-dashboard"
                     ? "bg-blue-200 text-bktutor-blue font-extrabold"
                     : ""
                 }`}
@@ -157,7 +156,7 @@ function Header() {
               Đăng ký
             </button>
             <Link to="/login">
-              <button className="button-header bg-[#0E78C4]">Đăng nhập</button>
+              <button className="button-header bg-[#0E78C4] text-white">Đăng nhập</button>
             </Link>
           </div>
         ) : (

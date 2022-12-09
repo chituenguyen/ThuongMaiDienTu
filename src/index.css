@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Salsa&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ant-btn-primary {
+    background-color: #0e78c4 !important;
+}
