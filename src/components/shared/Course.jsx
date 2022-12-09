@@ -1,5 +1,5 @@
 import React from 'react'
-import math from "../assets/math.png"
+import math from "../../assets/math.png"
 function Course() {
   return (
     <div className='px-[68px] py-5 bg-[#FBFBFB]'>
