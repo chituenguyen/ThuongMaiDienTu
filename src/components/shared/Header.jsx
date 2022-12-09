@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userInfoSelector } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
+import {logoutUser} from "../../redux/authSlice"
 
 function Header() {
   const [role, setRole] = useState("None");
   const userInfo = useSelector(userInfoSelector);
+  const dispatch = useDispatch();
   console.log(userInfo)
   useEffect(() => {
     {userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet")}
@@ -34,7 +36,7 @@ function Header() {
           className="h-[71px] w-[241px] mx-[83px] mb-[12px]"
         />
       </div>
-      <div className="flex px-[68px] items-center ">
+      <div className="flex px-[68px] items-center">
         <ul className="flex gap-[20px] ">
           <li>
             <Link
@@ -127,7 +129,7 @@ function Header() {
               <Link
                 to="/exam-schedule"
                 className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "parent-class-list"
+                  address === "exam-schedule"
                     ? "bg-blue-200 text-bktutor-blue font-extrabold"
                     : ""
                 }`}
