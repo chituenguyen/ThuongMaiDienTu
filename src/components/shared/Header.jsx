@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Header() {
   const [role, setRole] = useState("None");
   const userInfo = useSelector(userInfoSelector);
+  console.log(userInfo)
   useEffect(() => {
     {userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet")}
     {userInfo ? setRole(userInfo.role) : console.log("not login yet => not set role")}

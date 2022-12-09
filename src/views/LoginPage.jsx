@@ -75,7 +75,6 @@ export default function Login() {
       "password":password
     }))
   };
-  // console.log(userInfo)
   useEffect(() => {
     if (!Array.isArray(userInfo) && !userInfo.length) {
       navigate("/");
