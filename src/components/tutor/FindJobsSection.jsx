@@ -93,7 +93,10 @@ const CardJob = () => {
                     </div>
 
                     <div className="card-user-desire-subject text-lg">
-                        Toán 11
+                        Toán
+                    </div>
+                    <div className="card-user-desire-subject text-lg">
+                        11
                     </div>
 
                     <div className="text-gray-600 mt-3">

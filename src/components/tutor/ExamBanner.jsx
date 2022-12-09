@@ -1,7 +1,8 @@
 import React from 'react'
 import banner from "../../assets/banner.png"
-
+import { useNavigate } from 'react-router-dom';
 function ExamBanner() {
+  const navigate = useNavigate();
   return (
     <div className='grid grid-cols-2 gap-4 bg-[#0E78C4] mt-5 px-[68px] text-white py-10'>
         <div className='flex flex-col'>
@@ -51,7 +52,9 @@ function ExamBanner() {
                     Nhận lớp
                   </div>
                 </div>
-                <button type="button" class="focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                <button type="button" className="focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                onClick={() => navigate('/exam-schedule')}
+                >
                   XEM THÔNG TIN ĐĂNG KÝ DỰ THI
                 </button>
             </div>

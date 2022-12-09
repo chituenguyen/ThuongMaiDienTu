@@ -121,6 +121,21 @@ function Header() {
               Về chúng tôi
             </Link>
           </li>
+          
+          {role == "tutor" && (
+            <li>
+              <Link
+                to="/exam-schedule"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "parent-class-list"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Lịch dự thi
+              </Link>
+            </li>
+          )}
 
           <li>
             <Link

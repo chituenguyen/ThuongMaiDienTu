@@ -11,6 +11,7 @@ import TutorQuizAttempt from "./views/tutor/TutorQuizAttempt";
 import FindJobs from "./views/tutor/FindJobs";
 import LoginPage from "./views/LoginPage";
 import ParentDashboard from "./views/parent/ParentDashboard";
+import ExamDateList from "./views/Tutor/ExamDateList";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
 
           <Route path="/find-tutor" element={<FindTutors />}></Route>
           <Route path="/parent-dashboard" element={<ParentDashboard />}></Route>
+          <Route path="/exam-schedule" element={<ExamDateList />}></Route>
         </Routes>
       </Router>
     </AppProvider>
