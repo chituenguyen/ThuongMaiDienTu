@@ -12,8 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/authSlice";
-
-
+import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -44,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "12px",
     outline: "none",
     padding: "16px 12px",
+    border: "1px solid #404D61",
   },
   label: {
     marginBottom: "16px",
@@ -58,7 +58,13 @@ const useStyles = makeStyles((theme) => ({
     height: "40px",
   },
 }));
-
+const loginErrorModal = (message) => {
+  Swal.fire({
+    icon: "error",
+    title: message,
+    text: "Something went wrong!",
+  });
+};
 export default function Login() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -66,15 +72,16 @@ export default function Login() {
   const theme = useTheme();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const userLogin=useSelector(state=>state.userLogin)
-  const {message,error,loading,userInfo}=userLogin
-  const handleSubmit = (e) => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { message, error, loading, userInfo } = userLogin;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser({
-      "username":username,
-      "password":password
-    }))
+    const data = await dispatch(
+      loginUser({ username: username, password: password })
+    );
+    if (!!data.payload.message) loginErrorModal(data.payload.message);
   };
+
   useEffect(() => {
     if (!Array.isArray(userInfo) && !userInfo.length) {
       navigate("/");
@@ -107,14 +114,19 @@ export default function Login() {
             <input
               type="text"
               className={classes.input}
+              autoFocus
               onChange={(e) => setUsername(e.target.value)}
             ></input>
             <br></br>
             <label className={classes.label}>Password</label>
             <br></br>
-            <input type="password" className={classes.input} onChange={(e) => setPassword(e.target.value)}></input>
+            <input
+              type="password"
+              className={classes.input}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
             <br></br>
-            {message!=''? <p style={{color:"red"}}>{message}</p>:''}
+            {/* {message != "" ? <p style={{ color: "red" }}>{message}</p> : ""} */}
             <List>
               <ListItem>
                 <Button variant="contained" color="primary" type="submit">

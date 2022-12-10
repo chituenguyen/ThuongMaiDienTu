@@ -3,12 +3,14 @@ import axios from "axios";
 
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
+  : "";
 const initialState = {
   userInfo: userInfoFromLocal ? userInfoFromLocal : [],
   loading: false,
   message: "",
   error: "",
+  verifiedOfTutor: false,
+  roleOfUser: "None",
 };
 
 export const loginUser = createAsyncThunk(
@@ -29,9 +31,9 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk('logoutUser',async()=>{
+export const logoutUser = createAsyncThunk("logoutUser", async () => {
   localStorage.removeItem("userInfo");
-})
+});
 
 export const registerUser = createAsyncThunk(
   "registeruser",
@@ -64,6 +66,10 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.userInfo = action.payload;
+        state.roleOfUser = state.userInfo?.user?.role;
+        if (state.userInfo?.user?.verified) {
+          state.verifiedOfTutor = true;
+        }
         state.loading = false;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -86,10 +92,12 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state, action) => {
         state.loading = false;
+        state.roleOfUser = "None";
+        state.verifiedOfTutor = false;
         state.userInfo = [];
-        
       });
   },
 });
-
+// const {reducer: authReducer} = authSlice;
+// export const { handleResetRoleOfUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -4,26 +4,59 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userInfoSelector } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import {logoutUser} from "../../redux/authSlice"
+import { logoutUser } from "../../redux/authSlice";
+import Swal from "sweetalert2";
 
+const logoutConfirmModal = (setRole, setClickLogout) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "Do you want to sign out of the earth?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Confirm",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      setRole("None");
+      setClickLogout(true);
+    }
+  });
+};
 function Header() {
-  const [role, setRole] = useState("None");
-  const userInfo = useSelector(userInfoSelector);
   const dispatch = useDispatch();
-  console.log(userInfo)
+  const navigate = useNavigate();
+  const userInfo = useSelector(userInfoSelector);
+
+  const roleOfUser = useSelector((state) => state.userLogin.roleOfUser);
+  const [role, setRole] = useState(roleOfUser);
+  const [clickLogout, setClickLogout] = useState(false);
+
   useEffect(() => {
-    {userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet")}
-    {userInfo ? setRole(userInfo.role) : console.log("not login yet => not set role")}
-  }, []);
-
-
-  let navigate = useNavigate();
-
-  const handleLogout = () => {
-    setRole("None");
-    navigate("/");
+    {
+      userInfo
+        ? console.log("User role:", userInfo.role)
+        : console.log("not login yet");
+    }
+    // {
+    //   userInfo
+    //     ? setRole(userInfo.role)
+    //     : console.log("not login yet => not set role");
+    // }
+    if (clickLogout) {
+      navigate("/");
+      dispatch(logoutUser());
+    }
+    return () => {
+      setClickLogout(false);
+    };
+  }, [clickLogout]);
+  const handleLogin = () => {
+    dispatch(logoutUser());
   };
-
+  const handleLogout = () => {
+    logoutConfirmModal(setRole, setClickLogout);
+  };
   let pathname = window.location.href;
   let address = pathname.split("/")[3];
 
@@ -51,7 +84,7 @@ function Header() {
             </Link>
           </li>
 
-          {role == "tutor" && (
+          {role === "tutor" && (
             <li>
               <Link
                 to="/become-tutor"
@@ -66,7 +99,7 @@ function Header() {
             </li>
           )}
 
-          {role == "tutor" && (
+          {role === "tutor" && (
             <li>
               <Link
                 to="/find-jobs"
@@ -81,7 +114,7 @@ function Header() {
             </li>
           )}
 
-          {role == "customer" && (
+          {role === "customer" && (
             <li>
               <Link
                 to="/find-tutor"
@@ -96,7 +129,7 @@ function Header() {
             </li>
           )}
 
-          {role == "customer" && (
+          {role === "customer" && (
             <li>
               <Link
                 to="/parent-dashboard"
@@ -123,8 +156,8 @@ function Header() {
               Về chúng tôi
             </Link>
           </li>
-          
-          {role == "tutor" && (
+
+          {role === "tutor" && (
             <li>
               <Link
                 to="/exam-schedule"
@@ -153,13 +186,18 @@ function Header() {
           </li>
         </ul>
 
-        {role == "None" ? (
+        {role === "None" ? (
           <div className="flex ml-auto gap-5 items-center">
-            <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+            <button
+              onClick={() => handleLogin()}
+              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+            >
               Đăng ký
             </button>
             <Link to="/login">
-              <button className="button-header bg-[#0E78C4] text-white">Đăng nhập</button>
+              <button className="button-header bg-[#0E78C4] text-white">
+                Đăng nhập
+              </button>
             </Link>
           </div>
         ) : (
