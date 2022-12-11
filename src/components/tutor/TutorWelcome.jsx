@@ -8,7 +8,8 @@ import {
     from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useState } from "react";
-import ParentClassList from '../parent/ParentClassList';
+import MyTutorJobsList from './MyTutorJobsList';
+import TutorSalary from './TutorSalary';
 
 function TutorWelcomeSection() {
     const [gender, setGender] = useState();
@@ -118,7 +119,18 @@ function TutorWelcomeSection() {
 
                 </div>
             </div>
-            <ParentClassList/>
+            <div className="my-tutor-jobs-list-container m-10">
+                <div className="flex-rows mb-10 text-3xl mt-10 mb-7 font-bold text-blue-900">
+                    <p>Danh sách công việc của tôi</p>
+                </div>
+                <MyTutorJobsList/>
+                <div className="flex-rows mb-10 text-3xl mt-10 mb-7 font-bold text-blue-900">
+                    <p>Bảng lương của tôi</p>
+                </div>
+                <div>
+                    <TutorSalary/>
+                </div>
+            </div>
         </div>
     )
 }

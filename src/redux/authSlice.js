@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : "";
 const initialState = {
-  userInfo: userInfoFromLocal ? userInfoFromLocal : [],
+  userInfo: userInfoFromLocal ? userInfoFromLocal.data : [],
   loading: false,
   message: "",
   error: "",

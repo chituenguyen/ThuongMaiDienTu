@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { userInfoSelector } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/authSlice";
 import Swal from "sweetalert2";
@@ -25,8 +23,9 @@ const logoutConfirmModal = (setRole, setClickLogout) => {
 };
 function Header() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userInfo = useSelector(userInfoSelector);
+  const userInfo = useSelector((state) => state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo);
+  console.log(userInfo);
+  useEffect(() => {}, [userInfo]);
 
   const roleOfUser = useSelector((state) => state.userLogin.roleOfUser);
   const [role, setRole] = useState(roleOfUser);
@@ -44,10 +43,11 @@ function Header() {
     //     : console.log("not login yet => not set role");
     // }
     if (clickLogout) {
-      navigate("/");
+      logoutConfirmModal(setRole, setClickLogout);
       dispatch(logoutUser());
     }
     return () => {
+      
       setClickLogout(false);
     };
   }, [clickLogout]);
@@ -55,7 +55,7 @@ function Header() {
     dispatch(logoutUser());
   };
   const handleLogout = () => {
-    logoutConfirmModal(setRole, setClickLogout);
+    dispatch(logoutUser());
   };
   let pathname = window.location.href;
   let address = pathname.split("/")[3];
@@ -84,7 +84,9 @@ function Header() {
             </Link>
           </li>
 
-          {role === "tutor" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "tutor" ? (
             <li>
               <Link
                 to="/become-tutor"
@@ -97,9 +99,13 @@ function Header() {
                 Trở thành gia sư
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
-          {role === "tutor" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "tutor" ? (
             <li>
               <Link
                 to="/find-jobs"
@@ -112,9 +118,13 @@ function Header() {
                 Tìm việc
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
-          {role === "customer" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "customer" ? (
             <li>
               <Link
                 to="/find-tutor"
@@ -127,22 +137,30 @@ function Header() {
                 Tìm gia sư
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
-          {role === "customer" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "customer" ? (
             <li>
-              <Link
-                to="/parent-dashboard"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "parent-dashboard"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
-              >
-                Việc đã đăng
-              </Link>
-            </li>
+                <Link
+                  to="/parent-dashboard"
+                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                    address === "parent-dashboard"
+                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                      : ""
+                  }`}
+                >
+                  Việc đã đăng
+                </Link>
+              </li>
+          ) : (
+            ""
           )}
+
+          
 
           <li>
             <Link
@@ -157,19 +175,23 @@ function Header() {
             </Link>
           </li>
 
-          {role === "tutor" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "tutor" ? (
             <li>
-              <Link
-                to="/exam-schedule"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "exam-schedule"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
-              >
-                Lịch dự thi
-              </Link>
-            </li>
+                <Link
+                  to="/exam-schedule"
+                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                    address === "exam-schedule"
+                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                      : ""
+                  }`}
+                >
+                  Lịch dự thi
+                </Link>
+              </li>
+          ) : (
+            ""
           )}
 
           <li>
@@ -186,7 +208,7 @@ function Header() {
           </li>
         </ul>
 
-        {role === "None" ? (
+        {userInfo.length == 0 || userInfo == undefined ? (
           <div className="flex ml-auto gap-5 items-center">
             <button
               onClick={() => handleLogin()}
