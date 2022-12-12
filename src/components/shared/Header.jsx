@@ -21,9 +21,12 @@ const logoutConfirmModal = (setRole, setClickLogout) => {
     }
   });
 };
+
 function Header() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo);
+  const userInfo = useSelector((state) =>
+    state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo
+  );
   console.log(userInfo);
   useEffect(() => {}, [userInfo]);
 
@@ -42,12 +45,12 @@ function Header() {
     //     ? setRole(userInfo.role)
     //     : console.log("not login yet => not set role");
     // }
+
     if (clickLogout) {
       logoutConfirmModal(setRole, setClickLogout);
       dispatch(logoutUser());
     }
     return () => {
-      
       setClickLogout(false);
     };
   }, [clickLogout]);
@@ -145,22 +148,20 @@ function Header() {
             ""
           ) : userInfo.user.role == "customer" ? (
             <li>
-                <Link
-                  to="/parent-dashboard"
-                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                    address === "parent-dashboard"
-                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                      : ""
-                  }`}
-                >
-                  Việc đã đăng
-                </Link>
-              </li>
+              <Link
+                to="/parent-dashboard"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "parent-dashboard"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Việc đã đăng
+              </Link>
+            </li>
           ) : (
             ""
           )}
-
-          
 
           <li>
             <Link
@@ -179,17 +180,17 @@ function Header() {
             ""
           ) : userInfo.user.role == "tutor" ? (
             <li>
-                <Link
-                  to="/exam-schedule"
-                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                    address === "exam-schedule"
-                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                      : ""
-                  }`}
-                >
-                  Lịch dự thi
-                </Link>
-              </li>
+              <Link
+                to="/exam-schedule"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "exam-schedule"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Lịch dự thi
+              </Link>
+            </li>
           ) : (
             ""
           )}
