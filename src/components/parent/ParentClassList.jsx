@@ -1,11 +1,11 @@
 import React from "react";
 import { Modal } from "antd";
 import { useState, useEffect } from "react";
-import "./ParentClassList.css";
 import ParentClass from "./ParentClass";
 import { useDispatch, useSelector } from "react-redux";
 import { userInfoSelector, userIdSelector } from "../../redux/selectors";
 import axios from "axios";
+import { API_URL } from "../../constants/common";
 
 const ParentClassList = () => {
   const userId = useSelector(userIdSelector);
@@ -17,9 +17,8 @@ const ParentClassList = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        "http://localhost:8797/course/get-list-course?id=638f16240db95a581e3c11d9"
+        `${API_URL}/course/get-list-course?id=${'638f16240db95a581e3c11d9'}`
       );
-      console.log(response.data);
       setCourseList(response?.data);
     })();
   }, []);
@@ -57,6 +56,7 @@ const ParentClassList = () => {
         return (
           <ParentClass
             key={course._id}
+            courseId={course._id}
             subjects={course.subjects.map((subject) => {
               return subject.name
             })}

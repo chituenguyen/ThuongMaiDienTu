@@ -1,7 +1,6 @@
 import React from "react";
 import { Collapse, Col, Row, Card, Modal, Button } from "antd";
 import { useState } from "react";
-import "../parent/ParentClassList.css";
 import { ClockCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 
 const { Panel } = Collapse;

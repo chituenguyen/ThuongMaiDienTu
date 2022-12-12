@@ -1,27 +1,15 @@
 import React from "react";
 import { ClockCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 import { Collapse, Col, Row, Card, Button } from "antd";
+import { listToString, dateConvert } from "../../constants/common";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../../constants/common";
 
 const { Panel } = Collapse;
 
-const listToString = (list) => {
-  return list.map((item, idx) => {
-    if (idx == 0) {
-      return item;
-    }
-    return ", " + item;
-  });
-};
-
-const dateConvert = (dateString) => {
-  return dateString.substr(0, 10);
-};
-
-const onChange = (key) => {
-  console.log(key);
-};
-
 const ParentClass = ({
+  courseId,
   subjects,
   status,
   grade,
@@ -34,6 +22,23 @@ const ParentClass = ({
   openInfoModal,
   openConfirmModal,
 }) => {
+  const [applicantList, setApplicantList] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        `${API_URL}/course/${courseId}/applied-tutors`
+      );
+      console.log(response?.data);
+      setApplicantList(response?.data);
+    })();
+  }, []);
+
+  const onChange = (key) => {
+    if (key.length != 0) {
+      console.log("fetch data");
+    }
+  };
+
   return (
     <Card
       title={listToString(subjects) + " (" + grade + ")"}
@@ -98,33 +103,21 @@ const ParentClass = ({
         <Col span={12} flex="end">
           <Collapse onChange={onChange}>
             <Panel header={"Danh sách ứng tuyển"}>
-              <Row>
-                <Col span={16}>Nguyễn Văn A</Col>
-                <Col span={8} className="text-right">
-                  <Button onClick={openInfoModal} className="mx-1">
-                    Xem
-                  </Button>
-                  <Button onClick={openConfirmModal}>Nhận</Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={16}>Nguyễn Văn A</Col>
-                <Col span={8} className="text-right">
-                  <Button onClick={openInfoModal} className="mx-1">
-                    Xem
-                  </Button>
-                  <Button onClick={openConfirmModal}>Nhận</Button>
-                </Col>
-              </Row>
-              <Row>
-                <Col span={16}>Nguyễn Văn A</Col>
-                <Col span={8} className="text-right">
-                  <Button onClick={openInfoModal} className="mx-1">
-                    Xem
-                  </Button>
-                  <Button onClick={openConfirmModal}>Nhận</Button>
-                </Col>
-              </Row>
+              {applicantList.length === 0
+                ? "Chưa có ứng viên nào."
+                : applicantList.map((applicant) => {
+                    return (
+                      <Row>
+                        <Col span={16}>Nguyễn Văn A</Col>
+                        <Col span={8} className="text-right">
+                          <Button onClick={openInfoModal} className="mx-1">
+                            Xem
+                          </Button>
+                          <Button onClick={openConfirmModal}>Nhận</Button>
+                        </Col>
+                      </Row>
+                    );
+                  })}
             </Panel>
           </Collapse>
         </Col>
