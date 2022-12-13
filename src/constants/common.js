@@ -1,12 +1,17 @@
+import { TimePicker } from "antd";
+
 export const API_URL = "http://localhost:8797"
 
 export const listToString = (list) => {
-    return list.map((item, idx) => {
+    let str = ""
+    list.forEach((item, idx) => {
         if (idx == 0) {
-            return item;
+            str += item;
+        } else {
+            str += ", " + item
         }
-        return ", " + item;
     });
+    return str
 };
 
 export const dateConvert = (dateString) => {
