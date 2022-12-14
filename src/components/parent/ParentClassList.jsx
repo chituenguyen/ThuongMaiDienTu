@@ -1,17 +1,14 @@
 import React from "react";
-import { Modal, Button, Col, Row, Spin } from "antd";
+import { Modal, Button, Col, Row, Rate, Skeleton } from "antd";
 import { useState, useEffect } from "react";
 import ParentClass from "./ParentClass";
 import { useSelector } from "react-redux";
 import { roleIdSelector } from "../../redux/selectors";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
-import { LinearProgress } from "@material-ui/core";
 
 const ParentClassList = () => {
   const userId = useSelector(roleIdSelector);
-  console.log(userId)
-
   const [isLoading, setIsloading] = useState(true);
   const [isInfoOpen, setOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -21,12 +18,12 @@ const ParentClassList = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `${API_URL}/course/get-list-course?id=${"638f16240db95a581e3c11d9"}`
+        `${API_URL}/course/get-list-course?id=${userId}`
       );
       setCourseList(response?.data);
-      setIsloading(false)
+      setIsloading(false);
     })();
-  }, []);
+  }, [isLoading]);
 
   const openInfoModal = () => {
     setOpen(true);
@@ -53,7 +50,7 @@ const ParentClassList = () => {
 
   return (
     <div>
-      {isLoading && <LinearProgress/>}
+      {isLoading && <Skeleton active />}
 
       {courseList.map((course) => {
         return (
@@ -99,6 +96,24 @@ const ParentClassList = () => {
           </Col>
         </Row>
 
+        {currentTutorInfo?.gender && (
+          <Row>
+            <Col span={8}>Giới tính:</Col>
+            <Col span={16}>
+              <div>{currentTutorInfo?.gender === "male" ? "Nam" : "Nữ"}</div>
+            </Col>
+          </Row>
+        )}
+
+        {currentTutorInfo?.email && (
+          <Row>
+            <Col span={8}>Email:</Col>
+            <Col span={16}>
+              <div>{currentTutorInfo?.email}</div>
+            </Col>
+          </Row>
+        )}
+
         {currentTutorInfo?.degree && (
           <Row>
             <Col span={8}>Trình độ:</Col>
@@ -139,7 +154,7 @@ const ParentClassList = () => {
         <Row>
           <Col span={8}>Đánh giá:</Col>
           <Col span={16}>
-            <div>{currentTutorInfo?.rate_star}</div>
+            <Rate disabled defaultValue={currentTutorInfo?.rate_star} />
           </Col>
         </Row>
 
@@ -147,14 +162,14 @@ const ParentClassList = () => {
       </Modal>
 
       <Modal
-        title="Bạn có chắc chắn muốn nhận gia sư này?"
+        title="Bạn có chắc chắn muốn xóa công việc này không?"
         open={isConfirmOpen}
         onOk={handleConfirmOk}
         onCancel={handleConfirmCancel}
         okText="Xác nhận"
         cancelText="Hủy"
       >
-        Xem kỹ thông tin của gia sư trước khi đồng ý nhận nhé !
+        Xem kỹ thông tin của gia sư trước khi đồng ý nhận bạn nhé !
       </Modal>
     </div>
   );
