@@ -2,9 +2,6 @@ import React from "react";
 import {
   ClockCircleFilled,
   CheckCircleFilled,
-  SearchOutlined,
-  CheckOutlined,
-  CheckCircleOutlined,
   CloseCircleFilled,
   DollarCircleFilled,
   CalendarOutlined,
@@ -13,7 +10,7 @@ import {
   NumberOutlined,
   DollarCircleOutlined,
 } from "@ant-design/icons";
-import { Collapse, Col, Row, Card, Button, Tag } from "antd";
+import { Collapse, Col, Row, Card, Button, Tag, Badge } from "antd";
 import {
   listToString,
   dateConvert,
@@ -22,6 +19,7 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
+import Applicant from "./Applicant";
 
 const { Panel } = Collapse;
 
@@ -144,18 +142,22 @@ const ParentClass = ({
               </Tag>
             </Col>
           </Row>
-          <Row className="mb-1.5">
-            <Col span={8}>Hạn đăng ký:</Col>
-            <Col span={15}>
-              <Tag
-                icon={<CalendarOutlined style={{ verticalAlign: "middle" }} />}
-                color="warning"
-                className="font-bold"
-              >
-                {dateConvert(deadline)}
-              </Tag>
-            </Col>
-          </Row>
+          {status !== "PENDING" && (
+            <Row className="mb-1.5">
+              <Col span={8}>Hạn đăng ký:</Col>
+              <Col span={15}>
+                <Tag
+                  icon={
+                    <CalendarOutlined style={{ verticalAlign: "middle" }} />
+                  }
+                  color="warning"
+                  className="font-bold"
+                >
+                  {dateConvert(deadline)}
+                </Tag>
+              </Col>
+            </Row>
+          )}
           <Row className="mb-1.5">
             <Col span={8}>Chi phí:</Col>
             <Tag
@@ -242,91 +244,6 @@ const ParentClass = ({
         </Col>
       </Row>
     </Card>
-  );
-};
-
-const Applicant = ({
-  id,
-  verified,
-  fullname,
-  phone,
-  degree,
-  facultity,
-  school,
-  description,
-  student_id,
-  rate_star,
-  setcurrentTutorInfo,
-  openConfirmModal,
-  openInfoModal,
-}) => {
-  const [loadings, setLoadings] = useState([]);
-  const enterLoading = (index) => {
-    setLoadings((prevLoadings) => {
-      const newLoadings = [...prevLoadings];
-      newLoadings[index] = true;
-      return newLoadings;
-    });
-
-    setcurrentTutorInfo(fullname);
-
-    setTimeout(() => {
-      setLoadings((prevLoadings) => {
-        const newLoadings = [...prevLoadings];
-        newLoadings[index] = false;
-        return newLoadings;
-      });
-      openInfoModal();
-    }, 400);
-  };
-
-  return (
-    <Row className="m-1">
-      <Col span={12} className="align-middle h-full font-bold">
-        {fullname}
-        {verified && (
-          <span>
-            {" "}
-            <CheckCircleOutlined
-              style={{
-                verticalAlign: "middle",
-              }}
-              className="text-green"
-            />
-          </span>
-        )}
-      </Col>
-      <Col span={12} className="text-right">
-        <Button
-          className="mx-1 hover:bg-[#bfdbfe] hover:text-white"
-          icon={
-            <SearchOutlined
-              style={{
-                verticalAlign: "middle",
-              }}
-            />
-          }
-          loading={loadings[0]}
-          onClick={() => enterLoading(0)}
-        >
-          Xem
-        </Button>
-        <Button
-          className="hover:bg-[#bfdbfe]"
-          onClick={openConfirmModal}
-          // type="primary"
-          icon={
-            <CheckOutlined
-              style={{
-                verticalAlign: "middle",
-              }}
-            />
-          }
-        >
-          Nhận
-        </Button>
-      </Col>
-    </Row>
   );
 };
 

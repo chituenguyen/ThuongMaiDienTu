@@ -1,16 +1,17 @@
 import React from "react";
-import { Modal, Button } from "antd";
-import { useState, useEffect, useRef } from "react";
+import { Modal, Button, Col, Row } from "antd";
+import { useState, useEffect } from "react";
 import ParentClass from "./ParentClass";
-import { useDispatch, useSelector } from "react-redux";
-import { userInfoSelector, userIdSelector } from "../../redux/selectors";
+import { useSelector } from "react-redux";
+import { roleIdSelector } from "../../redux/selectors";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
 
 const ParentClassList = () => {
-  const userId = useSelector(userIdSelector);
-  // TODO: Get customer's ID
+  const userId = useSelector(roleIdSelector);
+  console.log(userId)
 
+  const [isLoading, setIsloading] = useState(true);
   const [isInfoOpen, setOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [courseList, setCourseList] = useState([]);
@@ -21,8 +22,8 @@ const ParentClassList = () => {
       const response = await axios.get(
         `${API_URL}/course/get-list-course?id=${"638f16240db95a581e3c11d9"}`
       );
-      console.log(response?.data);
       setCourseList(response?.data);
+      setIsloading(false)
     })();
   }, []);
 
@@ -51,6 +52,8 @@ const ParentClassList = () => {
 
   return (
     <div>
+      {isLoading && <div>Loading</div>}
+      
       {courseList.map((course) => {
         return (
           <ParentClass
@@ -76,23 +79,70 @@ const ParentClassList = () => {
 
       <Modal
         open={isInfoOpen}
-        title={currentTutorInfo}
+        title={currentTutorInfo?.fullname}
         onOk={handleInfoOk}
         onCancel={handleInfoCancel}
         footer={[
           <Button key="back" onClick={handleInfoCancel}>
             Xong
           </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            onClick={handleInfoOk}
-          >
+          <Button key="submit" type="primary" onClick={handleInfoOk}>
             Nhận
           </Button>,
         ]}
       >
-        <div>{currentTutorInfo}</div>
+        <Row>
+          <Col span={8}>Số điện thoại:</Col>
+          <Col span={16}>
+            <div>{currentTutorInfo?.phone}</div>
+          </Col>
+        </Row>
+
+        {currentTutorInfo?.degree && (
+          <Row>
+            <Col span={8}>Trình độ:</Col>
+            <Col span={16}>
+              <div>{currentTutorInfo?.degree}</div>
+            </Col>
+          </Row>
+        )}
+
+        <Row>
+          <Col span={8}>Trường:</Col>
+          <Col span={16}>
+            <div>{currentTutorInfo?.school}</div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={8}>Khoa:</Col>
+          <Col span={16}>
+            <div>{currentTutorInfo?.facultity}</div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={8}>Giới thiệu:</Col>
+          <Col span={16}>
+            <div>{currentTutorInfo?.description}</div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={8}>MSSV:</Col>
+          <Col span={16}>
+            <div>{currentTutorInfo?.student_id}</div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={8}>Đánh giá:</Col>
+          <Col span={16}>
+            <div>{currentTutorInfo?.rate_star}</div>
+          </Col>
+        </Row>
+
+        <div>{currentTutorInfo?.verified}</div>
       </Modal>
 
       <Modal
