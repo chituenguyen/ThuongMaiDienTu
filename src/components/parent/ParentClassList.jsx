@@ -1,11 +1,12 @@
 import React from "react";
-import { Modal, Button, Col, Row } from "antd";
+import { Modal, Button, Col, Row, Spin } from "antd";
 import { useState, useEffect } from "react";
 import ParentClass from "./ParentClass";
 import { useSelector } from "react-redux";
 import { roleIdSelector } from "../../redux/selectors";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
+import { LinearProgress } from "@material-ui/core";
 
 const ParentClassList = () => {
   const userId = useSelector(roleIdSelector);
@@ -52,8 +53,8 @@ const ParentClassList = () => {
 
   return (
     <div>
-      {isLoading && <div>Loading</div>}
-      
+      {isLoading && <LinearProgress/>}
+
       {courseList.map((course) => {
         return (
           <ParentClass
