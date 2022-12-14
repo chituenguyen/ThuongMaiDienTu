@@ -14,15 +14,15 @@ function BecomeTutor() {
   );
   const [role, setRole] = useState(roleOfUser);
   const [isVerified, setIsVerified] = useState(verifiedOfTutor);
-  // const userInfo = useSelector(userInfoSelector);
-  // useEffect(() => {
-  //   { userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet") }
-  //   { userInfo ? setRole(userInfo.role) : console.log("not login yet => not set role") }
-  //   { userInfo ? setIsVerified(userInfo.verified) : console.log("not login yet => not set isVerified") }
-  //   { userInfo ? setIsVerified(userInfo.verified) : console.log("not login yet => not set isVerified") }
-  //   { userInfo ? console.log("User verified:", userInfo.verified) : console.log("not login yet => not set isVerified") }
+  const userInfo = useSelector(userInfoSelector);
+  useEffect(() => {
+    //{ userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet") }
+    { userInfo ? setRole(userInfo.role) : console.log("not login yet => not set role") }
+    { userInfo ? setIsVerified(userInfo.verified) : console.log("not login yet => not set isVerified") }
+    //{ userInfo ? setIsVerified(userInfo.verified) : console.log("not login yet => not set isVerified") }
+    //{ userInfo ? console.log("User verified:", userInfo.verified) : console.log("not login yet => not set isVerified") }
 
-  // }, []);
+  }, []);
   return (
     <div>
       <Header />
