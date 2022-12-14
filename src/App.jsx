@@ -13,6 +13,7 @@ import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 import ParentDashboard from "./views/parent/ParentDashboard";
 import ExamDateList from "./views/Tutor/ExamDateList";
+import Profile from "./views/Profile";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/find-tutor" element={<FindTutors />}></Route>
           <Route path="/parent-dashboard" element={<ParentDashboard />}></Route>
           <Route path="/exam-schedule" element={<ExamDateList />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
         </Routes>
       </Router>
     </AppProvider>

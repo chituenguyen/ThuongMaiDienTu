@@ -9,7 +9,7 @@ import {
   Button,
 } from "@material-ui/core";
 // import { AppContext } from "../context/role";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, getInformationOfUser } from "../redux/authSlice";
 import Swal from "sweetalert2";
@@ -146,7 +146,11 @@ export default function Login() {
                   color="primary"
                   style={{ marginLeft: "auto" }}
                 >
-                  Sign Up
+                  <Link
+                    to="/register"
+                  >
+                    Sign up
+                  </Link>
                 </Button>
               </ListItem>
             </List>
