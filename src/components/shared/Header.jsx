@@ -17,13 +17,14 @@ const items = [
 
 const logoutConfirmModal = (setRole, setClickLogout) => {
   Swal.fire({
-    title: "Are you sure?",
-    text: "Do you want to sign out of the earth?",
+    title: "Bạn có chắc",
+    text: "Bạn đang muốn đăng xuất khỏi website?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Confirm",
+    cancelButtonText: "Ở lại",
+    confirmButtonText: "Xác nhận",
   }).then((result) => {
     if (result.isConfirmed) {
       setRole("None");
