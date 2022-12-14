@@ -11,7 +11,7 @@ import {
 // import { AppContext } from "../context/role";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/authSlice";
+import { loginUser, getInformationOfUser } from "../redux/authSlice";
 import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +79,9 @@ export default function Login() {
     const data = await dispatch(
       loginUser({ username: username, password: password })
     );
-    if (!!data.payload.message) loginErrorModal(data.payload.message);
+    if (!!data?.payload?.user)
+      await dispatch(getInformationOfUser(data.payload.user._id));
+    if (!!data?.payload?.message) loginErrorModal(data.payload.message);
   };
 
   useEffect(() => {

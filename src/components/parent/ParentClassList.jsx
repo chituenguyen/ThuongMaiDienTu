@@ -102,6 +102,7 @@ const ParentClassList = () => {
       {courseList.map((course) => {
         return (
           <Card
+            key={course._id}
             title={listToString(course.subjects)}
             extra={
               course.status === "PENDING" ? (

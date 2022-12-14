@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/authSlice";
 import Swal from "sweetalert2";
@@ -23,18 +23,20 @@ const logoutConfirmModal = (setRole, setClickLogout) => {
 };
 function Header() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo);
-  console.log(userInfo);
-  useEffect(() => {}, [userInfo]);
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) =>
+    state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo
+  );
+  // console.log(userInfo);
+  // useEffect(() => {}, [userInfo]);
 
   const roleOfUser = useSelector((state) => state.userLogin.roleOfUser);
   const [role, setRole] = useState(roleOfUser);
   const [clickLogout, setClickLogout] = useState(false);
-
   useEffect(() => {
     {
       userInfo
-        ? console.log("User role:", userInfo.role)
+        ? console.log("User role:", roleOfUser)
         : console.log("not login yet");
     }
     // {
@@ -43,11 +45,11 @@ function Header() {
     //     : console.log("not login yet => not set role");
     // }
     if (clickLogout) {
-      logoutConfirmModal(setRole, setClickLogout);
+      // logoutConfirmModal(setRole, setClickLogout);
       dispatch(logoutUser());
+      navigate("/");
     }
     return () => {
-      
       setClickLogout(false);
     };
   }, [clickLogout]);
@@ -55,7 +57,7 @@ function Header() {
     dispatch(logoutUser());
   };
   const handleLogout = () => {
-    dispatch(logoutUser());
+    logoutConfirmModal(setRole, setClickLogout);
   };
   let pathname = window.location.href;
   let address = pathname.split("/")[3];
@@ -145,22 +147,20 @@ function Header() {
             ""
           ) : userInfo.user.role == "customer" ? (
             <li>
-                <Link
-                  to="/parent-dashboard"
-                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                    address === "parent-dashboard"
-                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                      : ""
-                  }`}
-                >
-                  Việc đã đăng
-                </Link>
-              </li>
+              <Link
+                to="/parent-dashboard"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "parent-dashboard"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Việc đã đăng
+              </Link>
+            </li>
           ) : (
             ""
           )}
-
-          
 
           <li>
             <Link
@@ -179,17 +179,17 @@ function Header() {
             ""
           ) : userInfo.user.role == "tutor" ? (
             <li>
-                <Link
-                  to="/exam-schedule"
-                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                    address === "exam-schedule"
-                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                      : ""
-                  }`}
-                >
-                  Lịch dự thi
-                </Link>
-              </li>
+              <Link
+                to="/exam-schedule"
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                  address === "exam-schedule"
+                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                    : ""
+                }`}
+              >
+                Lịch dự thi
+              </Link>
+            </li>
           ) : (
             ""
           )}

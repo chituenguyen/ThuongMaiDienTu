@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userInfoSelector } from "../../redux/selectors";
 import { AppContext } from "../../context/role";
-
+import axios from "axios";
 import Header from "../../components/shared/Header";
 import ExamBanner from "../../components/tutor/ExamBanner";
 import TutorSection from "../../components/tutor/TutorSection";
 import Footer from "../../components/shared/Footer";
 import TutorWelcomeSection from "../../components/tutor/TutorWelcome";
-
 function BecomeTutor() {
-  const { roleOfUser, verifiedOfTutor } = useSelector(
+  const { roleOfUser, verifiedOfTutor, userInfo, tutor } = useSelector(
     (state) => state.userLogin
   );
   const [role, setRole] = useState(roleOfUser);

@@ -1,6 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const axiosClient = axios.create({
+  baseURL: "http://localhost:8797",
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
@@ -11,6 +18,7 @@ const initialState = {
   message: "",
   error: "",
   verifiedOfTutor: false,
+  tutor: [],
   roleOfUser: "None",
 };
 
@@ -56,6 +64,67 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+export const getInformationOfUser = createAsyncThunk(
+  "getInformationOfUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const _url = "/user/" + String(userId);
+      const response = await axiosClient.get(_url);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+export const getAllCourseOfTutor = createAsyncThunk(
+  "getAllCourseAcceptOfTutor",
+  async (tutorId, { rejectWithValue }) => {
+    try {
+      const _url = "/tutor/" + String(tutorId) + "/applied-courses";
+      const response = await axiosClient.get(_url);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+export const getInformationOfCustomer = createAsyncThunk(
+  "getInformationOfCustomer",
+  async (customerId, { rejectWithValue }) => {
+    try {
+      const _url = "/customer/" + String(customerId);
+      const response = await axiosClient.get(_url);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+export const getInformationOfGrade = createAsyncThunk(
+  "getInformationOfGrade",
+  async (gradeId, { rejectWithValue }) => {
+    try {
+      const _url = "/grade/" + String(gradeId);
+      const response = await axiosClient.get(_url);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+export const getInformationOfSubject = createAsyncThunk(
+  "getInformationOfSubject",
+  async (subjectId, { rejectWithValue }) => {
+    try {
+      const _url = "/subject/" + String(subjectId);
+      const response = await axiosClient.get(_url);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "userAuthentication",
   initialState,
@@ -96,6 +165,44 @@ const authSlice = createSlice({
         state.roleOfUser = "None";
         state.verifiedOfTutor = false;
         state.userInfo = [];
+        state.tutor = [];
+      })
+      .addCase(getInformationOfUser.fulfilled, (state, action) => {
+        if (action.payload?.user?.role === "tutor") {
+          state.tutor = action.payload;
+        }
+      })
+      .addCase(getInformationOfUser.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.error = action.payload.error;
+      })
+      .addCase(getInformationOfCustomer.fulfilled, (state, action) => {
+        // console.log(action.payload)
+      })
+      .addCase(getInformationOfCustomer.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.error = action.payload.error;
+      })
+      .addCase(getInformationOfSubject.fulfilled, (state, action) => {
+        // console.log(action.payload)
+      })
+      .addCase(getInformationOfSubject.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.error = action.payload.error;
+      })
+      .addCase(getInformationOfGrade.fulfilled, (state, action) => {
+        // console.log(action.payload)
+      })
+      .addCase(getInformationOfGrade.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.error = action.payload.error;
+      })
+      .addCase(getAllCourseOfTutor.fulfilled, (state, action) => {
+        // console.log(action.payload);
+      })
+      .addCase(getAllCourseOfTutor.rejected, (state, action) => {
+        state.message = action.payload.message;
+        state.error = action.payload.error;
       });
   },
 });
