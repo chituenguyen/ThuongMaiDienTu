@@ -12,6 +12,9 @@ const axiosClient = axios.create({
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : "";
+  const roleIdFromLocal = localStorage.getItem("roleId")
+  ? JSON.parse(localStorage.getItem("roleId"))
+  : "";
 const initialState = {
   userInfo: userInfoFromLocal ? userInfoFromLocal.data : [],
   loading: false,
@@ -20,7 +23,7 @@ const initialState = {
   verifiedOfTutor: false,
   tutor: [],
   roleOfUser: "None",
-  roleId: "",
+  roleId: roleIdFromLocal ? roleIdFromLocal.data._id : "",
 };
 
 export const loginUser = createAsyncThunk(
@@ -51,6 +54,7 @@ export const getRoleId = createAsyncThunk(
     };
     try {
       const rs = await axios.get(`http://localhost:8797/user/${id}`, config);
+      localStorage.setItem("roleId", JSON.stringify(rs));
       return rs.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -60,6 +64,7 @@ export const getRoleId = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk("logoutUser", async () => {
   localStorage.removeItem("userInfo");
+  localStorage.removeItem("roleId");
 });
 
 export const registerUser = createAsyncThunk(
