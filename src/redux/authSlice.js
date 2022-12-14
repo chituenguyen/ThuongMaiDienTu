@@ -20,6 +20,7 @@ const initialState = {
   verifiedOfTutor: false,
   tutor: [],
   roleOfUser: "None",
+  roleId: "",
 };
 
 export const loginUser = createAsyncThunk(
@@ -33,6 +34,23 @@ export const loginUser = createAsyncThunk(
     try {
       const rs = await axios.post("http://localhost:8797/login", body, config);
       localStorage.setItem("userInfo", JSON.stringify(rs));
+      return rs.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getRoleId = createAsyncThunk(
+  "getRoleId",
+  async (id, { rejectWithValue }) => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    try {
+      const rs = await axios.get(`http://localhost:8797/user/${id}`, config);
       return rs.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -203,6 +221,9 @@ const authSlice = createSlice({
       .addCase(getAllCourseOfTutor.rejected, (state, action) => {
         state.message = action.payload.message;
         state.error = action.payload.error;
+      })
+      .addCase(getRoleId.fulfilled, (state, action) => {
+        state.roleId = action.payload._id;
       });
   },
 });

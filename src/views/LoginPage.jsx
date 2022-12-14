@@ -11,7 +11,7 @@ import {
 // import { AppContext } from "../context/role";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, getInformationOfUser } from "../redux/authSlice";
+import { loginUser, getInformationOfUser, getRoleId } from "../redux/authSlice";
 import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +79,7 @@ export default function Login() {
     const data = await dispatch(
       loginUser({ username: username, password: password })
     );
+    dispatch(getRoleId(data.payload.user._id))
     if (!!data?.payload?.user)
       await dispatch(getInformationOfUser(data.payload.user._id));
     if (!!data?.payload?.message) loginErrorModal(data.payload.message);
@@ -146,11 +147,7 @@ export default function Login() {
                   color="primary"
                   style={{ marginLeft: "auto" }}
                 >
-                  <Link
-                    to="/register"
-                  >
-                    Sign up
-                  </Link>
+                  <Link to="/register">Sign up</Link>
                 </Button>
               </ListItem>
             </List>

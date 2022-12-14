@@ -1,7 +1,5 @@
 import React from "react";
-import { Form, Input, Button, Select, Upload } from "antd";
-import { useMemo, useState, useEffect } from "react";
-import { UploadOutlined } from "@ant-design/icons";
+import { Form, Input, Select  } from "antd";
 
 const TutorProfile = ({userInfo}) => {
   return (
