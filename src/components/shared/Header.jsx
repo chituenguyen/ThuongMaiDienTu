@@ -4,6 +4,22 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/authSlice";
 import Swal from "sweetalert2";
+import { UserOutlined } from "@ant-design/icons"
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Space } from 'antd';
+
+const items = [
+  {
+    label: (
+      <Link
+        to="/profile"
+      >
+        Tthông tin cá nhân
+      </Link>
+    ),
+    key: '1',
+  }
+];
 
 const logoutConfirmModal = (setRole, setClickLogout) => {
   Swal.fire({
@@ -27,25 +43,13 @@ function Header() {
   const userInfo = useSelector((state) =>
     state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo
   );
-  console.log(userInfo);
-  useEffect(() => {}, [userInfo]);
+  useEffect(() => { }, [userInfo]);
 
   const roleOfUser = useSelector((state) => state.userLogin.roleOfUser);
   const [role, setRole] = useState(roleOfUser);
   const [clickLogout, setClickLogout] = useState(false);
 
   useEffect(() => {
-    {
-      userInfo
-        ? console.log("User role:", userInfo.role)
-        : console.log("not login yet");
-    }
-    // {
-    //   userInfo
-    //     ? setRole(userInfo.role)
-    //     : console.log("not login yet => not set role");
-    // }
-
     if (clickLogout) {
       logoutConfirmModal(setRole, setClickLogout);
       dispatch(logoutUser());
@@ -77,11 +81,10 @@ function Header() {
           <li>
             <Link
               to="/"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                address === ""
-                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                  : ""
-              }`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === ""
+                ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                : ""
+                }`}
             >
               Trang chủ
             </Link>
@@ -93,11 +96,10 @@ function Header() {
             <li>
               <Link
                 to="/become-tutor"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "become-tutor"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "become-tutor"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+                  }`}
               >
                 Trở thành gia sư
               </Link>
@@ -112,11 +114,10 @@ function Header() {
             <li>
               <Link
                 to="/find-jobs"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "find-jobs"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "find-jobs"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+                  }`}
               >
                 Tìm việc
               </Link>
@@ -131,11 +132,10 @@ function Header() {
             <li>
               <Link
                 to="/find-tutor"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "find-tutor"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "find-tutor"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+                  }`}
               >
                 Tìm gia sư
               </Link>
@@ -150,11 +150,10 @@ function Header() {
             <li>
               <Link
                 to="/parent-dashboard"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "parent-dashboard"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "parent-dashboard"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+                  }`}
               >
                 Việc đã đăng
               </Link>
@@ -166,11 +165,10 @@ function Header() {
           <li>
             <Link
               to="/about"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                address === "about"
-                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                  : ""
-              }`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "about"
+                ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                : ""
+                }`}
             >
               Về chúng tôi
             </Link>
@@ -182,11 +180,10 @@ function Header() {
             <li>
               <Link
                 to="/exam-schedule"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "exam-schedule"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
+                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "exam-schedule"
+                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                  : ""
+                  }`}
               >
                 Lịch dự thi
               </Link>
@@ -198,11 +195,10 @@ function Header() {
           <li>
             <Link
               to="/qa"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                address === "qa"
-                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                  : ""
-              }`}
+              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${address === "qa"
+                ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                : ""
+                }`}
             >
               Hỏi đáp
             </Link>
@@ -225,7 +221,21 @@ function Header() {
           </div>
         ) : (
           <div className="flex ml-auto gap-5 items-center">
-            <button className="button-header bg-red-400" onClick={handleLogout}>
+            <Dropdown
+              menu={{
+                items,
+              }}
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Space style={{cursor:"pointer"}}>
+                  <UserOutlined />
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>
+
+            <div>Xin chao {userInfo.user.fullname}</div>
+            <button className="button-header bg-red-400" name="logout" onClick={handleLogout}>
               Đăng xuất
             </button>
           </div>
