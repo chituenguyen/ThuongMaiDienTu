@@ -4,6 +4,16 @@ import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/authSlice";
 import Swal from "sweetalert2";
+import { UserOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
+
+const items = [
+  {
+    label: <Link to="/profile">Tthông tin cá nhân</Link>,
+    key: "1",
+  },
+];
 
 const logoutConfirmModal = (setRole, setClickLogout) => {
   Swal.fire({
@@ -21,29 +31,18 @@ const logoutConfirmModal = (setRole, setClickLogout) => {
     }
   });
 };
+
 function Header() {
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const userInfo = useSelector((state) =>
     state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo
   );
-  // console.log(userInfo);
-  // useEffect(() => {}, [userInfo]);
-
   const roleOfUser = useSelector((state) => state.userLogin.roleOfUser);
   const [role, setRole] = useState(roleOfUser);
   const [clickLogout, setClickLogout] = useState(false);
   useEffect(() => {
-    {
-      userInfo
-        ? console.log("User role:", roleOfUser)
-        : console.log("not login yet");
-    }
-    // {
-    //   userInfo
-    //     ? setRole(userInfo.role)
-    //     : console.log("not login yet => not set role");
-    // }
     if (clickLogout) {
       // logoutConfirmModal(setRole, setClickLogout);
       dispatch(logoutUser());
@@ -224,7 +223,25 @@ function Header() {
           </div>
         ) : (
           <div className="flex ml-auto gap-5 items-center">
-            <button className="button-header bg-red-400" onClick={handleLogout}>
+            <Dropdown
+              menu={{
+                items,
+              }}
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Space style={{ cursor: "pointer" }}>
+                  <UserOutlined />
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>
+
+            <div>Xin chao {userInfo.user.fullname}</div>
+            <button
+              className="button-header bg-red-400"
+              name="logout"
+              onClick={handleLogout}
+            >
               Đăng xuất
             </button>
           </div>

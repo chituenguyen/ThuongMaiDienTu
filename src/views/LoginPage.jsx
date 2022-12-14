@@ -114,6 +114,7 @@ export default function Login() {
             <label className={classes.label}>Username</label>
             <br></br>
             <input
+              name = "username"
               type="text"
               className={classes.input}
               autoFocus
@@ -123,6 +124,7 @@ export default function Login() {
             <label className={classes.label}>Password</label>
             <br></br>
             <input
+              name = "password"
               type="password"
               className={classes.input}
               onChange={(e) => setPassword(e.target.value)}
@@ -131,7 +133,7 @@ export default function Login() {
             {/* {message != "" ? <p style={{ color: "red" }}>{message}</p> : ""} */}
             <List>
               <ListItem>
-                <Button variant="contained" color="primary" type="submit">
+                <Button variant="contained" color="primary" type="submit" name="signin">
                   Sign in
                 </Button>
                 <Button
