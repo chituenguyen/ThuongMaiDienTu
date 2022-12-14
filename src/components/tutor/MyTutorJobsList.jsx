@@ -1,5 +1,5 @@
 import React from "react";
-import { Collapse, Col, Row, Card, Modal, Button } from "antd";
+import { Collapse, Col, Row, Card, Modal, Button, Radio, Space, Input } from "antd";
 import { useState } from "react";
 import { ClockCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 
@@ -65,12 +65,13 @@ const MyTutorJobsList = () => {
           <p>some messages...some messages...</p>
         </div>
       ),
-      onOk() {},
+      onOk() { },
       okText: "Xong",
     });
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = () => {
     // set current id
     setIsModalOpen(true);
@@ -83,6 +84,8 @@ const MyTutorJobsList = () => {
     // set current id null
     setIsModalOpen(false);
   };
+
+  const [modal2Open, setModal2Open] = useState(false);
 
   return (
     <div>
@@ -150,29 +153,36 @@ const MyTutorJobsList = () => {
                     </Row>
                   </Panel>
                 </Collapse>
-                <button
-                  type="button"
-                  className="mt-3 focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                  onClick={() => {}}
-                >
+                <button type="button" className="mt-3 focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 rounded-lg px-2 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700" onClick={() => setModal2Open(true)}>
                   Báo cáo sai phạm
                 </button>
+                <Modal
+                  title="Bạn muốn báo cáo sai phạm? Xin mời chọn nội dung sai phạm!"
+                  centered
+                  open={modal2Open}
+                  onOk={() => setModal2Open(false)}
+                  onCancel={() => setModal2Open(false)}
+                  width={800}
+                  okText="Gửi báo cáo"
+                  cancelText="Hủy bỏ"
+                >
+                  <p className="font-bold text-red-700 text-xl mb-3">Báo cáo sai phạm liên quan đến  phụ huynh {course.customer}!!!</p>
+                  <Radio.Group>
+                    <Space direction="vertical">
+                      <Radio value={1}>Phụ huynh này có dấu hiệu lừa đảo</Radio>
+                      <Radio value={2}>Phụ huynh có thái độ không tốt, gây ảnh hưởng lớn  đến tôi trong quá trình tôi giảng dạy</Radio>
+                      <Radio value={3}>Phụ huynh / Học sinh có hành động gây ảnh hưởng đến sức khỏe thể chất / tinh thần của tôi</Radio>
+                      <Input  placeholder="Ý kiến khác" />
+                    </Space>
+                  </Radio.Group>
+                </Modal>
               </Col>
             </Row>
           </Card>
         );
       })}
 
-      <Modal
-        title="Bạn có chắc chắn muốn nhận gia sư này?"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="Xác nhận"
-        cancelText="Hủy"
-      >
-        Xem kỹ thông tin của gia sư trước khi đồng ý nhận nhé !
-      </Modal>
+
     </div>
   );
 };

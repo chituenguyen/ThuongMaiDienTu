@@ -10,7 +10,7 @@ import { Dropdown, Space } from "antd";
 
 const items = [
   {
-    label: <Link to="/profile">Tthông tin cá nhân</Link>,
+    label: <Link to="/profile">Thông tin cá nhân</Link>,
     key: "1",
   },
 ];
@@ -236,7 +236,7 @@ function Header() {
               </a>
             </Dropdown>
 
-            <div>Xin chao {userInfo.user.fullname}</div>
+            <div>Xin chào {userInfo.user.fullname}</div>
             <button
               className="button-header bg-red-400"
               name="logout"

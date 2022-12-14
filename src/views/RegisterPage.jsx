@@ -1,6 +1,7 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import TeacherStudent from "../assets/TeacherStudent.png";
 import React, { useState, useEffect } from "react";
-import { Checkbox, Form, Input } from "antd";
+import { Checkbox, Form, Input} from "antd";
 import {
   Grid,
   Card,
@@ -11,6 +12,7 @@ import {
 } from "@material-ui/core";
 import { registerUser } from "../redux/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,7 +98,7 @@ export default function Signin() {
     <Grid container direction="row" spacing={0} className={classes.root}>
       <Grid item xs={6}>
         <img
-          src="https://st.quantrimang.com/photos/image/2019/04/24/multiplebackground-1.jpg"
+          src={TeacherStudent}
           style={{ height: "100%", width: "100%" }}
         ></img>
       </Grid>
@@ -113,9 +115,9 @@ export default function Signin() {
           style={{ padding: "35px 47px", height: "600px", width: "488px" }}
           className="flex flex-col  justify-center"
         >
-          <Typography className={classes.text20}>
-            Let's become one of us{" "}
-          </Typography>
+          <p className="font-bold text-2xl text-bktutor-blue flex text-center mb-3">
+            Cùng trở thành một thành viên của BKTutor nhé~
+          </p>
 
           <Form
             labelCol={{
@@ -127,13 +129,13 @@ export default function Signin() {
             onSubmit={handleSubmit}
           >
             <Form.Item
-              label="Username"
+              label="Tài khoản"
               name="username"
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Xin vui lòng điền tên tài khoản",
                 },
               ]}
             >
@@ -147,7 +149,7 @@ export default function Signin() {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email !",
+                  message: "Xin vui lòng điền email!",
                 },
               ]}
             >
@@ -155,13 +157,13 @@ export default function Signin() {
             </Form.Item>
 
             <Form.Item
-              label="Address"
+              label="Địa chỉ"
               name="address"
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your address !",
+                  message: "Xin vui lòng điền địa chỉ của bạn",
                 },
               ]}
             >
@@ -169,13 +171,13 @@ export default function Signin() {
             </Form.Item>
 
             <Form.Item
-              label="Full name"
+              label="Họ Tên"
               name="full name"
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your full name !",
+                  message: "Xin vui lòng điền họ và tên",
                 },
               ]}
             >
@@ -183,27 +185,28 @@ export default function Signin() {
             </Form.Item>
 
             <Form.Item
-              label="Role"
+              label="Vai trò"
               name="role"
+              
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your role !",
+                  message: "Bạn muốn đóng vai trò gì ở BKTutor?",
                 },
               ]}
             >
-              <Input onChange={(e) => setRole(e.target.value)} />
+              <Input placeholder = "Bạn là một gia sư, hay một phụ huynh?" onChange={(e) => setRole(e.target.value)} />
             </Form.Item>
 
             <Form.Item
-              label="Gender"
+              label="Giới tính"
               name="gender"
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your gender !",
+                  message: "Xin vui lòng cho chúng tôi biết giới tính của bạn",
                 },
               ]}
             >
@@ -211,13 +214,13 @@ export default function Signin() {
             </Form.Item>
 
             <Form.Item
-              label="Phone"
+              label="SĐT"
               name="phone"
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your phone number !",
+                  message: "Xin vui lòng nhập số điện thoại",
                 },
               ]}
             >
@@ -225,21 +228,33 @@ export default function Signin() {
             </Form.Item>
 
             <Form.Item
-              label="Password"
+              label="Mật khẩu"
               name="password"
               className={classes.label}
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Xin vui lòng nhập mật khẩu!",
                 },
               ]}
             >
               <Input.Password onChange={(e) => setPassword(e.target.value)} />
             </Form.Item>
 
-
-            <List>
+            <div  style={{ width: '100%' }}>
+              <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    onClick ={(e)=>{handleSubmit(e)}}
+                    name="signin"
+                    style={{ width: '100%' }}
+                >
+                    Đăng ký
+              </Button>
+              <p className="mt-2">Đã có tài khoản? <Link to="/login" className="font-bold text-blue-700">Click vào tôi để đăng nhập!</Link> </p>
+            </div>
+            {/* <List>
             <ListItem>
               <Button variant="contained" color="primary" type="submit" onClick ={(e)=>{handleSubmit(e)}}>
                 Sign up
@@ -252,7 +267,7 @@ export default function Signin() {
                 Sign In
               </Button>
             </ListItem>
-          </List>
+          </List> */}
           </Form>
           
         </Card>

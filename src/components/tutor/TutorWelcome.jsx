@@ -94,7 +94,7 @@ function TutorWelcomeSection() {
       <div className="flex-rows mb-10 text-3xl mt-10 mb-7 font-bold text-blue-900 text-center justify-items-center justify-center">
         <p>Xin chúc mừng, bạn đã trở thành một gia sư Bách Khoa chính thức!</p>
       </div>
-      <div className="object-section text-blue-900 border-2 shadow-md rounded-md ml-20 mr-20 mt-3 mb-3 bg-gray-200">
+      {/* <div className="object-section text-blue-900 border-2 shadow-md rounded-md ml-20 mr-20 mt-3 mb-3 bg-gray-200">
         <div className="flex text-center justify-items-center justify-center font-bold text-2xl">
           <p>Profile xịn xò của tôi</p>
         </div>
@@ -163,7 +163,7 @@ function TutorWelcomeSection() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="my-tutor-jobs-list-container m-10">
         <div className="flex-rows mb-10 text-3xl mt-10 mb-7 font-bold text-blue-900">
           <p>Danh sách công việc của tôi</p>
