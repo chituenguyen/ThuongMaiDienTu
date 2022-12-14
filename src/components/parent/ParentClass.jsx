@@ -33,6 +33,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
 import Applicant from "./Applicant";
+import { useSelector } from "react-redux";
+import { roleIdSelector } from "../../redux/selectors";
 
 const { Panel } = Collapse;
 
@@ -51,6 +53,8 @@ const ParentClass = ({
   openConfirmModal,
   setcurrentTutorInfo,
 }) => {
+  const roleID = useSelector(roleIdSelector);
+  console.log(roleID);
   const [currentStatus, setCurrentStatus] = useState(status);
   const [isLoading, setIsLoading] = useState(true);
   const [applicantList, setApplicantList] = useState([]);
@@ -96,9 +100,19 @@ const ParentClass = ({
   };
 
   const cancelCourse = (e) => {
-    // TODO: call api
-
-    message.success(`Hủy khóa thành công ${courseId}`);
+    axios
+      .delete(`${API_URL}/course/delete-course-by-customer`, {
+        data: {
+          data: {
+            _id: courseId,
+            customer: roleID,
+          },
+        },
+      })
+      .then((res) => {
+        setCurrentStatus("CANCEL");
+        message.success(`Hủy khóa thành công ${courseId}`);
+      });
   };
 
   return (
@@ -400,7 +414,7 @@ const ParentClass = ({
 
           {(currentStatus === "FINISH" || currentStatus === "CANCEL") && (
             <Button
-              className="mt-2 bg-red-400 font-bold"
+              className="mt-2 bg-[#2286da] font-bold"
               icon={<DollarCircleFilled style={{ verticalAlign: "middle" }} />}
             >
               Xem đánh giá

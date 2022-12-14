@@ -8,7 +8,7 @@ import axios from "axios";
 import { API_URL } from "../../constants/common";
 
 const ParentClassList = () => {
-  const userId = useSelector(roleIdSelector);
+  const roleID = useSelector(roleIdSelector);
   const [isLoading, setIsloading] = useState(true);
   const [isInfoOpen, setOpen] = useState(false);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -18,7 +18,7 @@ const ParentClassList = () => {
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `${API_URL}/course/get-list-course?id=${userId}`
+        `${API_URL}/course/get-list-course?id=${roleID}`
       );
       setCourseList(response?.data);
       setIsloading(false);

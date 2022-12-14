@@ -1,6 +1,23 @@
 import React from "react";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
+import { PlusOutlined } from "@ant-design/icons";
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Select,
+  Cascader,
+  DatePicker,
+  InputNumber,
+  TreeSelect,
+  Switch,
+  Checkbox,
+  Upload,
+} from "antd";
+
+const { RangePicker } = DatePicker;
+const { TextArea } = Input;
 
 const FindTutorForm = () => {
   const [inputs, setInputs] = useState({});
@@ -34,6 +51,10 @@ const FindTutorForm = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  const handleSelectChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(inputs);
@@ -49,7 +70,7 @@ const FindTutorForm = () => {
         >
           <label>
             Môn học:<span>&nbsp;</span>
-            <select
+            {/* <select
               className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
               name="subject"
               value={inputs.subject}
@@ -58,7 +79,18 @@ const FindTutorForm = () => {
               {subjects.map((subject) => {
                 return <option value={subject.value}>{subject.name}</option>;
               })}
-            </select>
+            </select> */}
+            <Select
+              mode="multiple"
+              allowClear
+              style={{
+                width: "100%",
+              }}
+              placeholder="Please select"
+              defaultValue={["a10", "c12"]}
+              onChange={handleSelectChange}
+              options={subjects}
+            />
           </label>
           <label>
             Lớp:<span>&nbsp;</span>
@@ -75,7 +107,7 @@ const FindTutorForm = () => {
           </label>
 
           <label>
-            Mức lương:<span>&nbsp;</span>
+            Tiền công:<span>&nbsp;</span>
             <input
               className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
               type="number"
@@ -83,15 +115,15 @@ const FindTutorForm = () => {
               value={inputs.salary || ""}
               onChange={handleChange}
             />
-            <span>&nbsp;</span>VND/giờ
+            <span>&nbsp;</span>
           </label>
           <label>
             Số lượng học sinh:<span>&nbsp;</span>
             <input
               className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
               type="number"
-              name="quantity"
-              value={inputs.quantity || ""}
+              name="numberOfStudent"
+              value={inputs.numberOfStudent || ""}
               onChange={handleChange}
             />
           </label>
@@ -127,7 +159,7 @@ const FindTutorForm = () => {
             value={inputs.description || ""}
             onChange={handleChange}
           ></textarea>
-          
+
           <button
             type="submit"
             className="bg-[#0E78C4] p-2 w-fit place-self-center text-white mt-2 font-bold"
