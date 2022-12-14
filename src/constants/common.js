@@ -17,3 +17,7 @@ export const listToString = (list) => {
 export const dateConvert = (dateString) => {
     return dateString.substr(0, 10);
 };
+
+export const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

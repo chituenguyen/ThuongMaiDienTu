@@ -5,9 +5,20 @@ import {
   SearchOutlined,
   CheckOutlined,
   CheckCircleOutlined,
+  CloseCircleFilled,
+  DollarCircleFilled,
+  CalendarOutlined,
+  UserOutlined,
+  BookOutlined,
+  NumberOutlined,
+  DollarCircleOutlined,
 } from "@ant-design/icons";
-import { Collapse, Col, Row, Card, Button } from "antd";
-import { listToString, dateConvert } from "../../constants/common";
+import { Collapse, Col, Row, Card, Button, Tag } from "antd";
+import {
+  listToString,
+  dateConvert,
+  numberWithCommas,
+} from "../../constants/common";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
@@ -36,14 +47,13 @@ const ParentClass = ({
         `${API_URL}/course/${courseId}/applied-tutors`
       );
       console.log(response?.data);
-      console.log(listToString(subjects));
       setApplicantList(response?.data);
     })();
   }, []);
 
   const onChange = (key) => {
     if (key.length != 0) {
-      console.log("fetch data");
+      // console.log("fetch data");
     }
   };
 
@@ -79,37 +89,88 @@ const ParentClass = ({
             <Col span={8}>Môn học:</Col>
             <Col span={15}>
               {subjects.map((subject) => (
-                <span className="border px-1 py-0.5 rounded mr-1 font-bold bg-[#bfdbfe]">{subject}</span>
+                <Tag
+                  key={subject}
+                  icon={<BookOutlined style={{ verticalAlign: "middle" }} />}
+                  color="processing"
+                  className="font-bold"
+                >
+                  {subject}
+                </Tag>
               ))}
             </Col>
           </Row>
           <Row className="mb-1.5">
             <Col span={8}>Lớp:</Col>
             <Col span={15}>
-              <span className="border p-1 rounded mr-1 font-bold bg-[#a8e890]">{grade}</span>
+              <Tag
+                icon={<NumberOutlined style={{ verticalAlign: "middle" }} />}
+                color="processing"
+                className="font-bold"
+              >
+                {grade}
+              </Tag>
             </Col>
           </Row>
-          <Row>
+          <Row className="mb-1.5">
             <Col span={8}>Số lượng học sinh:</Col>
-            <Col span={15}>{numberOfStudent}</Col>
+            <Col span={15}>
+              <Tag
+                icon={<UserOutlined style={{ verticalAlign: "middle" }} />}
+                color="processing"
+                className="font-bold"
+              >
+                {numberOfStudent}
+              </Tag>
+            </Col>
           </Row>
-          <Row>
-            <Col span={8}>Hạn đăng ký:</Col>
-            <Col span={15}>{dateConvert(deadline)}</Col>
-          </Row>
-          <Row>
-            <Col span={8}>Chi phí:</Col>
-            <Col span={15}>{salary} VND</Col>
-          </Row>
-          <Row>
+          <Row className="mb-1.5">
             <Col span={8}>Thời gian dạy:</Col>
             <Col span={15}>
-              {" "}
-              <span>{dateConvert(startDate)}</span> -{" "}
-              <span>{dateConvert(endDate)}</span>
+              <Tag
+                icon={<CalendarOutlined style={{ verticalAlign: "middle" }} />}
+                color="processing"
+                className="font-bold"
+              >
+                {dateConvert(startDate)}
+              </Tag>
+              -{"  "}
+              <Tag
+                icon={<CalendarOutlined style={{ verticalAlign: "middle" }} />}
+                color="processing"
+                className="font-bold"
+              >
+                {dateConvert(endDate)}
+              </Tag>
             </Col>
           </Row>
-          <Row>
+          <Row className="mb-1.5">
+            <Col span={8}>Hạn đăng ký:</Col>
+            <Col span={15}>
+              <Tag
+                icon={<CalendarOutlined style={{ verticalAlign: "middle" }} />}
+                color="warning"
+                className="font-bold"
+              >
+                {dateConvert(deadline)}
+              </Tag>
+            </Col>
+          </Row>
+          <Row className="mb-1.5">
+            <Col span={8}>Chi phí:</Col>
+            <Tag
+              color="success"
+              className="font-bold"
+              icon={
+                <DollarCircleOutlined style={{ verticalAlign: "middle" }} />
+              }
+            >
+              {numberWithCommas(salary)} VND
+            </Tag>
+            {/* <span className="px-1 py-0.5">VND</span> */}
+          </Row>
+
+          <Row className="mb-1.5">
             <Col span={8}>Mô tả:</Col>
             <Col span={15}>{description}</Col>
           </Row>
@@ -123,14 +184,16 @@ const ParentClass = ({
                   : applicantList.map((applicant) => (
                       <Applicant
                         key={applicant?._id}
-                        id={applicant?.tutor._id}
-                        verified={applicant?.tutor.verified}
-                        degree={applicant?.tutor.degree}
-                        facultity={applicant?.tutor.facultity}
-                        school={applicant?.tutor.school}
-                        description={applicant?.tutor.description}
-                        student_id={applicant?.tutor.student_id}
-                        rate_star={applicant?.tutor.rate_star}
+                        id={applicant?.tutor?._id}
+                        verified={applicant?.tutor?.verified}
+                        fullname={applicant?.tutor?.user?.fullname}
+                        phone={applicant?.tutor?.user?.phone_number}
+                        degree={applicant?.tutor?.degree}
+                        facultity={applicant?.tutor?.facultity}
+                        school={applicant?.tutor?.school}
+                        description={applicant?.tutor?.description}
+                        student_id={applicant?.tutor?.student_id}
+                        rate_star={applicant?.tutor?.rate_star}
                         setcurrentTutorInfo={setcurrentTutorInfo}
                         openConfirmModal={openConfirmModal}
                         openInfoModal={openInfoModal}
@@ -138,6 +201,43 @@ const ParentClass = ({
                     ))}
               </Panel>
             </Collapse>
+          )}
+
+          {status === "PENDING" && (
+            <div>
+              <div>Gia sư đang nhận</div>
+            </div>
+          )}
+        </Col>
+      </Row>
+
+      <Row>
+        <Col span={24} className="text-right">
+          {status === "PENDING" && (
+            <Button
+              className="mt-2 ml-1 bg-[#a8e890] font-bold"
+              icon={<DollarCircleFilled style={{ verticalAlign: "middle" }} />}
+            >
+              Thanh toán
+            </Button>
+          )}
+
+          {status === "FINISH" && (
+            <Button
+              className="mt-2 bg-red-400 font-bold"
+              icon={<DollarCircleFilled style={{ verticalAlign: "middle" }} />}
+            >
+              Xem đánh giá
+            </Button>
+          )}
+
+          {status !== "FINISH" && (
+            <Button
+              className="mt-2 ml-1 bg-red-400 text-white font-bold"
+              icon={<CloseCircleFilled style={{ verticalAlign: "middle" }} />}
+            >
+              Huỷ lớp
+            </Button>
           )}
         </Col>
       </Row>
@@ -148,6 +248,8 @@ const ParentClass = ({
 const Applicant = ({
   id,
   verified,
+  fullname,
+  phone,
   degree,
   facultity,
   school,
@@ -166,7 +268,7 @@ const Applicant = ({
       return newLoadings;
     });
 
-    setcurrentTutorInfo(id);
+    setcurrentTutorInfo(fullname);
 
     setTimeout(() => {
       setLoadings((prevLoadings) => {
@@ -181,7 +283,7 @@ const Applicant = ({
   return (
     <Row className="m-1">
       <Col span={12} className="align-middle h-full font-bold">
-        {id}
+        {fullname}
         {verified && (
           <span>
             {" "}

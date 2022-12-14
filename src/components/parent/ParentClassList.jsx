@@ -21,6 +21,7 @@ const ParentClassList = () => {
       const response = await axios.get(
         `${API_URL}/course/get-list-course?id=${"638f16240db95a581e3c11d9"}`
       );
+      console.log(response?.data);
       setCourseList(response?.data);
     })();
   }, []);
