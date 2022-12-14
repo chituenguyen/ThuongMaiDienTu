@@ -30,8 +30,9 @@ const MyTutorJobsList = () => {
       endate: "2022-12-10",
       numberOfStudent: 1,
       customer: "Nguyễn Thị A",
-      salary:"12.000.000",
-      parentcmt: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.", 
+      salary: "12.000.000",
+      parentcmt:
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
       __v: 0,
     },
     {
@@ -44,8 +45,9 @@ const MyTutorJobsList = () => {
       endate: "2022-10-01",
       numberOfStudent: 1,
       customer: "Nguyễn Thị B",
-      salary:"12.000.000",
-      parentcmt: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.", 
+      salary: "12.000.000",
+      parentcmt:
+        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
       __v: 0,
     },
   ];
@@ -84,9 +86,10 @@ const MyTutorJobsList = () => {
 
   return (
     <div>
-      {courseList.map((course) => {
+      {courseList.map((course, index) => {
         return (
           <Card
+            key={index}
             title={listToString(course.subjects)}
             extra={
               course.status === "ONGOING" ? (
@@ -138,23 +141,22 @@ const MyTutorJobsList = () => {
                   <Col span={8}>Tổng lương:</Col>
                   <Col span={15}>{course.salary} VND</Col>
                 </Row>
-
               </Col>
               <Col span={12} flex="end">
                 <Collapse onChange={onChange}>
                   <Panel header={"Xem nhận xét của phụ huynh"}>
                     <Row>
                       <Col span={30}>{course.parentcmt}</Col>
-                  
                     </Row>
-                  
                   </Panel>
                 </Collapse>
-                  <button type="button" className="mt-3 focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                  onClick={()=>{}}
-                  >
-                    Báo cáo sai phạm
-                  </button>
+                <button
+                  type="button"
+                  className="mt-3 focus:outline-none font-bold text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                  onClick={() => {}}
+                >
+                  Báo cáo sai phạm
+                </button>
               </Col>
             </Row>
           </Card>

@@ -11,7 +11,7 @@ import {
 // import { AppContext } from "../context/role";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/authSlice";
+import { loginUser, getInformationOfUser } from "../redux/authSlice";
 import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +79,9 @@ export default function Login() {
     const data = await dispatch(
       loginUser({ username: username, password: password })
     );
-    if (!!data.payload.message) loginErrorModal(data.payload.message);
+    if (!!data?.payload?.user)
+      await dispatch(getInformationOfUser(data.payload.user._id));
+    if (!!data?.payload?.message) loginErrorModal(data.payload.message);
   };
 
   useEffect(() => {
@@ -112,7 +114,7 @@ export default function Login() {
             <label className={classes.label}>Username</label>
             <br></br>
             <input
-              name = "username"
+              name="username"
               type="text"
               className={classes.input}
               autoFocus
@@ -122,7 +124,7 @@ export default function Login() {
             <label className={classes.label}>Password</label>
             <br></br>
             <input
-              name = "password"
+              name="password"
               type="password"
               className={classes.input}
               onChange={(e) => setPassword(e.target.value)}
@@ -131,7 +133,12 @@ export default function Login() {
             {/* {message != "" ? <p style={{ color: "red" }}>{message}</p> : ""} */}
             <List>
               <ListItem>
-                <Button variant="contained" color="primary" type="submit" name="signin">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  name="signin"
+                >
                   Sign in
                 </Button>
                 <Button
