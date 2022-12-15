@@ -1,172 +1,162 @@
 import React from "react";
 import { useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Checkbox,
-  Upload,
-} from "antd";
+import { Form, Input, Button, Select, DatePicker, InputNumber } from "antd";
+import { subjects, grades } from "../../constants/common";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const FindTutorForm = () => {
   const [inputs, setInputs] = useState({});
-  const [subjects, setSubjects] = useState([
-    { name: "Toán", value: "math" },
-    { name: "Lý", value: "physics" },
-    { name: "Hóa", value: "chemistry" },
-    { name: "Sinh", value: "biology" },
-    { name: "Tiếng Anh", value: "english" },
-  ]);
 
-  const [grades, setGrades] = useState([
-    { name: "1", value: 1 },
-    { name: "2", value: 2 },
-    { name: "3", value: 3 },
-    { name: "4", value: 4 },
-    { name: "5", value: 5 },
-    { name: "6", value: 6 },
-    { name: "7", value: 7 },
-    { name: "8", value: 8 },
-    { name: "9", value: 9 },
-    { name: "10", value: 10 },
-    { name: "11", value: 11 },
-    { name: "12", value: 12 },
-    { name: "Đại học", value: 13 },
-  ]);
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+  const onFinish = (values) => {
+    console.log("Success:", values);
   };
-
-  const handleSelectChange = (value) => {
-    console.log(`selected ${value}`);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
     <div className="flex flex-col py-10">
       <div className="place-self-center w-1/2 p-5">
         <h1 className="text-4xl mb-3 text-center font-bold">Tìm gia sư</h1>
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col p-5 bg-[#ecf4fa] rounded-md"
+        <Form
+          labelCol={{
+            span: 4,
+          }}
+          wrapperCol={{
+            span: 18,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
-          <label>
-            Môn học:<span>&nbsp;</span>
-            {/* <select
-              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              name="subject"
-              value={inputs.subject}
-              onChange={handleChange}
+          <Form.Item
+            label="Lớp"
+            name="grade"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn lớp!",
+              },
+            ]}
+          >
+            <Select
+              allowClear
+              style={{
+                width: "100%",
+              }}
+              placeholder="Chọn lớp"
             >
-              {subjects.map((subject) => {
-                return <option value={subject.value}>{subject.name}</option>;
-              })}
-            </select> */}
+              {grades.map((grade) => (
+                <Select.Option key={grade.value} value={grade.value}>
+                  {grade.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Môn học"
+            name="subjects"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn các môn học!",
+              },
+            ]}
+          >
             <Select
               mode="multiple"
               allowClear
               style={{
                 width: "100%",
               }}
-              placeholder="Please select"
-              defaultValue={["a10", "c12"]}
-              onChange={handleSelectChange}
-              options={subjects}
-            />
-          </label>
-          <label>
-            Lớp:<span>&nbsp;</span>
-            <select
-              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              name="grade"
-              value={inputs.grade}
-              onChange={handleChange}
+              placeholder="Chọn các môn học"
             >
-              {grades.map((grade) => {
-                return <option value={grade.value}>{grade.name}</option>;
-              })}
-            </select>
-          </label>
+              {subjects.map((subject) => (
+                <Select.Option key={subject.value} value={subject.value}>
+                  {subject.name}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
 
-          <label>
-            Tiền công:<span>&nbsp;</span>
-            <input
-              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              type="number"
-              name="salary"
-              value={inputs.salary || ""}
-              onChange={handleChange}
-            />
-            <span>&nbsp;</span>
-          </label>
-          <label>
-            Số lượng học sinh:<span>&nbsp;</span>
-            <input
-              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              type="number"
-              name="numberOfStudent"
-              value={inputs.numberOfStudent || ""}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Ngày bắt đầu:<span>&nbsp;</span>
-            <input
-              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              type="date"
-              name="startDate"
-              value={inputs.startDate || ""}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label>
-            Ngày kết thúc:<span>&nbsp;</span>
-            <input
-              className="h-[35px] mb-3 rounded-md px-2 border-2 text-black"
-              type="date"
-              name="endDate"
-              value={inputs.endDate || ""}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label>
-            Mô tả:<span>&nbsp;</span>
-          </label>
-          <textarea
-            className="rounded-md mb-3 px-2 border-2 text-black"
-            type="text"
-            name="description"
-            value={inputs.description || ""}
-            onChange={handleChange}
-          ></textarea>
-
-          <button
-            type="submit"
-            className="bg-[#0E78C4] p-2 w-fit place-self-center text-white mt-2 font-bold"
+          <Form.Item
+            label="Số lượng học sinh"
+            name="numberOfStudent"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập số lượng học sinh!",
+              },
+            ]}
           >
-            Đăng việc
-          </button>
-        </form>
+            <InputNumber />
+          </Form.Item>
+
+          <Form.Item
+            label="Thời gian"
+            name="range"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn thời gian!",
+              },
+            ]}
+          >
+            <RangePicker />
+          </Form.Item>
+
+          <Form.Item
+            label="Tiền công"
+            name="salary"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập tiền công!",
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+
+          <Form.Item
+            label="Hạn đăng ký"
+            name="deadline"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn hạn đăng ký!",
+              },
+            ]}
+          >
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item
+            label="Mô tả"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng nhập mô tả!",
+              },
+            ]}
+          >
+            <TextArea rows={4} />
+          </Form.Item>
+
+          <Form.Item
+            wrapperCol={{
+              offset: 11,
+              span: 13,
+            }}
+          >
+            <Button type="primary" htmlType="submit" className="font-bold">
+              Đăng việc
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

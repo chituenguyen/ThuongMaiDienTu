@@ -101,17 +101,10 @@ const ParentClass = ({
 
   const cancelCourse = (e) => {
     axios
-      .delete(`${API_URL}/course/delete-course-by-customer`, {
-        data: {
-          data: {
-            _id: courseId,
-            customer: roleID,
-          },
-        },
-      })
+      .patch(`${API_URL}/course/${courseId}/cancel`)
       .then((res) => {
         setCurrentStatus("CANCEL");
-        message.success(`Hủy khóa thành công ${courseId}`);
+        message.success(`Hủy lớp thành công!`);
       });
   };
 
