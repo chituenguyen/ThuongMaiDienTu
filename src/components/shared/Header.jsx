@@ -1,26 +1,64 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/logo.png";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { userInfoSelector } from "../../redux/selectors";
+import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/authSlice";
+import Swal from "sweetalert2";
+import { UserOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
+
+const items = [
+  {
+    label: <Link to="/profile">Thông tin cá nhân</Link>,
+    key: "1",
+  },
+];
+
+const logoutConfirmModal = (setRole, setClickLogout) => {
+  Swal.fire({
+    title: "Bạn có chắc",
+    text: "Bạn đang muốn đăng xuất khỏi website?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "Ở lại",
+    confirmButtonText: "Xác nhận",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      setRole("None");
+      setClickLogout(true);
+    }
+  });
+};
 
 function Header() {
-  const [role, setRole] = useState("None");
-  const userInfo = useSelector(userInfoSelector);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) =>
+    state.userLogin.userInfo.length == 0 ? [] : state.userLogin.userInfo
+  );
+  const roleOfUser = useSelector((state) => state.userLogin.roleOfUser);
+  const [role, setRole] = useState(roleOfUser);
+  const [clickLogout, setClickLogout] = useState(false);
   useEffect(() => {
-    {userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet")}
-    {userInfo ? setRole(userInfo.role) : console.log("not login yet => not set role")}
-  }, []);
-
-
-  let navigate = useNavigate();
-
-  const handleLogout = () => {
-    setRole("None");
-    navigate("/");
+    if (clickLogout) {
+      // logoutConfirmModal(setRole, setClickLogout);
+      dispatch(logoutUser());
+      navigate("/");
+    }
+    return () => {
+      setClickLogout(false);
+    };
+  }, [clickLogout]);
+  const handleLogin = () => {
+    dispatch(logoutUser());
   };
-
+  const handleLogout = () => {
+    logoutConfirmModal(setRole, setClickLogout);
+  };
   let pathname = window.location.href;
   let address = pathname.split("/")[3];
 
@@ -33,7 +71,7 @@ function Header() {
           className="h-[71px] w-[241px] mx-[83px] mb-[12px]"
         />
       </div>
-      <div className="flex px-[68px] items-center ">
+      <div className="flex px-[68px] items-center">
         <ul className="flex gap-[20px] ">
           <li>
             <Link
@@ -48,7 +86,9 @@ function Header() {
             </Link>
           </li>
 
-          {role == "tutor" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "tutor" ? (
             <li>
               <Link
                 to="/become-tutor"
@@ -61,9 +101,13 @@ function Header() {
                 Trở thành gia sư
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
-          {role == "tutor" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "tutor" ? (
             <li>
               <Link
                 to="/find-jobs"
@@ -76,9 +120,13 @@ function Header() {
                 Tìm việc
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
-          {role == "customer" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "customer" ? (
             <li>
               <Link
                 to="/find-tutor"
@@ -91,9 +139,13 @@ function Header() {
                 Tìm gia sư
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
-          {role == "customer" && (
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "customer" ? (
             <li>
               <Link
                 to="/parent-dashboard"
@@ -106,6 +158,8 @@ function Header() {
                 Việc đã đăng
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
           <li>
@@ -120,13 +174,15 @@ function Header() {
               Về chúng tôi
             </Link>
           </li>
-          
-          {role == "tutor" && (
+
+          {userInfo == undefined || userInfo.length == 0 ? (
+            ""
+          ) : userInfo.user.role == "tutor" ? (
             <li>
               <Link
                 to="/exam-schedule"
                 className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "parent-class-list"
+                  address === "exam-schedule"
                     ? "bg-blue-200 text-bktutor-blue font-extrabold"
                     : ""
                 }`}
@@ -134,6 +190,8 @@ function Header() {
                 Lịch dự thi
               </Link>
             </li>
+          ) : (
+            ""
           )}
 
           <li>
@@ -150,18 +208,41 @@ function Header() {
           </li>
         </ul>
 
-        {role == "None" ? (
+        {userInfo.length == 0 || userInfo == undefined ? (
           <div className="flex ml-auto gap-5 items-center">
-            <button className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300">
+            <button
+              onClick={() => handleLogin()}
+              className="button-header hover:bg-[#DDECF7] transition ease-in-out duration-300"
+            >
               Đăng ký
             </button>
             <Link to="/login">
-              <button className="button-header bg-[#0E78C4] text-white">Đăng nhập</button>
+              <button className="button-header bg-[#0E78C4] text-white">
+                Đăng nhập
+              </button>
             </Link>
           </div>
         ) : (
           <div className="flex ml-auto gap-5 items-center">
-            <button className="button-header bg-red-400" onClick={handleLogout}>
+            <Dropdown
+              menu={{
+                items,
+              }}
+            >
+              <a onClick={(e) => e.preventDefault()}>
+                <Space style={{ cursor: "pointer" }}>
+                  <UserOutlined />
+                  <DownOutlined />
+                </Space>
+              </a>
+            </Dropdown>
+
+            <div>Xin chào {userInfo.user.fullname}</div>
+            <button
+              className="button-header bg-red-400"
+              name="logout"
+              onClick={handleLogout}
+            >
               Đăng xuất
             </button>
           </div>

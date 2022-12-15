@@ -1,4 +1,6 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import TeacherStudent from "../assets/TeacherStudent.png";
+import logo from "../assets/logo.png";
 import React, { useState, useEffect } from "react";
 import {
   Grid,
@@ -9,11 +11,10 @@ import {
   Button,
 } from "@material-ui/core";
 // import { AppContext } from "../context/role";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/authSlice";
-
-
+import { loginUser, getInformationOfUser, getRoleId } from "../redux/authSlice";
+import Swal from "sweetalert2";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "12px",
     outline: "none",
     padding: "16px 12px",
+    border: "1px solid #404D61",
   },
   label: {
     marginBottom: "16px",
@@ -58,7 +60,13 @@ const useStyles = makeStyles((theme) => ({
     height: "40px",
   },
 }));
-
+const loginErrorModal = (message) => {
+  Swal.fire({
+    icon: "error",
+    title: message,
+    text: "Something went wrong!",
+  });
+};
 export default function Login() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -66,16 +74,19 @@ export default function Login() {
   const theme = useTheme();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const userLogin=useSelector(state=>state.userLogin)
-  const {message,error,loading,userInfo}=userLogin
-  const handleSubmit = (e) => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { message, error, loading, userInfo } = userLogin;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser({
-      "username":username,
-      "password":password
-    }))
+    const data = await dispatch(
+      loginUser({ username: username, password: password })
+    );
+    dispatch(getRoleId(data.payload.user._id))
+    if (!!data?.payload?.user)
+      await dispatch(getInformationOfUser(data.payload.user._id));
+    if (!!data?.payload?.message) loginErrorModal(data.payload.message);
   };
-  // console.log(userInfo)
+
   useEffect(() => {
     if (!Array.isArray(userInfo) && !userInfo.length) {
       navigate("/");
@@ -86,7 +97,7 @@ export default function Login() {
     <Grid container direction="row" spacing={0} className={classes.root}>
       <Grid item xs={6}>
         <img
-          src="https://st.quantrimang.com/photos/image/2019/04/24/multiplebackground-1.jpg"
+          src={TeacherStudent}
           style={{ height: "100%", width: "100%" }}
         ></img>
       </Grid>
@@ -100,36 +111,47 @@ export default function Login() {
         }}
       >
         <Card style={{ padding: "62px 29px", height: "441px", width: "472px" }}>
-          <Typography className={classes.text20}>Welcome to Virsity</Typography>
+          <div className="flex flex-col text-center mb-3">
+            <div className="flex justify-items-center justify-center"><img src={logo}
+              style={{ height: "30%", width: "30%" }}>
+
+            </img></div>
+              <p className="font-bold text-2xl text-bktutor-blue">Xin chào đến với BKTutor!</p>
+          </div>
 
           <form onSubmit={handleSubmit}>
-            <label className={classes.label}>Username</label>
+            <label className="font-bold">Tài khoản</label>
             <br></br>
             <input
+              name="username"
               type="text"
               className={classes.input}
+              autoFocus
               onChange={(e) => setUsername(e.target.value)}
             ></input>
             <br></br>
-            <label className={classes.label}>Password</label>
+            <label className="font-bold">Mật khẩu</label>
             <br></br>
-            <input type="password" className={classes.input} onChange={(e) => setPassword(e.target.value)}></input>
+            <input
+              name="password"
+              type="password"
+              className={classes.input}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
             <br></br>
-            {message!=''? <p style={{color:"red"}}>{message}</p>:''}
-            <List>
-              <ListItem>
-                <Button variant="contained" color="primary" type="submit">
-                  Sign in
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginLeft: "auto" }}
+            {/* {message != "" ? <p style={{ color: "red" }}>{message}</p> : ""} */}
+            <div  style={{ width: '100%' }}>
+              <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    name="signin"
+                    style={{ width: '100%' }}
                 >
-                  Sign Up
-                </Button>
-              </ListItem>
-            </List>
+                    Đăng nhập
+              </Button>
+            </div>
+            <p className="mt-5">Chưa có tài khoản? <Link to="/register" className="font-bold text-blue-700">Click vào tôi để đăng ký!</Link> </p>
           </form>
         </Card>
       </Grid>

@@ -1,15 +1,23 @@
 import React from 'react'
+import { useEffect } from 'react';
+import questions from '../../constants/questions.json'
+const QuizSection = ({answers, setAnswers, question} ) => {
 
-const QuizSetion = ({ quiz_number }) => {
-
+  const handleClickRadio = (questionId, choosenOption)=>{
+    console.log(`Click ${questionId} choose ${choosenOption}`);
+    answers[questionId] = choosenOption;
+    setAnswers(answers);
+    console.log(`Trong component con ${answers}`)
+  };
+  
   return (
     <>
       <div className='quiz-infor-section grid grid-cols-10 gap-7 mt-5 px-[68px] text-black py-5 box-border'>
         <div className='box-border quiz-info'>
           <div className='p-2 shadow-md bg-gray-100 rounded-sm col-span-1'>
-            <h4 className='quiz-number font-black'>Câu hỏi {quiz_number}</h4>
+            <h4 className='quiz-number font-black'>Câu hỏi {question.id}</h4>
             <div className='state font-light' >
-              Chưa trả lời
+              {answers[question.id] === undefined ? "Chưa trả lời": "Đã trả lời"}
             </div>
           </div>
         </div>
@@ -17,22 +25,10 @@ const QuizSetion = ({ quiz_number }) => {
           <div claredme='quiz-question-section'>
             <div className='quiz-question bg-blue-100 p-2 box-border'>
               <div className="flow-root">
-                <div className="my-4">To express an arithmetic expression, there are 5 following classNamees:</div>
+                <div className="my-4">{question.header}</div>
               </div>
               <div className="flow-root">
-                <div className="my-4">Exp: general arithmetic expression
-
-                  BinExp: an arithmetic expression that contains one binary operators (+,-,*,/) and two operands. To construct a BinExp object, you must pass parameters: first operand, operator, second operand, respectively.
-
-                  UnExp: an arithmetic expression that contains one unary operator (+,-) and one operand. To construct a UnExp object, you must pass the operator first.
-
-                  IntLit: an arithmetic expression that contains one integer number
-
-                  FloatLit: an arithmetic expression that contains one floating point number
-
-                  Define these classes in Python (their parents, attributes, methods) such that their objects can response to eval() message by returning the value of the expression. For example, let object x express the arithmetic expression 3 + 4 * 2.0, x.eval() must return 11.0
-
-                  In this exercise, we use:
+                <div className="my-4">{question.content}
                 </div>
               </div>
             </div>
@@ -40,25 +36,12 @@ const QuizSetion = ({ quiz_number }) => {
           <div className='box-border quiz-answers-section '>
 
             <div className='quiz-answers flex flex-col'>
-              <div className='flex items-center mr-4'>
-                <input type="radio" id="blue-radio" value="Male" name="answer" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">A</label>
+              {question.options.map((answer, index) =>{
+              return <div key={index} className='flex items-center mr-4' onClick={()=>{handleClickRadio(question.id, index)}}>
+                <input type="radio" id="blue-radio" value={index} name={`anwser${index}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">{answer}</label>
               </div>
-
-              <div className="flex items-center mr-4">
-                <input type="radio" id="blue-radio" value="Male" name="answer" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">B</label>
-              </div>
-
-              <div className="flex items-center mr-4">
-                <input type="radio" id="blue-radio" value="Male" name="answer" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">C</label>
-              </div>
-
-              <div className="flex items-center mr-4">
-                <input type="radio" id="blue-radio" value="Male" name="answer" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">D</label>
-              </div>
+              })}
             </div>
 
           </div>
@@ -70,6 +53,11 @@ const QuizSetion = ({ quiz_number }) => {
 
 function QuizAttemptSection() {
   const [showModal, setShowModal] = React.useState(false);
+  const [answers, setAnswers] = React.useState(Array(10));
+  useEffect(()=>{
+    console.log("useEffect")
+    console.log(answers)
+  }, [answers]);
   return (
     <>
       <div className='test-infor-section flex gap-7 mt-5 px-[68px] text-black py-5 box-border'>
@@ -84,11 +72,9 @@ function QuizAttemptSection() {
 
       </div>
       <div className='box-border quiz-section border-2 shadow-md m-3'>
-        <QuizSetion quiz_number={1} />
-        <QuizSetion quiz_number={2} />
-        <QuizSetion quiz_number={3} />
-        <QuizSetion quiz_number={4} />
-        <QuizSetion quiz_number={5} />
+        {questions.map(question =>{
+          return <QuizSection key={question.id} answers={answers} setAnswers={setAnswers} question={question}></QuizSection>
+        })}
         <div className='flex justify-center mt-1 mb-4'>
           <div className="flex justify-center">
             <button
