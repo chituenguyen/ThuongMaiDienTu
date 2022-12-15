@@ -55,7 +55,6 @@ const ParentClass = ({
   setcurrentTutorInfo,
 }) => {
   const roleID = useSelector(roleIdSelector);
-  console.log(roleID);
   const [currentStatus, setCurrentStatus] = useState(status);
   const [isLoading, setIsLoading] = useState(true);
   const [applicantList, setApplicantList] = useState([]);
