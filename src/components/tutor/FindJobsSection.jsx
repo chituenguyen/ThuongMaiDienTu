@@ -223,7 +223,7 @@ const CardJob = ({nameStudent,
 //       );
 //     return response?.data;
 // }
-const ObjectSection = async({ objectName, id }) => {
+const ObjectSection = ({ objectName, id }) => {
     console.log('123')
     const listTest = [
         {

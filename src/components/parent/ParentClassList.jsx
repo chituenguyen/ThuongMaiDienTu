@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Col, Row, Rate, Skeleton } from "antd";
+import { Modal, Button, Col, Row, Rate, Skeleton, Checkbox } from "antd";
 import { useState, useEffect } from "react";
 import ParentClass from "./ParentClass";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ const ParentClassList = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [courseList, setCourseList] = useState([]);
   const [currentTutorInfo, setcurrentTutorInfo] = useState();
+  const [filter, setFilter] = useState(["OPEN", "ONGOING", "FINISH", "CANCEL"]);
 
   useEffect(() => {
     (async () => {
@@ -24,6 +25,10 @@ const ParentClassList = () => {
       setIsloading(false);
     })();
   }, [isLoading]);
+
+  const onChange = (checkedValues) => {
+    setFilter([checkedValues]);
+  };
 
   const openInfoModal = () => {
     setOpen(true);
@@ -50,6 +55,19 @@ const ParentClassList = () => {
 
   return (
     <div>
+      <Checkbox.Group
+        className="justify-self-end"
+        style={{
+          width: "100%",
+        }}
+        onChange={onChange}
+        defaultValue={filter}
+      >
+        <Checkbox value="OPEN">Đang tìm</Checkbox>
+        <Checkbox value="ONGOING">Đang dạy</Checkbox>
+        <Checkbox value="FINISH">Hoàn thành</Checkbox>
+        <Checkbox value="CANCEL">Đã hủy</Checkbox>
+      </Checkbox.Group>
       {isLoading && <Skeleton active />}
 
       {courseList.map((course) => {
