@@ -27,7 +27,7 @@ const ParentClassList = () => {
   }, [isLoading]);
 
   const onChange = (checkedValues) => {
-    setFilter([checkedValues]);
+    setFilter(checkedValues);
   };
 
   const openInfoModal = () => {
@@ -68,30 +68,36 @@ const ParentClassList = () => {
         <Checkbox value="FINISH">Hoàn thành</Checkbox>
         <Checkbox value="CANCEL">Đã hủy</Checkbox>
       </Checkbox.Group>
+
       {isLoading && <Skeleton active />}
 
-      {courseList.map((course) => {
-        return (
-          <ParentClass
-            key={course._id}
-            courseId={course._id}
-            subjects={course.subjects.map((subject) => {
-              return subject.name;
-            })}
-            status={course.status}
-            grade={course.grade.name}
-            numberOfStudent={course.numberOfStudent}
-            description={course.description}
-            deadline={course.deadline}
-            salary={course.salary}
-            startDate={course.startDate}
-            endDate={course.endDate}
-            openInfoModal={openInfoModal}
-            openConfirmModal={openConfirmModal}
-            setcurrentTutorInfo={setcurrentTutorInfo}
-          />
-        );
-      })}
+      {!isLoading &&
+        courseList
+          .filter((course) => {
+            return filter.includes(course.status);
+          })
+          .map((course) => {
+            return (
+              <ParentClass
+                key={course._id}
+                courseId={course._id}
+                subjects={course.subjects.map((subject) => {
+                  return subject.name;
+                })}
+                status={course.status}
+                grade={course.grade.name}
+                numberOfStudent={course.numberOfStudent}
+                description={course.description}
+                deadline={course.deadline}
+                salary={course.salary}
+                startDate={course.startDate}
+                endDate={course.endDate}
+                openInfoModal={openInfoModal}
+                openConfirmModal={openConfirmModal}
+                setcurrentTutorInfo={setcurrentTutorInfo}
+              />
+            );
+          })}
 
       <Modal
         open={isInfoOpen}
