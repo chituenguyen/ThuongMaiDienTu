@@ -81,9 +81,11 @@ export default function Login() {
     const data = await dispatch(
       loginUser({ username: username, password: password })
     );
-    dispatch(getRoleId(data.payload.user._id));
-    if (!!data?.payload?.user)
+
+    if (!!data?.payload?.user) {
       await dispatch(getInformationOfUser(data.payload.user._id));
+      await dispatch(getRoleId(data.payload.user._id));
+    }
     if (!!data?.payload?.message) loginErrorModal(data.payload.message);
   };
 

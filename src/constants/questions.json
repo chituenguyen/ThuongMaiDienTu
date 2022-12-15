@@ -1,14 +1,69 @@
 [
   {
-    "id": 0,
-    "header": "Math",
-    "content": "Answer the question: ....",
-    "options": ["Caua trả lời 1", "2", "3", "4"]
+    "id": 1,
+    "header": "Hóa học",
+    "content": "Nung hỗn hợp gồm 0,3 mol Fe và 0,2 mol S cho đến khi kết thúc phản ứng thu được chất rắn A. Cho A tác dụng với dung dịch HCl dư, thu được khí B. Tỉ khối của B so với không khí là:",
+    "options": ["0,8045", "0,7560.", "0,7320.", "0,9800."]
   },
   {
-    "id": 0,
-    "header": "Selection",
-    "content": "Answer the question: ....",
-    "options": ["Câu trả lời 1", "Đây là câu trả lời 2", "3333", "4444"]
+    "id": 2,
+    "header": "Lịch sử",
+    "content": "Một thành tựu lớn của kinh tế Mĩ trong những năm 1945 – 1973 chứng tỏ Mĩ đã rất thành công khi tiến hành cuộc 'cách mạng xanh' trong nông nghiệp là",
+    "options": [
+      "sản lượng công nghiệp Mĩ chiếm 40% sản lượng công nghiệp toàn thế giới.",
+      "công nghiệp tăng 27% so với trước chiến tranh.",
+      "kinh tế Mĩ chiếm 25% tổng sản phẩm kinh tế thế giới.",
+      "sản lượng nông nghiệp bằng hai lần Anh, Pháp, Nhật Bản, Tây Đức và Italia cộng lại"
+    ]
+  },
+  {
+    "id": 3,
+    "header": "English",
+    "content": "The new policies include cutting ______ subsidies and trade barriers.",
+    "options": [
+      "agriculture.",
+      "agricultural",
+      "agriculturalist.",
+      "agriculturally."
+    ]
+  },
+  {
+    "id": 4,
+    "header": "Sinh học",
+    "content": "Dựa trên cơ sở sinh học, tại sao pháp luật nghiêm cấm kết hôn trong phạm vi 3 đời?",
+    "options": [
+      "Ảnh hưởng đến chất lượng dân số.",
+      "Làm cho các đột biến lặn có hại được biểu hiện ở cơ thể đồng hợp",
+      "Tăng áp lực và chí phí xã hội.",
+      "Cả 3 đáp án trên."
+    ]
+  },
+  {
+    "id": 5,
+    "header": "Vật lý",
+    "content": "Một con lắc lò xo đang dao động điều hòa với biên độ 5 cm và chu kì 0,5 s trên mặt phẳng nằm ngang. Khi vật nhỏ của con lắc có tốc độ v thì người ta giữ chặt một điểm trên lò xo, vật tiếp tục dao động điều hòa với biên độ 2,25 cm và chu kì 0,25 s. Giá trị của v gần nhất với giá trị nào sau đây?",
+    "options": ["50 cm/s", "60 cm/s.", "70 cm/s.", "40 cm/s."]
+  },
+  {
+    "id": 6,
+    "header": "Địa lý",
+    "content": "Hệ sinh thái rừng đặc trưng cho khí hậu nóng ẩm là:",
+    "options": [
+      "rừng nhiệt đới ẩm gió mùa thường xanh.",
+      "rừng rậm nhiệt đới ẩm lá rộng thường xanh",
+      "rừng nhiệt đới gió mùa nửa rụng lá.",
+      "rừng thưa nhiệt đới khô."
+    ]
+  },
+  {
+    "id": 7,
+    "header": "Ngữ văn",
+    "content": "'Tiếng nói là thứ của cải vô cùng lâu đời và vô cùng quý báu của dân tộc. Chúng ta phải giữ gìn nó, quý trọng nó, làm cho nó phổ biến ngày càng rộng khắp.' Lời phát biểu trên là của ai? Mối quan hệ giữa hai câu trong lời phát biểu đó là mối quan hệ gì?",
+    "options": [
+      "Người nói: Bác Hồ, quan hệ: nhân quả",
+      "Người nói: Phạm Văn Đồng, quan hệ: nhân quả.",
+      "Người nói: Bác Hồ, quan hệ: nhượng bộ.",
+      "Người nói: Chế Lan Viên, quan hệ: nhân quả."
+    ]
   }
 ]
