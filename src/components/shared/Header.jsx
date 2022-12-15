@@ -54,7 +54,8 @@ function Header() {
     };
   }, [clickLogout]);
   const handleLogin = () => {
-    dispatch(logoutUser());
+    // dispatch(logoutUser());
+    navigate("/register");
   };
   const handleLogout = () => {
     logoutConfirmModal(setRole, setClickLogout);
@@ -107,7 +108,7 @@ function Header() {
 
           {userInfo == undefined || userInfo.length == 0 ? (
             ""
-          ) : userInfo.user.role == "tutor" ? (
+          ) : userInfo.user.role == "tutor" && userInfo.user.verified ? (
             <li>
               <Link
                 to="/find-jobs"

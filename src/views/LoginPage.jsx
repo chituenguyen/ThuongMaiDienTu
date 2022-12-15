@@ -98,7 +98,8 @@ export default function Login() {
       <Grid item xs={6}>
         <img
           src={TeacherStudent}
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: "100%", width: "100%"}}
+          
         ></img>
       </Grid>
       <Grid
