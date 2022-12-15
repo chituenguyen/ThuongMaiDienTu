@@ -3,13 +3,11 @@ import { useEffect } from 'react';
 import questions from '../../constants/questions.json'
 const QuizSection = ({answers, setAnswers, question} ) => {
 
-  const handleClickRadio = (questionId, choosenOption)=>{
-    console.log(`Click ${questionId} choose ${choosenOption}`);
-    answers[questionId] = choosenOption;
-    setAnswers(answers);
-    console.log(`Trong component con ${answers}`)
+  const handleClickRadio = (choosenOption)=>{
+    let temp = [...answers];
+    temp[question.id] = choosenOption;
+    setAnswers(temp);
   };
-  
   return (
     <>
       <div className='quiz-infor-section grid grid-cols-10 gap-7 mt-5 px-[68px] text-black py-5 box-border'>
@@ -36,10 +34,10 @@ const QuizSection = ({answers, setAnswers, question} ) => {
           <div className='box-border quiz-answers-section '>
 
             <div className='quiz-answers flex flex-col'>
-              {question.options.map((answer, index) =>{
-              return <div key={index} className='flex items-center mr-4' onClick={()=>{handleClickRadio(question.id, index)}}>
-                <input type="radio" id="blue-radio" value={index} name={`anwser${index}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">{answer}</label>
+              {question.options.map((option, optionIndex) =>{
+                return <div key={optionIndex} className='flex items-center mr-4' onClick={()=>{handleClickRadio(optionIndex)}}>
+                <input type="radio" id="blue-radio" value={optionIndex} name={`anwser${question.id}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring- blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                <label className="ml-2 text-lg font-extrabold text-black-900 dark:text-black-300">{option}</label>
               </div>
               })}
             </div>
@@ -55,9 +53,8 @@ function QuizAttemptSection() {
   const [showModal, setShowModal] = React.useState(false);
   const [answers, setAnswers] = React.useState(Array(10));
   useEffect(()=>{
-    console.log("useEffect")
-    console.log(answers)
-  }, [answers]);
+    console.log('Answers thay doi', answers)
+  },[...answers])  
   return (
     <>
       <div className='test-infor-section flex gap-7 mt-5 px-[68px] text-black py-5 box-border'>
