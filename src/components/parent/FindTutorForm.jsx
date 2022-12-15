@@ -22,6 +22,7 @@ const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const FindTutorForm = () => {
+  const [form] = Form.useForm();
   const roleID = useSelector(roleIdSelector);
   const onFinish = (values) => {
     const body = {
@@ -39,6 +40,7 @@ const FindTutorForm = () => {
 
     axios.post(`${API_URL}/course`, body).then((res) => {
       message.success(`Đăng việc thành công!`);
+      form.resetFields();
     });
   };
   const onFinishFailed = (errorInfo) => {
@@ -50,6 +52,7 @@ const FindTutorForm = () => {
       <div className="place-self-center w-1/2 p-5">
         <h1 className="text-4xl mb-3 text-center font-bold">Tìm gia sư</h1>
         <Form
+          form={form}
           labelCol={{
             span: 4,
           }}
