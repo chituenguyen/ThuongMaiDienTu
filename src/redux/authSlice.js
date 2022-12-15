@@ -125,7 +125,7 @@ export const getInformationOfUser = createAsyncThunk(
   }
 );
 export const getAllCourseOfTutor = createAsyncThunk(
-  "getAllCourseAcceptOfTutor",
+  "getAllCourseOfTutor",
   async (tutorId, { rejectWithValue }) => {
     try {
       const _url = "/tutor/" + String(tutorId) + "/applied-courses";
