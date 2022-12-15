@@ -259,7 +259,7 @@ const ObjectSection = async({ objectName, id }) => {
                     return <CardJob key = {course.id} nameStudent = {course.name} nameSubject = {course.nameStudent} grade = {course.grade}
                     timeStart = {course.timeStart} description = {course.description} address = {course.address} salary = {course.salary} />
                 })} */}
-                <CardJob key = {'1'} nameStudent = {'abc'} nameSubject = {'abc'} grade = {'abc'}
+                {/* <CardJob key = {'1'} nameStudent = {'abc'} nameSubject = {'abc'} grade = {'abc'} */}
                     {/* timeStart = {'abc'} description = {'abc'} address = {'abc'} salary = {'abc'} /> */}
                 
 
