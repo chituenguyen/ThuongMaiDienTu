@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button, Col, Row, Rate, Skeleton, Checkbox } from "antd";
+import { Modal, Button, Col, Row, Rate, Skeleton, Checkbox, Card } from "antd";
 import { useState, useEffect } from "react";
 import ParentClass from "./ParentClass";
 import { useSelector } from "react-redux";
@@ -24,7 +24,7 @@ const ParentClassList = () => {
       setCourseList(response?.data);
       setIsloading(false);
     })();
-  }, [isLoading]);
+  }, [isLoading, filter]);
 
   const onChange = (checkedValues) => {
     setFilter(checkedValues);
@@ -40,34 +40,23 @@ const ParentClassList = () => {
     setOpen(false);
   };
 
-  const openConfirmModal = () => {
-    // set current id
-    setIsConfirmOpen(true);
-  };
-  const handleConfirmOk = () => {
-    // set current id null
-    setIsConfirmOpen(false);
-  };
-  const handleConfirmCancel = () => {
-    // set current id null
-    setIsConfirmOpen(false);
-  };
-
   return (
     <div>
-      <Checkbox.Group
-        className="justify-self-end"
-        style={{
-          width: "100%",
-        }}
-        onChange={onChange}
-        defaultValue={filter}
-      >
-        <Checkbox value="OPEN">Đang tìm</Checkbox>
-        <Checkbox value="ONGOING">Đang dạy</Checkbox>
-        <Checkbox value="FINISH">Hoàn thành</Checkbox>
-        <Checkbox value="CANCEL">Đã hủy</Checkbox>
-      </Checkbox.Group>
+      <Card>
+        <Checkbox.Group
+          className="justify-self-end"
+          style={{
+            width: "100%",
+          }}
+          onChange={onChange}
+          defaultValue={filter}
+        >
+          <Checkbox value="OPEN">Đang tìm</Checkbox>
+          <Checkbox value="ONGOING">Đang dạy</Checkbox>
+          <Checkbox value="FINISH">Hoàn thành</Checkbox>
+          <Checkbox value="CANCEL">Đã hủy</Checkbox>
+        </Checkbox.Group>
+      </Card>
 
       {isLoading && <Skeleton active />}
 
@@ -93,7 +82,6 @@ const ParentClassList = () => {
                 startDate={course.startDate}
                 endDate={course.endDate}
                 openInfoModal={openInfoModal}
-                openConfirmModal={openConfirmModal}
                 setcurrentTutorInfo={setcurrentTutorInfo}
               />
             );
@@ -183,17 +171,6 @@ const ParentClassList = () => {
         </Row>
 
         <div>{currentTutorInfo?.verified}</div>
-      </Modal>
-
-      <Modal
-        title="Bạn có chắc chắn muốn xóa công việc này không?"
-        open={isConfirmOpen}
-        onOk={handleConfirmOk}
-        onCancel={handleConfirmCancel}
-        okText="Xác nhận"
-        cancelText="Hủy"
-      >
-        Xem kỹ thông tin của gia sư trước khi đồng ý nhận bạn nhé !
       </Modal>
     </div>
   );

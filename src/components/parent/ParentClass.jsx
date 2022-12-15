@@ -51,7 +51,6 @@ const ParentClass = ({
   startDate,
   endDate,
   openInfoModal,
-  openConfirmModal,
   setcurrentTutorInfo,
 }) => {
   const roleID = useSelector(roleIdSelector);
