@@ -12,7 +12,7 @@ const axiosClient = axios.create({
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : "";
-  const roleIdFromLocal = localStorage.getItem("roleId")
+const roleIdFromLocal = localStorage.getItem("roleId")
   ? JSON.parse(localStorage.getItem("roleId"))
   : "";
 const initialState = {
@@ -24,6 +24,7 @@ const initialState = {
   tutor: [],
   roleOfUser: "None",
   roleId: roleIdFromLocal ? roleIdFromLocal.data._id : "",
+  link: "",
 };
 
 export const loginUser = createAsyncThunk(
@@ -37,6 +38,30 @@ export const loginUser = createAsyncThunk(
     try {
       const rs = await axios.post("http://localhost:8797/login", body, config);
       localStorage.setItem("userInfo", JSON.stringify(rs));
+      return rs.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getMomo = createAsyncThunk(
+  "getMomo",
+
+  async ({ money, token }, { rejectWithValue }) => {
+    console.log(money,token)
+    const config={
+      headers:{
+          'Content-type':'application/json',
+          Authorization:`Bearer ${token}`
+      }
+  }
+    try {
+      const rs = await axios.post(
+        "http://localhost:8797/transaction/bill-infor",
+        { "amount": money },
+        config
+      );
       return rs.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -148,19 +173,6 @@ export const getInformationOfSubject = createAsyncThunk(
   }
 );
 
-// example code function
-// export function testData (subjectId, done) {
-//   T.get(url, result => {
-//     if (result.error) {
-//         // T.notify('Lỗi khi lấy thông tin học phí!', 'danger');
-//         // console.error(result.error);
-//     } else {
-//         done && done(result);
-//         // dispatch({ type: SvHocPhi, result });
-//     }
-//   });
-// }
-
 const authSlice = createSlice({
   name: "userAuthentication",
   initialState,
@@ -242,6 +254,10 @@ const authSlice = createSlice({
       })
       .addCase(getRoleId.fulfilled, (state, action) => {
         state.roleId = action.payload._id;
+      })
+      .addCase(getMomo.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.link = action.payload.qrCodeUrl;
       });
   },
 });
