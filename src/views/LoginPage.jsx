@@ -81,7 +81,7 @@ export default function Login() {
     const data = await dispatch(
       loginUser({ username: username, password: password })
     );
-    dispatch(getRoleId(data.payload.user._id))
+    dispatch(getRoleId(data.payload.user._id));
     if (!!data?.payload?.user)
       await dispatch(getInformationOfUser(data.payload.user._id));
     if (!!data?.payload?.message) loginErrorModal(data.payload.message);
@@ -98,8 +98,10 @@ export default function Login() {
       <Grid item xs={6}>
         <img
           src={TeacherStudent}
-          style={{ height: "100%", width: "100%"}}
-          
+          style={{
+            height: window.innerHeight + "px",
+            width: window.innerWidth + "px",
+          }}
         ></img>
       </Grid>
       <Grid
@@ -113,11 +115,12 @@ export default function Login() {
       >
         <Card style={{ padding: "62px 29px", height: "441px", width: "472px" }}>
           <div className="flex flex-col text-center mb-3">
-            <div className="flex justify-items-center justify-center"><img src={logo}
-              style={{ height: "30%", width: "30%" }}>
-
-            </img></div>
-              <p className="font-bold text-2xl text-bktutor-blue">Xin chào đến với BKTutor!</p>
+            <div className="flex justify-items-center justify-center">
+              <img src={logo} style={{ height: "30%", width: "30%" }}></img>
+            </div>
+            <p className="font-bold text-2xl text-bktutor-blue">
+              Xin chào đến với BKTutor!
+            </p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -141,18 +144,23 @@ export default function Login() {
             ></input>
             <br></br>
             {/* {message != "" ? <p style={{ color: "red" }}>{message}</p> : ""} */}
-            <div  style={{ width: '100%' }}>
+            <div style={{ width: "400px" }}>
               <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    name="signin"
-                    style={{ width: '100%' }}
-                >
-                    Đăng nhập
+                variant="contained"
+                color="primary"
+                type="submit"
+                name="signin"
+                style={{ width: "100%" }}
+              >
+                Đăng nhập
               </Button>
             </div>
-            <p className="mt-5">Chưa có tài khoản? <Link to="/register" className="font-bold text-blue-700">Click vào tôi để đăng ký!</Link> </p>
+            <p className="mt-5">
+              Chưa có tài khoản?{" "}
+              <Link to="/register" className="font-bold text-blue-700">
+                Click vào tôi để đăng ký!
+              </Link>{" "}
+            </p>
           </form>
         </Card>
       </Grid>

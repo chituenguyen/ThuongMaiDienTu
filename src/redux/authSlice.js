@@ -12,7 +12,7 @@ const axiosClient = axios.create({
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : "";
-  const roleIdFromLocal = localStorage.getItem("roleId")
+const roleIdFromLocal = localStorage.getItem("roleId")
   ? JSON.parse(localStorage.getItem("roleId"))
   : "";
 const initialState = {
@@ -100,7 +100,7 @@ export const getInformationOfUser = createAsyncThunk(
   }
 );
 export const getAllCourseOfTutor = createAsyncThunk(
-  "getAllCourseAcceptOfTutor",
+  "getAllCourseOfTutor",
   async (tutorId, { rejectWithValue }) => {
     try {
       const _url = "/tutor/" + String(tutorId) + "/applied-courses";

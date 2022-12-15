@@ -65,7 +65,6 @@ function TutorWelcomeSection() {
     };
     tutor.verified && getListCourseOfTutor();
   }, [dispatch]);
-  console.log("listCourse: ", listCourse);
   const { TextArea } = Input;
   const normFile = (e) => {
     console.log("Upload event:", e);
@@ -168,7 +167,7 @@ function TutorWelcomeSection() {
         <div className="flex-rows mb-10 text-3xl mt-10 mb-7 font-bold text-blue-900">
           <p>Danh sách công việc của tôi</p>
         </div>
-        <MyTutorJobsList />
+        <MyTutorJobsList listCourse={listCourse} />
         <div className="flex-rows mb-10 text-3xl mt-10 mb-7 font-bold text-blue-900">
           <p>Bảng lương của tôi</p>
         </div>
