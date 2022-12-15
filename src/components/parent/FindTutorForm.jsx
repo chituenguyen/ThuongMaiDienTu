@@ -120,7 +120,12 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber
+              placeholder="Nhập số lượng học sinh"
+              style={{
+                width: "30%",
+              }}
+            />
           </Form.Item>
 
           <Form.Item
@@ -133,7 +138,10 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <RangePicker format={dateFormat} />
+            <RangePicker
+              format={dateFormat}
+              placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
+            />
           </Form.Item>
 
           <Form.Item
@@ -146,7 +154,12 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <InputNumber />
+            <InputNumber
+              placeholder="Nhập số tiền"
+              style={{
+                width: "30%",
+              }}
+            />
           </Form.Item>
 
           <Form.Item
@@ -159,7 +172,7 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <DatePicker format={dateFormat} />
+            <DatePicker format={dateFormat} placeholder="Hạn đăng ký" />
           </Form.Item>
 
           <Form.Item
@@ -172,7 +185,7 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <TextArea rows={4} />
+            <TextArea rows={4} placeholder="Nhập mô tả" />
           </Form.Item>
 
           <Form.Item
