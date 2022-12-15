@@ -148,6 +148,19 @@ export const getInformationOfSubject = createAsyncThunk(
   }
 );
 
+// example code function
+// export function testData (subjectId, done) {
+//   T.get(url, result => {
+//     if (result.error) {
+//         // T.notify('Lỗi khi lấy thông tin học phí!', 'danger');
+//         // console.error(result.error);
+//     } else {
+//         done && done(result);
+//         // dispatch({ type: SvHocPhi, result });
+//     }
+//   });
+// }
+
 const authSlice = createSlice({
   name: "userAuthentication",
   initialState,

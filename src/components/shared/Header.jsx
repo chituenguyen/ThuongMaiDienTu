@@ -10,20 +10,21 @@ import { Dropdown, Space } from "antd";
 
 const items = [
   {
-    label: <Link to="/profile">Tthông tin cá nhân</Link>,
+    label: <Link to="/profile">Thông tin cá nhân</Link>,
     key: "1",
   },
 ];
 
 const logoutConfirmModal = (setRole, setClickLogout) => {
   Swal.fire({
-    title: "Are you sure?",
-    text: "Do you want to sign out of the earth?",
+    title: "Bạn có chắc",
+    text: "Bạn đang muốn đăng xuất khỏi website?",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Confirm",
+    cancelButtonText: "Ở lại",
+    confirmButtonText: "Xác nhận",
   }).then((result) => {
     if (result.isConfirmed) {
       setRole("None");
@@ -236,7 +237,7 @@ function Header() {
               </a>
             </Dropdown>
 
-            <div>Xin chao {userInfo.user.fullname}</div>
+            <div>Xin chào {userInfo.user.fullname}</div>
             <button
               className="button-header bg-red-400"
               name="logout"

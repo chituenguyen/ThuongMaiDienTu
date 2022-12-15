@@ -1,4 +1,6 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import TeacherStudent from "../assets/TeacherStudent.png";
+import logo from "../assets/logo.png";
 import React, { useState, useEffect } from "react";
 import {
   Grid,
@@ -95,7 +97,7 @@ export default function Login() {
     <Grid container direction="row" spacing={0} className={classes.root}>
       <Grid item xs={6}>
         <img
-          src="https://st.quantrimang.com/photos/image/2019/04/24/multiplebackground-1.jpg"
+          src={TeacherStudent}
           style={{ height: "100%", width: "100%" }}
         ></img>
       </Grid>
@@ -109,10 +111,16 @@ export default function Login() {
         }}
       >
         <Card style={{ padding: "62px 29px", height: "441px", width: "472px" }}>
-          <Typography className={classes.text20}>Welcome to Virsity</Typography>
+          <div className="flex flex-col text-center mb-3">
+            <div className="flex justify-items-center justify-center"><img src={logo}
+              style={{ height: "30%", width: "30%" }}>
+
+            </img></div>
+              <p className="font-bold text-2xl text-bktutor-blue">Xin chào đến với BKTutor!</p>
+          </div>
 
           <form onSubmit={handleSubmit}>
-            <label className={classes.label}>Username</label>
+            <label className="font-bold">Tài khoản</label>
             <br></br>
             <input
               name="username"
@@ -122,7 +130,7 @@ export default function Login() {
               onChange={(e) => setUsername(e.target.value)}
             ></input>
             <br></br>
-            <label className={classes.label}>Password</label>
+            <label className="font-bold">Mật khẩu</label>
             <br></br>
             <input
               name="password"
@@ -132,25 +140,18 @@ export default function Login() {
             ></input>
             <br></br>
             {/* {message != "" ? <p style={{ color: "red" }}>{message}</p> : ""} */}
-            <List>
-              <ListItem>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  name="signin"
+            <div  style={{ width: '100%' }}>
+              <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    name="signin"
+                    style={{ width: '100%' }}
                 >
-                  Sign in
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginLeft: "auto" }}
-                >
-                  <Link to="/register">Sign up</Link>
-                </Button>
-              </ListItem>
-            </List>
+                    Đăng nhập
+              </Button>
+            </div>
+            <p className="mt-5">Chưa có tài khoản? <Link to="/register" className="font-bold text-blue-700">Click vào tôi để đăng ký!</Link> </p>
           </form>
         </Card>
       </Grid>

@@ -219,7 +219,7 @@ const ObjectSection = ({ objectName, id }) => {
 
                 <CardJob />
 
-                <CardJob />
+                {/* <CardJob /> */}
 
                 <div className="flex justify-center">
                     <PaginationNav1Presentation />
@@ -242,15 +242,15 @@ const FindJobsSection = () => {
 
             <ObjectSection objectName={math} id="math" />
 
-            <ObjectSection objectName={english} id="english" />
+            {/* <ObjectSection objectName={english} id="english" />
 
             <ObjectSection objectName={physics} id="physics" />
 
             <ObjectSection objectName={biology} id="biology" />
 
-            <ObjectSection objectName={chemistry} id="chemistry" />
+            <ObjectSection objectName={chemistry} id="chemistry" /> */}
 
-            <ObjectSection objectName={nationalExam} id="nationalExam" />
+            {/* <ObjectSection objectName={nationalExam} id="nationalExam" /> */}
 
 
 

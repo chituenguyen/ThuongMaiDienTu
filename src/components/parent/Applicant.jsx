@@ -4,15 +4,16 @@ import {
   CheckOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { Col, Row, Button } from "antd";
+import { Col, Row, Button, message, Popconfirm, Tooltip } from "antd";
 
 import { useState } from "react";
-
 const Applicant = ({
   id,
   verified,
   fullname,
   phone,
+  gender,
+  email,
   degree,
   facultity,
   school,
@@ -20,8 +21,9 @@ const Applicant = ({
   student_id,
   rate_star,
   setcurrentTutorInfo,
-  openConfirmModal,
   openInfoModal,
+  acceptTutor,
+  setSelectedTutor,
 }) => {
   const [loadings, setLoadings] = useState([]);
   const enterLoading = (index) => {
@@ -36,6 +38,8 @@ const Applicant = ({
       verified: verified,
       fullname: fullname,
       phone: phone,
+      gender: gender,
+      email: email,
       degree: degree,
       facultity: facultity,
       school: school,
@@ -53,7 +57,11 @@ const Applicant = ({
         return newLoadings;
       });
       openInfoModal();
-    }, 400);
+    }, 100);
+  };
+
+  const openAcceptBox = () => {
+    setSelectedTutor(id);
   };
 
   return (
@@ -61,15 +69,17 @@ const Applicant = ({
       <Col span={12} className="align-middle h-full font-bold">
         {fullname}
         {verified && (
-          <span>
-            {" "}
-            <CheckCircleOutlined
-              style={{
-                verticalAlign: "middle",
-              }}
-              className="text-green"
-            />
-          </span>
+          <Tooltip title="Đã xác minh">
+            <span>
+              {" "}
+              <CheckCircleOutlined
+                style={{
+                  verticalAlign: "middle",
+                }}
+                className="text-green"
+              />
+            </span>
+          </Tooltip>
         )}
       </Col>
       <Col span={12} className="text-right">
@@ -87,20 +97,26 @@ const Applicant = ({
         >
           Xem
         </Button>
-        <Button
-          className="hover:bg-[#bfdbfe]"
-          onClick={openConfirmModal}
-          // type="primary"
-          icon={
-            <CheckOutlined
-              style={{
-                verticalAlign: "middle",
-              }}
-            />
-          }
+        <Popconfirm
+          title="Bạn có chắc chắn muốn nhận gia sư này không?"
+          onConfirm={acceptTutor}
+          okText="Đồng ý"
+          cancelText="Không"
         >
-          Nhận
-        </Button>
+          <Button
+            className="hover:bg-[#bfdbfe]"
+            onClick={openAcceptBox}
+            icon={
+              <CheckOutlined
+                style={{
+                  verticalAlign: "middle",
+                }}
+              />
+            }
+          >
+            Nhận
+          </Button>
+        </Popconfirm>
       </Col>
     </Row>
   );
