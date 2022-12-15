@@ -11,6 +11,7 @@ import {
   BookOutlined,
   NumberOutlined,
   DollarCircleOutlined,
+  UnorderedListOutlined
 } from "@ant-design/icons";
 import {
   Collapse,
@@ -147,7 +148,7 @@ const ParentClass = ({
           )}
 
           {currentStatus === "CANCEL" && (
-            <span className="text-[#f29339] font-bold">
+            <span className="text-red-400 font-bold">
               Đã hủy{"  "}
               <StopFilled
                 style={{
@@ -373,13 +374,13 @@ const ParentClass = ({
 
           {currentStatus === "FINISH" && !isLoading && (
             <div>
-              <div>Xem nhận xét</div>
+              <div>Lớp đã hoàn thành</div>
             </div>
           )}
 
           {currentStatus === "CANCEL" && !isLoading && (
             <div>
-              <div>Xem nhận xét</div>
+              <div>Lớp đã hủy</div>
             </div>
           )}
         </Col>
@@ -407,14 +408,14 @@ const ParentClass = ({
 
           {(currentStatus === "FINISH" || currentStatus === "CANCEL") && (
             <Button
-              className="mt-2 bg-[#2286da] font-bold"
-              icon={<DollarCircleFilled style={{ verticalAlign: "middle" }} />}
+              className="mt-2 bg-[#2286da] font-bold text-white"
+              icon={<UnorderedListOutlined style={{ verticalAlign: "middle" }} />}
             >
               Xem đánh giá
             </Button>
           )}
 
-          {currentStatus !== "FINISH" && (
+          {currentStatus !== "FINISH" && currentStatus != "CANCEL" && (
             <Popconfirm
               title="Bạn có chắc chắn muốn hủy lớp này không?"
               onConfirm={cancelCourse}

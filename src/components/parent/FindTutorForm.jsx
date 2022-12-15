@@ -1,16 +1,45 @@
 import React from "react";
-import { useState } from "react";
-import { Form, Input, Button, Select, DatePicker, InputNumber } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  DatePicker,
+  InputNumber,
+  message,
+} from "antd";
 import { subjects, grades } from "../../constants/common";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
+import { useSelector } from "react-redux";
+import { roleIdSelector } from "../../redux/selectors";
+import { API_URL } from "../../constants/common";
+import axios from "axios";
 
+const dateFormat = "YYYY/MM/DD";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const FindTutorForm = () => {
-  const [inputs, setInputs] = useState({});
-
+  const roleID = useSelector(roleIdSelector);
   const onFinish = (values) => {
-    console.log("Success:", values);
+    const body = {
+      subjects: values.subjects,
+      grade: values.grade,
+      description: values.description,
+      status: "OPEN",
+      deadline: values.deadline.format(dateFormat),
+      salary: values.salary,
+      numberOfStudent: values.numberOfStudent,
+      startDate: values.range[0].format(dateFormat),
+      endDate: values.range[1].format(dateFormat),
+      customer: roleID,
+    };
+
+    axios.post(`${API_URL}/course`, body).then((res) => {
+      message.success(`Đăng việc thành công!`);
+    });
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -104,7 +133,7 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <RangePicker />
+            <RangePicker format={dateFormat} />
           </Form.Item>
 
           <Form.Item
@@ -130,7 +159,7 @@ const FindTutorForm = () => {
               },
             ]}
           >
-            <DatePicker />
+            <DatePicker format={dateFormat} />
           </Form.Item>
 
           <Form.Item
