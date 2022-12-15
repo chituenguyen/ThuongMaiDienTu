@@ -174,7 +174,7 @@ function TutorSection() {
                 {/* ===================================================*/}
             </div>
             <div className="tutor-take-exam-section mt-10 mb-10">
-                <h1 className='text-3xl mt-10 font-bold text-blue-900 text-center'>KHOANNN, DỪNG KHOẢNG CHỪNG 2S!! </h1>
+                <h1 className='text-3xl mt-10 font-bold text-blue-900 text-center'>KHOAN, DỪNG KHOẢNG CHỪNG 2S!! </h1>
                 <h1 className='text-3xl font-bold text-blue-900 text-center'>KỲ THI TUYỂN CHỌN GIA SƯ ĐANG DIỄN RA</h1>
                 <h1 className='text-3xl mb-7 font-bold text-blue-900 text-center'>HÃY THAM GIA THỬ SỨC NẾU BẠN MONG MUỐN TRỞ THÀNH 1 BKTUTOR!!</h1>
 

@@ -1,7 +1,38 @@
-import React from "react";
-import { Form, Input, Select  } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Select } from "antd";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import { Button, Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import {getMomo} from '../../redux/authSlice'
+
 
 const ParentProfile = ({ userInfo }) => {
+  const token = userInfo.accessToken
+  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [money, setMoney] = useState(0);
+  const link = userInfo.user.link
+
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleOk = () => {
+    dispatch(getMomo({"money":money,"token":token})).then(res =>{
+      console.log(res.payload.qrCodeUrl);
+      window.open(res.payload.qrCodeUrl, '_blank', 'noopener,noreferrer');
+    })
+
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 3000);
+  };
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
   return (
     <div>
       <div className="tutor-welcome-section">
@@ -48,7 +79,23 @@ const ParentProfile = ({ userInfo }) => {
                     />
                   </Form.Item>
 
-                  <Form.Item label="Số dư">
+                  <Form.Item
+                    label={
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "10px",
+                          alignItems: "center",
+                        }}
+                      >
+                        Số dư{" "}
+                        <PlusCircleOutlined
+                          style={{ cursor: "pointer" }}
+                          onClick={showModal}
+                        />
+                      </div>
+                    }
+                  >
                     <Input value={userInfo.user.balance} disabled />
                   </Form.Item>
                 </Form>
@@ -57,6 +104,20 @@ const ParentProfile = ({ userInfo }) => {
           </div>
         </div>
       </div>
+      <Modal
+        title="Nạp tiền vào tài khoản"
+        open={open}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <Form.Item label="Số tiền">
+          <Input
+            value={money}
+            onChange={(e)=>setMoney(e.target.value)}
+          />
+        </Form.Item>
+      </Modal>
     </div>
   );
 };
