@@ -2,7 +2,10 @@ import React from "react";
 import userIMG from "../../assets/userIMG.jpg";
 import zaloIcon from "../../assets/zalo-icon.png";
 import PaginationNav1Presentation from "./Pagination.jsx";
-
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { API_URL } from "../../constants/common";
 function RadioGroupPresentation() {
     const handleClick = (name) => {
         document.getElementById(name).scrollIntoView();
@@ -64,7 +67,14 @@ function RadioGroupPresentation() {
 }
 
 
-const CardJob = () => {
+const CardJob = ({nameStudent,
+        nameSubject,
+        grade,
+        timeStart,
+        description,
+        address,
+        salary}
+    ) => {
     const [showModal, setShowModal] = React.useState(false);
     return (
         <div className="find-jobs-section flex justify-center mt-5 mb-5">
@@ -89,32 +99,32 @@ const CardJob = () => {
                 </div>
                 <div className="card-context m-5 mr-25">
                     <div className="card-user-name text-xl font-bold">
-                        Nguyễn Ngọc Diệp
+                        {nameStudent}
                     </div>
 
                     <div className="card-user-desire-subject text-lg">
-                        Toán
+                        {nameSubject}
                     </div>
                     <div className="card-user-desire-subject text-lg">
-                        11
+                        {grade}
                     </div>
 
                     <div className="text-gray-600 mt-3">
-                        9:59 PM 20/11/2022
+                       {timeStart}
                     </div>
 
                     <hr className="my-4 h-px bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
                     <div className="card-user-main-context">
                         <div className="card-user-descriptions text-md text-gray-600">
-                            Mình cần tìm gia sư dạy toán cho bé nhà, bé chăm học nhưng hiểu hơi chậm
+                            {description}
                         </div>
 
                         <div className="card-user-location mt-3">
                             <div>
                                 <svg className="w-6 h-6 stroke-gray-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 <span className="inline-block align-text-top ml-3 text-gray-600 text-md ">
-                                    Đông Hòa, Dĩ An, Bình Dương
+                                    {address}
                                 </span>
                             </div>
                         </div>
@@ -132,7 +142,7 @@ const CardJob = () => {
                             <div>
                                 <svg className="w-6 h-6 stroke-gray-600 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <span className="inline-block align-text-top ml-3 text-gray-600 text-md ">
-                                    1.500.000/tháng
+                                    {salary}/tháng
                                 </span>
                             </div>
                         </div>
@@ -207,8 +217,37 @@ const CardJob = () => {
         </div>
     )
 }
-
-const ObjectSection = ({ objectName, id }) => {
+// const sourceOpen = async () => {
+//     const response = await axios.get(
+//         `${API_URL}/course/get-open-course`
+//       );
+//     return response?.data;
+// }
+const ObjectSection = async({ objectName, id }) => {
+    console.log('123')
+    const listTest = [
+        {
+        nameStudent: 'Kong cute',
+        nameSubject: 'Hoa',
+        grade: 'DH',
+        timeStart: 'abcxyz',
+        description: 'anbass',
+        address: 'Dong Hoa',
+        salary: '2000000',
+        }
+    ]
+    
+    useEffect(() => {
+        console.log('Dda vao');
+      (async () => {
+        const response = await axios.get(
+          `${API_URL}/course/get-open-course`
+        );
+        console.log(response);
+        setIsloading(false);
+      })();
+    }, []);
+  
     let classID = id;
     return (
         <div id={classID}>
@@ -216,8 +255,13 @@ const ObjectSection = ({ objectName, id }) => {
                 <div className="object-title-section">
                     <div className="text-3xl font-extrabold m-3">MÔN {objectName}</div>
                 </div>
-
-                <CardJob />
+                {/* {listTest.map(course => {
+                    return <CardJob key = {course.id} nameStudent = {course.name} nameSubject = {course.nameStudent} grade = {course.grade}
+                    timeStart = {course.timeStart} description = {course.description} address = {course.address} salary = {course.salary} />
+                })} */}
+                <CardJob key = {'1'} nameStudent = {'abc'} nameSubject = {'abc'} grade = {'abc'}
+                    {/* timeStart = {'abc'} description = {'abc'} address = {'abc'} salary = {'abc'} /> */}
+                
 
                 {/* <CardJob /> */}
 
@@ -238,7 +282,7 @@ const FindJobsSection = () => {
     let nationalExam = "ÔN THI THPT";
     return (
         <>
-            <RadioGroupPresentation />
+            {/* <RadioGroupPresentation /> */}
 
             <ObjectSection objectName={math} id="math" />
 
