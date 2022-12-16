@@ -34,7 +34,7 @@ import {
   dateConvert,
   numberWithCommas,
 } from "../../constants/common";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
 import Applicant from "./Applicant";
@@ -67,6 +67,8 @@ const ParentClass = ({
   const [acceptedTutor, setAcceptedTutor] = useState();
   const [finishedTutor, setFinishedTutor] = useState();
   const [feedback, setFeedback] = useState("");
+  const feedbackRef = useRef();
+  feedbackRef.current = feedback;
 
   useEffect(() => {
     (async () => {
@@ -117,9 +119,9 @@ const ParentClass = ({
         </div>
       ),
       onOk() {
-        setTimeout(() => {
-          console.log(feedback);
-        }, 100);
+        console.log(feedbackRef.current);
+        // TODO: Call API
+
         message.success(`Đã đánh giá gia sư!`);
       },
       onCancel() {
@@ -130,7 +132,7 @@ const ParentClass = ({
 
   const payCourse = (e) => {
     // TODO: call api
-
+    setCurrentStatus("FINISH")
     message.success(`Thanh toán thành công!`);
   };
 
@@ -495,7 +497,7 @@ const ParentClass = ({
         </Col>
       </Row>
 
-      {/* {currentStatus !== "CANCEL" && ( */}
+      {currentStatus !== "CANCEL" && (
       <Row>
         <Col span={24} className="text-right">
           {currentStatus === "ONGOING" && (
@@ -545,7 +547,7 @@ const ParentClass = ({
           )}
         </Col>
       </Row>
-      {/* )} */}
+      )}
     </Card>
   );
 };
