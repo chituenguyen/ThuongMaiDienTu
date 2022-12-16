@@ -39,7 +39,7 @@ import axios from "axios";
 import { API_URL } from "../../constants/common";
 import Applicant from "./Applicant";
 import { useSelector } from "react-redux";
-import { roleIdSelector } from "../../redux/selectors";
+import { roleIdSelector, userInfoSelector } from "../../redux/selectors";
 
 const { Panel } = Collapse;
 const { confirm } = Modal;
@@ -60,6 +60,8 @@ const ParentClass = ({
   setcurrentTutorInfo,
 }) => {
   const roleID = useSelector(roleIdSelector);
+  const sourceID = useSelector(userInfoSelector)._id;
+
   const [currentStatus, setCurrentStatus] = useState(status);
   const [isLoading, setIsLoading] = useState(true);
   const [applicantList, setApplicantList] = useState([]);
@@ -119,10 +121,15 @@ const ParentClass = ({
         </div>
       ),
       onOk() {
-        console.log(feedbackRef.current);
-        // TODO: Call API
-
-        message.success(`Đã đánh giá gia sư!`);
+        const body = {
+          courseId: courseId,
+          customerId: roleID,
+          tutorId: finishedTutor._id,
+          description: feedbackRef.current,
+        };
+        axios.post(`${API_URL}/feedback`, body).then((res) => {
+          message.success(`Gửi đánh giá thành công!`);
+        });
       },
       onCancel() {
         setFeedback("");
@@ -131,9 +138,19 @@ const ParentClass = ({
   };
 
   const payCourse = (e) => {
-    // TODO: call api
-    setCurrentStatus("FINISH")
-    message.success(`Thanh toán thành công!`);
+    const body = {
+      source: sourceID,
+      destination: acceptedTutor?.user?._id,
+      amount: salary.toString(),
+      courseId: courseId,
+    };
+
+    axios.post(`${API_URL}/transaction/payment`, body).then((res) => {
+      setCurrentStatus("FINISH");
+      message.success(
+        `Thanh toán thành công ${numberWithCommas(salary)} cho gia sư!`
+      );
+    });
   };
 
   const cancelCourse = (e) => {
@@ -498,55 +515,57 @@ const ParentClass = ({
       </Row>
 
       {currentStatus !== "CANCEL" && (
-      <Row>
-        <Col span={24} className="text-right">
-          {currentStatus === "ONGOING" && (
-            <Popconfirm
-              title="Bạn có chắc chắn muốn thanh toán cho gia sư không?"
-              onConfirm={payCourse}
-              okText="Đồng ý"
-              cancelText="Không"
-            >
+        <Row>
+          <Col span={24} className="text-right">
+            {currentStatus === "ONGOING" && (
+              <Popconfirm
+                title="Bạn có chắc chắn muốn thanh toán cho gia sư không?"
+                onConfirm={payCourse}
+                okText="Đồng ý"
+                cancelText="Không"
+              >
+                <Button
+                  className="mt-2 ml-1 bg-[#a8e890] font-bold"
+                  icon={
+                    <DollarCircleFilled style={{ verticalAlign: "middle" }} />
+                  }
+                >
+                  Thanh toán
+                </Button>
+              </Popconfirm>
+            )}
+
+            {(currentStatus === "FINISH" || currentStatus === "CANCEL") && (
               <Button
-                className="mt-2 ml-1 bg-[#a8e890] font-bold"
+                className="mt-2 bg-[#2286da] font-bold text-white"
                 icon={
-                  <DollarCircleFilled style={{ verticalAlign: "middle" }} />
+                  <UnorderedListOutlined style={{ verticalAlign: "middle" }} />
                 }
+                onClick={showConfirm}
               >
-                Thanh toán
+                Đánh giá
               </Button>
-            </Popconfirm>
-          )}
+            )}
 
-          {(currentStatus === "FINISH" || currentStatus === "CANCEL") && (
-            <Button
-              className="mt-2 bg-[#2286da] font-bold text-white"
-              icon={
-                <UnorderedListOutlined style={{ verticalAlign: "middle" }} />
-              }
-              onClick={showConfirm}
-            >
-              Đánh giá
-            </Button>
-          )}
-
-          {currentStatus !== "FINISH" && currentStatus !== "CANCEL" && (
-            <Popconfirm
-              title="Bạn có chắc chắn muốn hủy lớp này không?"
-              onConfirm={cancelCourse}
-              okText="Đồng ý"
-              cancelText="Không"
-            >
-              <Button
-                className="mt-2 ml-1 bg-red-400 text-white font-bold"
-                icon={<CloseCircleFilled style={{ verticalAlign: "middle" }} />}
+            {currentStatus !== "FINISH" && currentStatus !== "CANCEL" && (
+              <Popconfirm
+                title="Bạn có chắc chắn muốn hủy lớp này không?"
+                onConfirm={cancelCourse}
+                okText="Đồng ý"
+                cancelText="Không"
               >
-                Huỷ lớp
-              </Button>
-            </Popconfirm>
-          )}
-        </Col>
-      </Row>
+                <Button
+                  className="mt-2 ml-1 bg-red-400 text-white font-bold"
+                  icon={
+                    <CloseCircleFilled style={{ verticalAlign: "middle" }} />
+                  }
+                >
+                  Huỷ lớp
+                </Button>
+              </Popconfirm>
+            )}
+          </Col>
+        </Row>
       )}
     </Card>
   );
