@@ -30,10 +30,6 @@ const listToString = (list) => {
   });
 };
 
-const dateConvert = (dateString) => {
-  return dateString.substr(0, 10);
-};
-
 const MyTutorJobsList = ({ listCourse }) => {
   const courseList = useMemo(() => {
     const listCourseFinish = listCourse;
@@ -84,35 +80,6 @@ const MyTutorJobsList = ({ listCourse }) => {
     console.log(key);
   };
 
-  const info = () => {
-    Modal.info({
-      title: "Nguyễn Văn A",
-      content: (
-        <div>
-          <p>some messages...some messages...</p>
-          <p>some messages...some messages...</p>
-        </div>
-      ),
-      onOk() {},
-      okText: "Xong",
-    });
-  };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    // set current id
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    // set current id null
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    // set current id null
-    setIsModalOpen(false);
-  };
-
   const [modal2Open, setModal2Open] = useState(false);
 
   return (
@@ -134,7 +101,7 @@ const MyTutorJobsList = ({ listCourse }) => {
                 </span>
               ) : (
                 <span className="text-[green] font-bold">
-                  Đã hoàn tất dạy
+                  Đã hoàn tất dạy{"  "}
                   <CheckCircleFilled
                     style={{
                       verticalAlign: "middle",
@@ -143,14 +110,9 @@ const MyTutorJobsList = ({ listCourse }) => {
                 </span>
               )
             }
-            className="my-4 hover:shadow-job-card"
+            className="my-4 hover:shadow-job-card w-3/5 place-self-center"
           >
             <Row>
-              {/* <BookFilled
-                style={{
-                  verticalAlign: "middle",
-                }}
-              />{" "} */}
               <Col span={12}>
                 <Row>
                   <Col span={8}>Môn học:</Col>

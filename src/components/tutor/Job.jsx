@@ -12,6 +12,7 @@ import {
   NumberOutlined,
   DollarCircleOutlined,
   UnorderedListOutlined,
+  UsergroupAddOutlined
 } from "@ant-design/icons";
 import {
   Collapse,
@@ -33,11 +34,15 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants/common";
-import { useSelector } from "react-redux";
 import { roleIdSelector } from "../../redux/selectors";
+import {
+  getInformationOfUser,
+} from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Job = ({
   courseId,
+  customer,
   subjects,
   grade,
   numberOfStudent,
@@ -48,6 +53,19 @@ const Job = ({
   endDate,
   setIsloading,
 }) => {
+  const dispatch = useDispatch();
+  const [customerName, setCustomerName] = useState();
+  useEffect(() => {
+    (async () => {
+      if (customer) {
+        const dataOfUser = await dispatch(
+          getInformationOfUser(customer)
+        );
+        setCustomerName(dataOfUser?.payload?.user?.fullname);
+      }
+    })();
+  }, [dispatch]);
+
   const roleID = useSelector(roleIdSelector);
   const applyCourse = (e) => {
     axios
@@ -96,7 +114,7 @@ const Job = ({
             <Col span={8}>Số lượng học sinh:</Col>
             <Col span={15}>
               <Tag
-                icon={<UserOutlined style={{ verticalAlign: "middle" }} />}
+                icon={<UsergroupAddOutlined style={{ verticalAlign: "middle" }} />}
                 color="processing"
                 className="font-bold"
               >
@@ -126,6 +144,23 @@ const Job = ({
           </Row>
         </Col>
         <Col span={12}>
+          {customer && (
+            <Row className="mb-1.5">
+              <Col span={8}>Phụ huynh:</Col>
+              <Col span={15}>
+                <Tag
+                  icon={
+                    <UserOutlined style={{ verticalAlign: "middle" }} />
+                  }
+                  color="error"
+                  className="font-bold"
+                >
+                  {customerName}
+                </Tag>
+              </Col>
+            </Row>
+          )}
+
           <Row className="mb-1.5">
             <Col span={8}>Hạn đăng ký:</Col>
             <Col span={15}>

@@ -193,7 +193,7 @@ const ParentClass = ({
           )}
         </>
       }
-      className="my-4"
+      className="my-4 hover:shadow-job-card"
     >
       <Row>
         <Col span={12}>
