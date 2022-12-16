@@ -95,7 +95,7 @@ export default function Login() {
     } else if (userInfo?.user?.role === "tutor") {
       navigate("/become-tutor");
     } else if (userInfo?.user?.role === "customer") {
-      navigate("/parent-dashboard");
+      navigate("/find-tutor");
     }
   }, [userInfo]);
 

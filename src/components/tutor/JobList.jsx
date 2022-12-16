@@ -20,8 +20,12 @@ const JobList = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await axios.post(`${API_URL}/course/get-open-course`, filter);
+      const response = await axios.post(
+        `${API_URL}/course/get-open-course`,
+        filter
+      );
       setCourseList(response?.data.data);
+      console.log(response?.data.data);
       setIsloading(false);
     })();
   }, [isLoading, filter]);
@@ -31,7 +35,7 @@ const JobList = () => {
   };
 
   const handleMinSalaryChange = (value) => {
-    setFilter({ ...filter, minSalary: value });    
+    setFilter({ ...filter, minSalary: value });
     console.log(filter);
   };
 
@@ -70,6 +74,7 @@ const JobList = () => {
             <Job
               key={course._id}
               courseId={course._id}
+              customer={course.customer?.user}
               subjects={course.subjects.map((subject) => {
                 return subject.name;
               })}

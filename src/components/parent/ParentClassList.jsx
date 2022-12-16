@@ -11,7 +11,6 @@ const ParentClassList = () => {
   const roleID = useSelector(roleIdSelector);
   const [isLoading, setIsloading] = useState(true);
   const [isInfoOpen, setOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [courseList, setCourseList] = useState([]);
   const [currentTutorInfo, setcurrentTutorInfo] = useState();
   const [filter, setFilter] = useState(["OPEN", "ONGOING", "FINISH", "CANCEL"]);
