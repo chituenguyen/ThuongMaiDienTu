@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { API_URL } from "../constants/common";
 const axiosClient = axios.create({
-  baseURL: "http://localhost:8797",
+  baseURL: API_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -12,7 +12,7 @@ const axiosClient = axios.create({
 const userInfoFromLocal = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : "";
-  const roleIdFromLocal = localStorage.getItem("roleId")
+const roleIdFromLocal = localStorage.getItem("roleId")
   ? JSON.parse(localStorage.getItem("roleId"))
   : "";
 const initialState = {
@@ -24,6 +24,7 @@ const initialState = {
   tutor: [],
   roleOfUser: "None",
   roleId: roleIdFromLocal ? roleIdFromLocal.data._id : "",
+  link: "",
 };
 
 export const loginUser = createAsyncThunk(
@@ -35,8 +36,29 @@ export const loginUser = createAsyncThunk(
       },
     };
     try {
-      const rs = await axios.post("http://localhost:8797/login", body, config);
+      const _url = API_URL + "/login";
+      const rs = await axios.post(_url, body, config);
       localStorage.setItem("userInfo", JSON.stringify(rs));
+      return rs.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getMomo = createAsyncThunk(
+  "getMomo",
+  async ({ money, token }, { rejectWithValue }) => {
+    // console.log(money, token);
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const _url = API_URL + "/transaction/bill-infor";
+      const rs = await axios.post(_url, { amount: money }, config);
       return rs.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -53,7 +75,8 @@ export const getRoleId = createAsyncThunk(
       },
     };
     try {
-      const rs = await axios.get(`http://localhost:8797/user/${id}`, config);
+      const _url = API_URL + "/user/" + String(id);
+      const rs = await axios.get(_url, config);
       localStorage.setItem("roleId", JSON.stringify(rs));
       return rs.data;
     } catch (err) {
@@ -76,11 +99,8 @@ export const registerUser = createAsyncThunk(
       },
     };
     try {
-      const rs = await axios.post(
-        "http://localhost:8797/register",
-        body,
-        config
-      );
+      const _url = API_URL + "/register";
+      const rs = await axios.post(_url, body, config);
       return rs.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -100,7 +120,7 @@ export const getInformationOfUser = createAsyncThunk(
   }
 );
 export const getAllCourseOfTutor = createAsyncThunk(
-  "getAllCourseAcceptOfTutor",
+  "getAllCourseOfTutor",
   async (tutorId, { rejectWithValue }) => {
     try {
       const _url = "/tutor/" + String(tutorId) + "/applied-courses";
@@ -147,19 +167,6 @@ export const getInformationOfSubject = createAsyncThunk(
     }
   }
 );
-
-// example code function
-// export function testData (subjectId, done) {
-//   T.get(url, result => {
-//     if (result.error) {
-//         // T.notify('Lỗi khi lấy thông tin học phí!', 'danger');
-//         // console.error(result.error);
-//     } else {
-//         done && done(result);
-//         // dispatch({ type: SvHocPhi, result });
-//     }
-//   });
-// }
 
 const authSlice = createSlice({
   name: "userAuthentication",
@@ -242,6 +249,10 @@ const authSlice = createSlice({
       })
       .addCase(getRoleId.fulfilled, (state, action) => {
         state.roleId = action.payload._id;
+      })
+      .addCase(getMomo.fulfilled, (state, action) => {
+        // console.log(action.payload);
+        state.link = action.payload.qrCodeUrl;
       });
   },
 });

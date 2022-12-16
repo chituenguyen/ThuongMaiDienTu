@@ -54,7 +54,8 @@ function Header() {
     };
   }, [clickLogout]);
   const handleLogin = () => {
-    dispatch(logoutUser());
+    // dispatch(logoutUser());
+    navigate("/register");
   };
   const handleLogout = () => {
     logoutConfirmModal(setRole, setClickLogout);
@@ -73,75 +74,72 @@ function Header() {
       </div>
       <div className="flex px-[68px] items-center">
         <ul className="flex gap-[20px] ">
-          <li>
-            <Link
-              to="/"
-              className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                address === ""
-                  ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                  : ""
-              }`}
-            >
-              Trang chủ
-            </Link>
-          </li>
-
-          {userInfo == undefined || userInfo.length == 0 ? (
-            ""
-          ) : userInfo.user.role == "tutor" ? (
+          {(!userInfo || userInfo.length === 0) && (
             <li>
               <Link
-                to="/become-tutor"
+                to="/"
                 className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "become-tutor"
+                  address === ""
                     ? "bg-blue-200 text-bktutor-blue font-extrabold"
                     : ""
                 }`}
               >
-                Trở thành gia sư
+                Trang chủ
               </Link>
             </li>
-          ) : (
-            ""
           )}
 
-          {userInfo == undefined || userInfo.length == 0 ? (
-            ""
-          ) : userInfo.user.role == "tutor" ? (
-            <li>
-              <Link
-                to="/find-jobs"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "find-jobs"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
-              >
-                Tìm việc
-              </Link>
-            </li>
-          ) : (
-            ""
-          )}
+          {userInfo &&
+            userInfo.length !== 0 &&
+            userInfo.user.role === "tutor" && (
+              <li>
+                <Link
+                  to="/become-tutor"
+                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                    address === "become-tutor"
+                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                      : ""
+                  }`}
+                >
+                  {userInfo.user.verified ? "Quản lý việc" : "Trở thành gia sư"}
+                </Link>
+              </li>
+            )}
 
-          {userInfo == undefined || userInfo.length == 0 ? (
-            ""
-          ) : userInfo.user.role == "customer" ? (
-            <li>
-              <Link
-                to="/find-tutor"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "find-tutor"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
-              >
-                Tìm gia sư
-              </Link>
-            </li>
-          ) : (
-            ""
-          )}
+          {userInfo &&
+            userInfo.length !== 0 &&
+            userInfo.user.role === "tutor" &&
+            userInfo.user.verified && (
+              <li>
+                <Link
+                  to="/find-jobs"
+                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                    address === "find-jobs"
+                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                      : ""
+                  }`}
+                >
+                  Tìm việc
+                </Link>
+              </li>
+            )}
+
+          {userInfo &&
+            userInfo.length !== 0 &&
+            userInfo.user.role === "customer" && (
+              <li>
+                <Link
+                  to="/find-tutor"
+                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                    address === "find-tutor"
+                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                      : ""
+                  }`}
+                >
+                  Tìm gia sư
+                </Link>
+              </li>
+            )}
 
           {userInfo == undefined || userInfo.length == 0 ? (
             ""
@@ -162,6 +160,24 @@ function Header() {
             ""
           )}
 
+          {userInfo &&
+            userInfo.length !== 0 &&
+            userInfo.user.role === "tutor" &&
+            !userInfo.user.verified && (
+              <li>
+                <Link
+                  to="/exam-schedule"
+                  className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
+                    address === "exam-schedule"
+                      ? "bg-blue-200 text-bktutor-blue font-extrabold"
+                      : ""
+                  }`}
+                >
+                  Lịch dự thi
+                </Link>
+              </li>
+            )}
+
           <li>
             <Link
               to="/about"
@@ -174,25 +190,6 @@ function Header() {
               Về chúng tôi
             </Link>
           </li>
-
-          {userInfo == undefined || userInfo.length == 0 ? (
-            ""
-          ) : userInfo.user.role == "tutor" ? (
-            <li>
-              <Link
-                to="/exam-schedule"
-                className={`button-header hover:bg-[#DDECF7] transition ease-in-out duration-300 ${
-                  address === "exam-schedule"
-                    ? "bg-blue-200 text-bktutor-blue font-extrabold"
-                    : ""
-                }`}
-              >
-                Lịch dự thi
-              </Link>
-            </li>
-          ) : (
-            ""
-          )}
 
           <li>
             <Link
