@@ -43,39 +43,8 @@ const MyTutorJobsList = ({ listCourse }) => {
       ),
     ];
   }, [listCourse]);
-  // const courseList = [
-  //   {
-  //     _id: "6384e7e8077ac78de81542a7",
-  //     key: "6384e7e8077ac78de81542a7",
-  //     subjects: ["Toán"],
-  //     grade: "11",
-  //     status: "COMPLETED",
-  //     startdate: "2022-10-27",
-  //     endate: "2022-12-10",
-  //     numberOfStudent: 1,
-  //     customer: "Nguyễn Thị A",
-  //     salary: "12.000.000",
-  //     parentcmt:
-  //       "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-  //     __v: 0,
-  //   },
-  //   {
-  //     _id: "6384e7e8077ac78de81542a7",
-  //     key: "6384e7e8077ac78de81542a7",
-  //     subjects: ["Ngoại ngữ"],
-  //     grade: "12",
-  //     status: "ONGOING",
-  //     startdate: "2022-08-07",
-  //     endate: "2022-10-01",
-  //     numberOfStudent: 1,
-  //     customer: "Nguyễn Thị B",
-  //     salary: "12.000.000",
-  //     parentcmt:
-  //       "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-  //     __v: 0,
-  //   },
-  // ];
 
+  console.log(listCourse)
   const onChange = (key) => {
     console.log(key);
   };

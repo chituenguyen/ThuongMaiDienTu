@@ -25,6 +25,7 @@ const initialState = {
   roleOfUser: "None",
   roleId: roleIdFromLocal ? roleIdFromLocal.data._id : "",
   link: "",
+  balance:0
 };
 
 export const loginUser = createAsyncThunk(
@@ -248,7 +249,10 @@ const authSlice = createSlice({
         state.error = action.payload.error;
       })
       .addCase(getRoleId.fulfilled, (state, action) => {
+        console.log(action.payload.user.balance)
         state.roleId = action.payload._id;
+        // state.userInfo = action.payload.user
+        state.balance = action.payload.user.balance
       })
       .addCase(getMomo.fulfilled, (state, action) => {
         // console.log(action.payload);

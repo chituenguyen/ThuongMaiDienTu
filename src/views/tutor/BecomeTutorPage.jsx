@@ -12,13 +12,9 @@ function BecomeTutor() {
     (state) => state.userLogin
   );
   const [role, setRole] = useState(roleOfUser);
-  console.log(role)
   const [isVerified, setIsVerified] = useState(verifiedOfTutor);
   const userInfo = useSelector(userInfoSelector);
-  console.log(userInfo)
 
-  const {roleId} = useSelector((state)=>state.userLogin);
-  console.log(roleId)
 
   useEffect(() => {
     //{ userInfo ? console.log("User role:", userInfo.role) : console.log("not login yet") }

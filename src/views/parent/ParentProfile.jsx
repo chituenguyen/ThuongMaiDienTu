@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {getMomo} from '../../redux/authSlice'
+import {getMomo, getRoleId} from '../../redux/authSlice'
 
 
 const ParentProfile = ({ userInfo }) => {
@@ -13,6 +13,11 @@ const ParentProfile = ({ userInfo }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [money, setMoney] = useState(0);
   const link = userInfo.user.link
+
+  const {balance} = useSelector((state)=>state.userLogin)
+  useEffect(() => {
+    dispatch(getRoleId(userInfo.user._id))
+  })
 
   const showModal = () => {
     setOpen(true);
@@ -96,7 +101,7 @@ const ParentProfile = ({ userInfo }) => {
                       </div>
                     }
                   >
-                    <Input value={userInfo.user.balance} disabled />
+                    <Input value={balance} disabled />
                   </Form.Item>
                 </Form>
               </div>
