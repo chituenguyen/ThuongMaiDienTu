@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { API_URL } from "../constants/common";
 
 const initialState = {
   course: [],
@@ -16,7 +16,7 @@ export const getCourse = createAsyncThunk(
     };
 
     try {
-      const _url = "http://localhost:8797/course/get-open-course";
+      const _url = API_URL + "/course/get-open-course";
       console.log("hello")
       const rs = await axios.post(_url, body, config);
       console.log(rs);

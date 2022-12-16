@@ -1,5 +1,5 @@
-export const API_URL = "http://localhost:8797";
-// export const API_URL = "https://tmdtgiasu-production.up.railway.app";
+// export const API_URL = "http://localhost:8797";
+export const API_URL = "https://tmdtgiasu-production.up.railway.app";
 
 export const listToString = (list) => {
   let str = "";
