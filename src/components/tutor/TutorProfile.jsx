@@ -1,7 +1,14 @@
-import React from "react";
+import React ,{useEffect} from "react";
 import { Form, Input, Select  } from "antd";
+import { getRoleId } from "../../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const TutorProfile = ({userInfo}) => {
+  const dispatch = useDispatch()
+  const {balance} = useSelector((state)=>state.userLogin)
+  useEffect(() => {
+    dispatch(getRoleId(userInfo.user._id))
+  })
   return (
     <div className="tutor-welcome-section">
       <div className="object-section text-blue-900 border-2 shadow-md rounded-md ml-20 mr-20 mt-3 mb-3 bg-gray-200">
@@ -45,7 +52,7 @@ const TutorProfile = ({userInfo}) => {
                 </Form.Item>
 
                 <Form.Item label="Số dư">
-                  <Input value={userInfo.user.balance} disabled />
+                  <Input value={balance} disabled />
                 </Form.Item>
               </Form>
             </div>
