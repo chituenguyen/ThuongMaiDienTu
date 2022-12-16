@@ -249,7 +249,7 @@ const authSlice = createSlice({
         state.error = action.payload.error;
       })
       .addCase(getRoleId.fulfilled, (state, action) => {
-        console.log(action.payload)
+        console.log(action.payload.user.balance)
         state.roleId = action.payload._id;
         // state.userInfo = action.payload.user
         state.balance = action.payload.user.balance
