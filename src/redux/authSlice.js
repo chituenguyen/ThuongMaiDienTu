@@ -108,6 +108,7 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
 export const getInformationOfUser = createAsyncThunk(
   "getInformationOfUser",
   async (userId, { rejectWithValue }) => {

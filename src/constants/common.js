@@ -2,6 +2,7 @@
 export const API_URL = "https://tmdtgiasu-production.up.railway.app";
 
 export const listToString = (list) => {
+  if (!list) return "";
   let str = "";
   list.forEach((item, idx) => {
     if (idx == 0) {
@@ -14,10 +15,12 @@ export const listToString = (list) => {
 };
 
 export const dateConvert = (dateString) => {
+  if (!dateString) return ""
   return dateString.substr(0, 10);
 };
 
 export const numberWithCommas = (x) => {
+  if (!x) return ""
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 

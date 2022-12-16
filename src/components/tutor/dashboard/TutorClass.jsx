@@ -10,7 +10,7 @@ import {
   NumberOutlined,
   DollarCircleOutlined,
   UnorderedListOutlined,
-  UsergroupAddOutlined
+  UsergroupAddOutlined,
 } from "@ant-design/icons";
 import {
   Collapse,
@@ -24,24 +24,25 @@ import {
   Skeleton,
   Rate,
 } from "antd";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
+  API_URL,
   listToString,
   dateConvert,
   numberWithCommas,
-} from "../../constants/common";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { API_URL } from "../../constants/common";
-import { roleIdSelector } from "../../redux/selectors";
+} from "../../../constants/common";
+import { roleIdSelector } from "../../../redux/selectors";
 import {
   getInformationOfUser,
-} from "../../redux/authSlice";
-import { useDispatch, useSelector } from "react-redux";
+} from "../../../redux/authSlice";
 
-const Job = ({
+const TutorClass = ({
   courseId,
   customer,
-  subjects,
+  subjects = [],
   grade,
   numberOfStudent,
   description,
@@ -53,29 +54,15 @@ const Job = ({
 }) => {
   const dispatch = useDispatch();
   const [customerName, setCustomerName] = useState();
-  useEffect(() => {
-    (async () => {
-      if (customer) {
-        const dataOfUser = await dispatch(
-          getInformationOfUser(customer)
-        );
-        setCustomerName(dataOfUser?.payload?.user?.fullname);
-      }
-    })();
-  }, [dispatch]);
-
-  const roleID = useSelector(roleIdSelector);
-  const applyCourse = (e) => {
-    axios
-      .post(`${API_URL}/course/${courseId}/apply`, {
-        tutorId: roleID,
-      })
-      .then((res) => {
-        console.log(res);
-        message.success(`Ứng tuyển thành công!`);
-        setIsloading(true);
-      });
-  };
+  
+//   useEffect(() => {
+//     (async () => {
+//       if (customer) {
+//         const dataOfUser = await dispatch(getInformationOfUser(customer));
+//         setCustomerName(dataOfUser?.payload?.user?.fullname);
+//       }
+//     })();
+//   }, []);
 
   return (
     <Card title={listToString(subjects) + " (" + grade + ")"} className="my-4">
@@ -112,7 +99,9 @@ const Job = ({
             <Col span={8}>Số lượng học sinh:</Col>
             <Col span={15}>
               <Tag
-                icon={<UsergroupAddOutlined style={{ verticalAlign: "middle" }} />}
+                icon={
+                  <UsergroupAddOutlined style={{ verticalAlign: "middle" }} />
+                }
                 color="processing"
                 className="font-bold"
               >
@@ -147,9 +136,7 @@ const Job = ({
               <Col span={8}>Phụ huynh:</Col>
               <Col span={15}>
                 <Tag
-                  icon={
-                    <UserOutlined style={{ verticalAlign: "middle" }} />
-                  }
+                  icon={<UserOutlined style={{ verticalAlign: "middle" }} />}
                   color="error"
                   className="font-bold"
                 >
@@ -190,26 +177,8 @@ const Job = ({
           </Row>
         </Col>
       </Row>
-
-      <Row>
-        <Col span={24} className="text-right">
-          <Popconfirm
-            title="Bạn có chắc chắn muốn ứng tuyển vào công việc này không?"
-            onConfirm={applyCourse}
-            okText="Đồng ý"
-            cancelText="Không"
-          >
-            <Button
-              className="mt-2 ml-1 bg-[#2286da] text-white font-bold"
-              icon={<UpSquareFilled style={{ verticalAlign: "middle" }} />}
-            >
-              Ứng tuyển
-            </Button>
-          </Popconfirm>
-        </Col>
-      </Row>
     </Card>
   );
 };
 
-export default Job;
+export default TutorClass;
