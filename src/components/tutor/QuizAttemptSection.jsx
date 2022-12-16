@@ -1,6 +1,9 @@
 import React from 'react'
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from "react-router-dom";
 import questions from '../../constants/questions.json'
+import { postAnswer } from '../../redux/examSlice';
 const QuizSection = ({answers, setAnswers, question} ) => {
 
   const handleClickRadio = (choosenOption)=>{
@@ -8,6 +11,8 @@ const QuizSection = ({answers, setAnswers, question} ) => {
     temp[question.id] = choosenOption;
     setAnswers(temp);
   };
+
+  
   return (
     <>
       <div className='quiz-infor-section grid grid-cols-10 gap-7 mt-5 px-[68px] text-black py-5 box-border'>
@@ -50,11 +55,26 @@ const QuizSection = ({answers, setAnswers, question} ) => {
 }
 
 function QuizAttemptSection() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const [showModal, setShowModal] = React.useState(false);
   const [answers, setAnswers] = React.useState(Array(10));
+  const {roleId} = useSelector((state)=>state.userLogin);
   useEffect(()=>{
     console.log('Answers thay doi', answers)
   },[...answers])  
+
+  const handleSubmit = () =>{
+    console.log("Run")
+    setShowModal(false)
+    dispatch(postAnswer({
+      "answer":answers,
+      "tutorId":roleId
+    })).then(()=>{
+      navigate('/become-tutor')
+    })
+    
+  }
   return (
     <>
       <div className='test-infor-section flex gap-7 mt-5 px-[68px] text-black py-5 box-border'>
@@ -119,7 +139,7 @@ function QuizAttemptSection() {
                         <button
                           className="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                           type="button"
-                          onClick={() => setShowModal(false)}
+                          onClick={() => handleSubmit()}
                         >
                           Hoàn thành và gửi bài thi
                         </button>
