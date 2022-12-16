@@ -1,7 +1,7 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import TeacherStudent from "../assets/TeacherStudent.png";
 import React, { useState, useEffect } from "react";
-import { Checkbox, Form, Input} from "antd";
+import { Checkbox, Form, Input } from "antd";
 import {
   Grid,
   Card,
@@ -62,6 +62,7 @@ export default function Signin() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -74,26 +75,28 @@ export default function Signin() {
   const userLogin = useSelector((state) => state.userLogin);
   const { message, error, loading, userInfo } = userLogin;
   const handleSubmit = (e) => {
-    console.log("submit")
+    console.log("submit");
     e.preventDefault();
     dispatch(
       registerUser({
-        "username": username,
-        "password": password,
-        "phone_number": phone,
-        "fullname": fullName,
-        "address": address,
-        "gender": gender,
-        "role": role,
-        "email": email,
+        username: username,
+        password: password,
+        phone_number: phone,
+        fullname: fullName,
+        address: address,
+        gender: gender,
+        role: role,
+        email: email,
       })
-    );
-  };
-  useEffect(() => {
-    if (!Array.isArray(userInfo) && !userInfo.length) {
+    ).then(() => {
       navigate("/login");
-    }
-  }, [userInfo]);
+    });
+  };
+  // useEffect(() => {
+  //   if (!Array.isArray(userInfo) && !userInfo.length) {
+  //     navigate("/login");
+  //   }
+  // }, [userInfo]);
   return (
     <Grid container direction="row" spacing={0} className={classes.root}>
       <Grid item xs={6}>
@@ -187,7 +190,6 @@ export default function Signin() {
             <Form.Item
               label="Vai trò"
               name="role"
-              
               className={classes.label}
               rules={[
                 {
@@ -196,7 +198,10 @@ export default function Signin() {
                 },
               ]}
             >
-              <Input placeholder = "Bạn là một gia sư, hay một phụ huynh?" onChange={(e) => setRole(e.target.value)} />
+              <Input
+                placeholder="Bạn là một gia sư, hay một phụ huynh?"
+                onChange={(e) => setRole(e.target.value)}
+              />
             </Form.Item>
 
             <Form.Item
@@ -241,35 +246,27 @@ export default function Signin() {
               <Input.Password onChange={(e) => setPassword(e.target.value)} />
             </Form.Item>
 
-            <div  style={{ width: '100%' }}>
-              <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    onClick ={(e)=>{handleSubmit(e)}}
-                    name="signin"
-                    style={{ width: '100%' }}
-                >
-                    Đăng ký
-              </Button>
-              <p className="mt-2">Đã có tài khoản? <Link to="/login" className="font-bold text-blue-700">Click vào tôi để đăng nhập!</Link> </p>
-            </div>
-            {/* <List>
-            <ListItem>
-              <Button variant="contained" color="primary" type="submit" onClick ={(e)=>{handleSubmit(e)}}>
-                Sign up
-              </Button>
+            <div style={{ width: "100%" }}>
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginLeft: "auto" }}
+                type="submit"
+                onClick={(e) => {
+                  handleSubmit(e);
+                }}
+                name="signin"
+                style={{ width: "100%" }}
               >
-                Sign In
+                Đăng ký
               </Button>
-            </ListItem>
-          </List> */}
+              <p className="mt-2">
+                Đã có tài khoản?{" "}
+                <Link to="/login" className="font-bold text-blue-700">
+                  Click vào tôi để đăng nhập!
+                </Link>{" "}
+              </p>
+            </div>
           </Form>
-          
         </Card>
       </Grid>
     </Grid>
