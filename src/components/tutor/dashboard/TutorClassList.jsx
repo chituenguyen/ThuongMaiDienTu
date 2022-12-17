@@ -9,22 +9,20 @@ import TutorClass from "./TutorClass";
 
 const TutorClassList = () => {
   const roleID = useSelector(roleIdSelector);
-  console.log(roleID);
-    const [courseList, setCourseList] = useState([]);
+  const [courseList, setCourseList] = useState([]);
   const [isLoading, setIsloading] = useState(true);
-//   const courseList = useRef();
-  courseList.current = [];
 
   useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `${API_URL}/tutor/${roleID}/applied-courses`
-      );
+    axios
+      .get(`${API_URL}/tutor/${roleID}/applied-courses`)
+      .then((response) => {
+        console.log(response.data);
         setCourseList(response.data);
-    //   courseList.current = response.data;
-
-      setIsloading(false);
-    })();
+        setIsloading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [isLoading]);
 
   return (

@@ -55,14 +55,14 @@ const TutorClass = ({
   const dispatch = useDispatch();
   const [customerName, setCustomerName] = useState();
   
-//   useEffect(() => {
-//     (async () => {
-//       if (customer) {
-//         const dataOfUser = await dispatch(getInformationOfUser(customer));
-//         setCustomerName(dataOfUser?.payload?.user?.fullname);
-//       }
-//     })();
-//   }, []);
+  useEffect(() => {
+    (async () => {
+      if (customer) {
+        const dataOfUser = await dispatch(getInformationOfUser(customer));
+        setCustomerName(dataOfUser?.payload?.user?.fullname);
+      }
+    })();
+  }, []);
 
   return (
     <Card title={listToString(subjects) + " (" + grade + ")"} className="my-4">
